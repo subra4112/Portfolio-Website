@@ -138,44 +138,130 @@ const Experience: React.FC = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 glass-effect rounded-xl p-8"
+          className="mt-16 glass-effect rounded-xl p-8 hover-lift border-glow"
         >
-          <h3 className="text-2xl font-bold text-white mb-6 text-center">
-            Education & <span className="gradient-text">Leadership</span>
-          </h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <h4 className="text-xl font-semibold text-primary-400">Education</h4>
-              <div className="space-y-4">
-                <div>
-                  <div className="font-semibold text-white">Master of Science, Data Science, Analytics and Engineering</div>
-                  <div className="text-gray-400">Arizona State University, Tempe, USA</div>
-                  <div className="text-sm text-gray-500">Expected Graduation: May 2026</div>
-                  <div className="text-sm text-gray-400 mt-1">Coursework: Data Processing at Scale, Statistical Machine Learning, Data Mining</div>
+          <div className="text-center mb-8">
+            <h3 className="text-3xl font-bold text-white mb-2">
+              Education & <span className="gradient-text">Leadership</span>
+            </h3>
+            <div className="w-24 h-1 bg-primary-500 mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Education Card */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                  </svg>
                 </div>
-                <div>
-                  <div className="font-semibold text-white">Bachelor of Technology, Computer Science Engineering</div>
-                  <div className="text-gray-400">SRM Institute of Science and Technology, Chennai, India</div>
-                  <div className="text-sm text-gray-500">Expected Graduation: May 2024</div>
-                  <div className="text-sm text-gray-400 mt-1">Coursework: Artificial Intelligence, Information and Visualization, Computer Architecture</div>
+                <h4 className="text-2xl font-bold text-primary-400">Education</h4>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="bg-black/30 rounded-lg p-6 border border-gray-800/50 hover:border-primary-500/30 transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <h5 className="text-lg font-bold text-white mb-1">Master of Science, Data Science, Analytics and Engineering</h5>
+                      <p className="text-primary-400 font-semibold mb-2">Arizona State University</p>
+                      <p className="text-gray-400 text-sm mb-3">Tempe, Arizona, USA</p>
+                    </div>
+                    <div className="bg-primary-500/20 text-primary-400 px-3 py-1 rounded-full text-sm font-medium">
+                      Expected May 2026
+                    </div>
+                  </div>
+                  <div className="text-gray-300 text-sm">
+                    <p className="mb-2"><span className="text-primary-400 font-medium">Key Coursework:</span></p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-primary-500/20 text-primary-300 px-2 py-1 rounded text-xs">Data Processing at Scale</span>
+                      <span className="bg-primary-500/20 text-primary-300 px-2 py-1 rounded text-xs">Statistical Machine Learning</span>
+                      <span className="bg-primary-500/20 text-primary-300 px-2 py-1 rounded text-xs">Data Mining</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-black/30 rounded-lg p-6 border border-gray-800/50 hover:border-primary-500/30 transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <h5 className="text-lg font-bold text-white mb-1">Bachelor of Technology, Computer Science Engineering</h5>
+                      <p className="text-primary-400 font-semibold mb-2">SRM Institute of Science and Technology</p>
+                      <p className="text-gray-400 text-sm mb-3">Chennai, India</p>
+                    </div>
+                    <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-medium">
+                      Expected May 2024
+                    </div>
+                  </div>
+                  <div className="text-gray-300 text-sm">
+                    <p className="mb-2"><span className="text-primary-400 font-medium">Key Coursework:</span></p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-primary-500/20 text-primary-300 px-2 py-1 rounded text-xs">Artificial Intelligence</span>
+                      <span className="bg-primary-500/20 text-primary-300 px-2 py-1 rounded text-xs">Information Visualization</span>
+                      <span className="bg-primary-500/20 text-primary-300 px-2 py-1 rounded text-xs">Computer Architecture</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="space-y-4">
-              <h4 className="text-xl font-semibold text-primary-400">Leadership Experience</h4>
-              <div className="space-y-4">
-                <div>
-                  <div className="font-semibold text-white">Director of Finance</div>
-                  <div className="text-gray-400">Engineering International Student Association, ASU</div>
-                  <div className="text-sm text-gray-500">May 2025 – Present</div>
+            </motion.div>
+
+            {/* Leadership Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
                 </div>
-                <div>
-                  <div className="font-semibold text-white">Operations Team Officer</div>
-                  <div className="text-gray-400">The AI Society at ASU</div>
-                  <div className="text-sm text-gray-500">July 2025 – Present</div>
+                <h4 className="text-2xl font-bold text-primary-400">Leadership Experience</h4>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="bg-black/30 rounded-lg p-6 border border-gray-800/50 hover:border-primary-500/30 transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <h5 className="text-lg font-bold text-white mb-1">Director of Finance</h5>
+                      <p className="text-primary-400 font-semibold mb-2">Engineering International Student Association</p>
+                      <p className="text-gray-400 text-sm mb-3">Arizona State University, Tempe, USA</p>
+                    </div>
+                    <div className="bg-primary-500/20 text-primary-400 px-3 py-1 rounded-full text-sm font-medium">
+                      Current
+                    </div>
+                  </div>
+                  <div className="text-gray-300 text-sm">
+                    <p className="mb-2"><span className="text-primary-400 font-medium">Duration:</span> May 2025 – Present</p>
+                    <p className="text-gray-400">Managing financial operations and budget planning for the largest international student organization at ASU, serving 5,000+ engineering students.</p>
+                  </div>
+                </div>
+                
+                <div className="bg-black/30 rounded-lg p-6 border border-gray-800/50 hover:border-primary-500/30 transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <h5 className="text-lg font-bold text-white mb-1">Operations Team Officer</h5>
+                      <p className="text-primary-400 font-semibold mb-2">The AI Society at ASU</p>
+                      <p className="text-gray-400 text-sm mb-3">Arizona State University, Tempe, USA</p>
+                    </div>
+                    <div className="bg-primary-500/20 text-primary-400 px-3 py-1 rounded-full text-sm font-medium">
+                      Current
+                    </div>
+                  </div>
+                  <div className="text-gray-300 text-sm">
+                    <p className="mb-2"><span className="text-primary-400 font-medium">Duration:</span> July 2025 – Present</p>
+                    <p className="text-gray-400">Coordinating operational activities and event management for ASU's premier AI research and development community.</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
