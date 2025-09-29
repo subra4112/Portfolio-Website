@@ -1,7 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown, Mail, Linkedin, Github, Phone } from 'lucide-react'
-import profileImage from '../assets/profile.jpg'
 
 const Hero: React.FC = () => {
   const scrollToNext = () => {
@@ -204,7 +203,7 @@ const Hero: React.FC = () => {
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                  src="/profile.jpg"
                   alt="Subramanian Raj Narayanan"
                   className="w-full h-full object-cover"
                 />
