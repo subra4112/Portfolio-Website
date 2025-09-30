@@ -103,7 +103,7 @@ const Hero: React.FC = () => {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Side - Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -111,25 +111,25 @@ const Hero: React.FC = () => {
             transition={{ duration: 1, ease: "easeOut" }}
             className="text-left space-y-8"
           >
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <motion.h1 
-                className="text-5xl md:text-7xl font-bold text-white"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Hi, I'm{' '}
-                <span className="gradient-text">Subramanian</span>
+                <div className="block sm:inline">Hi, I'm</div>{' '}
+                <span className="gradient-text block sm:inline mt-1 sm:mt-0">Subramanian</span>
               </motion.h1>
               
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="space-y-3"
+                className="space-y-2 sm:space-y-3"
               >
                 <motion.p 
-                  className="text-2xl md:text-3xl text-gray-200"
+                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: 0.6 }}
@@ -137,7 +137,7 @@ const Hero: React.FC = () => {
                   AI/ML Engineer & Data Scientist
                 </motion.p>
                 <motion.p 
-                  className="text-lg text-gray-400"
+                  className="text-sm sm:text-base md:text-lg text-gray-400"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: 0.8 }}
@@ -151,7 +151,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="text-lg md:text-xl text-gray-400 leading-relaxed"
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed"
             >
               Passionate about building intelligent systems that deliver real-world impact. Currently working on GenAI and agentic AI solutions, integrating knowledge graphs, neural networks, and advanced ML pipelines to power AI-driven platforms that are scalable, adaptive, and production-ready.
             </motion.p>
@@ -160,11 +160,11 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
               <motion.a
                 href="#contact"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover-lift"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 hover-lift text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -172,7 +172,7 @@ const Hero: React.FC = () => {
               </motion.a>
               <motion.a
                 href="#projects"
-                className="border border-primary-600 text-primary-400 hover:bg-primary-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover-lift"
+                className="border border-primary-600 text-primary-400 hover:bg-primary-600 hover:text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 hover-lift text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -239,7 +239,7 @@ const Hero: React.FC = () => {
           >
             <div className="relative">
               <motion.div
-                className="w-80 h-80 rounded-full overflow-hidden border-4 border-primary-500/30 shadow-2xl"
+                className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary-500/30 shadow-2xl"
                 animate={{ 
                   rotateY: [0, 5, 0],
                   scale: [1, 1.02, 1]
