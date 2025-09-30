@@ -29,7 +29,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <a href="#" className="text-xl font-bold gradient-text">
-              Subramanian Raj
+              Subramanian Raj Narayanan
             </a>
           </div>
           

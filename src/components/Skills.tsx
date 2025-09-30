@@ -95,7 +95,7 @@ const Skills: React.FC = () => {
   ]
 
   return (
-    <section id="skills" className="section-padding bg-black">
+    <section id="skills" className="section-padding bg-dark-900">
       <div className="max-w-7xl mx-auto">
         <motion.div
           ref={ref}

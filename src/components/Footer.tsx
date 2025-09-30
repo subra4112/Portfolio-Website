@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="bg-black border-t border-gray-800/50">
+    <footer className="bg-gray-900/50 backdrop-blur-sm border-t border-primary-500/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16">
@@ -123,17 +123,17 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800/50 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="border-t border-gray-700/50 py-6 mt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="flex items-center space-x-2 text-gray-400"
+              className="flex items-center space-x-2 text-gray-500 text-sm"
             >
               <span>© {currentYear} Made with</span>
-              <Heart size={16} className="text-red-500 animate-pulse" />
+              <Heart size={14} className="text-red-500 animate-pulse" />
               <span>by Subramanian Raj Narayanan</span>
             </motion.div>
 
@@ -142,19 +142,19 @@ const Footer: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="flex items-center space-x-6"
+              className="flex items-center space-x-4 text-sm"
             >
-              <span className="text-gray-400 text-sm">
+              <span className="text-gray-500">
                 Built with React, TypeScript & Tailwind CSS
               </span>
               <motion.button
                 onClick={scrollToTop}
-                className="flex items-center space-x-2 text-gray-400 hover:text-primary-400 transition-colors duration-200 group"
+                className="flex items-center space-x-1 text-gray-500 hover:text-primary-400 transition-colors duration-200 group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-sm">Back to top</span>
-                <ArrowUp size={16} className="group-hover:-translate-y-1 transition-transform duration-200" />
+                <span>Back to top</span>
+                <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform duration-200" />
               </motion.button>
             </motion.div>
           </div>
@@ -168,7 +168,7 @@ const Footer: React.FC = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg hover:shadow-primary-500/25 transition-all duration-300 z-50 flex items-center justify-center"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-xl hover:shadow-primary-500/40 transition-all duration-300 z-50 flex items-center justify-center border border-primary-500/30"
       >
         <ArrowUp size={20} />
       </motion.button>

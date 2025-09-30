@@ -14,8 +14,8 @@ const Experience: React.FC = () => {
       title: "AI/ML Engineer Intern",
       company: "Vera AI",
       location: "St. Petersburg, Florida (Remote)",
-      period: "July 2025 – Present",
-      type: "Current",
+      period: "July 2025 – August 2025",
+      type: "Previous",
       description: [
         "Developed ML features, 3D visualizations, and full-stack modules for VeraAI's AI-driven SaaS platform",
         "Collaborated with cross-functional teams and CTO on QA, infrastructure tools, and agile product cycles",
@@ -27,8 +27,8 @@ const Experience: React.FC = () => {
       title: "Software Engineer - Trainee",
       company: "Techavidity Business Solutions",
       location: "Frisco, Texas (Remote)",
-      period: "June 2025 – Present",
-      type: "Current",
+      period: "June 2025 – August 2025",
+      type: "Previous",
       description: [
         "Built Neo4j-based knowledge graphs (10K+ entities) and Python data pipelines with Git and CrateDB for real-time graph operations",
         "Reduced query latency <200ms for 1K+ users via multithreaded graph resolution and entity linking",
@@ -52,21 +52,31 @@ const Experience: React.FC = () => {
   ]
 
   return (
-    <section id="experience" className="section-padding bg-black">
+    <section id="experience" className="section-padding bg-dark-900">
       <div className="max-w-7xl mx-auto">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Professional <span className="gradient-text">Experience</span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <motion.h2 
+            className="text-4xl md:text-6xl font-bold text-white mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Professional <span className="gradient-text text-glow">Experience</span>
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Building intelligent systems and solving complex problems across AI, ML, and software engineering
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="space-y-8">
@@ -76,55 +86,65 @@ const Experience: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="glass-effect rounded-xl p-8 hover-lift"
+              className="bg-dark-900 border border-gray-700 rounded-xl p-6 hover-lift"
             >
               <div className="grid lg:grid-cols-3 gap-6">
                 {/* Company Info */}
                 <div className="lg:col-span-1">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className={`px-4 py-2 rounded-full text-sm font-semibold ${
                       exp.type === 'Current' 
-                        ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                        : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                        ? 'bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border border-green-500/50' 
+                        : 'bg-gradient-to-r from-gray-500/20 to-slate-500/20 text-gray-400 border border-gray-500/50'
                     }`}>
                       {exp.type}
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{exp.title}</h3>
-                  <div className="flex items-center text-primary-400 font-semibold mb-3">
+                  <h3 className="text-xl font-semibold text-white mb-2">{exp.title}</h3>
+                  <div className="flex items-center text-primary-400 font-semibold mb-2">
                     <span>{exp.company}</span>
                     <ExternalLink size={16} className="ml-2" />
                   </div>
-                  <div className="flex items-center text-gray-400 mb-2">
-                    <MapPin size={16} className="mr-2" />
+                  <div className="flex items-center text-gray-400 mb-1">
+                    <MapPin size={14} className="mr-2" />
                     <span className="text-sm">{exp.location}</span>
                   </div>
                   <div className="flex items-center text-gray-400">
-                    <Calendar size={16} className="mr-2" />
+                    <Calendar size={14} className="mr-2" />
                     <span className="text-sm">{exp.period}</span>
                   </div>
                 </div>
 
                 {/* Description */}
                 <div className="lg:col-span-2">
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-4 mb-8">
                     {exp.description.map((desc, descIndex) => (
-                      <li key={descIndex} className="flex items-start">
-                        <div className="w-2 h-2 bg-primary-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                        <span className="text-gray-300">{desc}</span>
-                      </li>
+                      <motion.li 
+                        key={descIndex} 
+                        className="flex items-start"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.5, delay: index * 0.2 + descIndex * 0.1 }}
+                      >
+                        <div className="w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0 bg-primary-400"></div>
+                        <span className="text-white leading-relaxed">{desc}</span>
+                      </motion.li>
                     ))}
                   </ul>
                   
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {exp.technologies.map((tech, techIndex) => (
-                      <span
+                      <motion.span
                         key={techIndex}
-                        className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30"
+                        className="px-3 py-1 rounded-full text-sm bg-primary-600/20 text-primary-300 border border-primary-600/30"
+                        whileHover={{ scale: 1.05 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={inView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.3, delay: index * 0.2 + techIndex * 0.05 }}
                       >
                         {tech}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
                 </div>

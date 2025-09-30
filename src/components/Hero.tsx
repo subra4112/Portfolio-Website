@@ -8,46 +8,96 @@ const Hero: React.FC = () => {
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden matrix-bg">
-      {/* Enhanced Background Pattern */}
-      <div className="absolute inset-0 bg-black"></div>
-      <div className="absolute inset-0 opacity-20">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden ai-bg cyber-grid">
+      {/* AI/ML Background Effects */}
+      <div className="absolute inset-0 bg-dark-900"></div>
+      
+      {/* Animated Gradient Orbs */}
+      <div className="absolute inset-0">
         <motion.div 
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full filter blur-3xl"
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/30 to-purple-500/30 rounded-full filter blur-3xl"
           animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.3, 0.1]
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.4, 0.1],
+            x: [0, 50, 0],
+            y: [0, -30, 0]
           }}
           transition={{ 
-            duration: 8,
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         ></motion.div>
         <motion.div 
-          className="absolute top-3/4 right-1/4 w-96 h-96 bg-primary-600/20 rounded-full filter blur-3xl"
+          className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full filter blur-3xl"
           animate={{ 
             scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.1, 0.3]
+            opacity: [0.3, 0.1, 0.3],
+            x: [0, -40, 0],
+            y: [0, 20, 0]
           }}
           transition={{ 
-            duration: 8,
+            duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
             delay: 2
           }}
         ></motion.div>
         <motion.div 
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-primary-400/10 rounded-full filter blur-2xl"
+          className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-primary-500/20 to-purple-500/20 rounded-full filter blur-2xl"
           animate={{ 
-            scale: [1, 1.5, 1],
-            opacity: [0.05, 0.2, 0.05]
+            scale: [1, 1.8, 1],
+            opacity: [0.05, 0.3, 0.05],
+            rotate: [0, 180, 360]
           }}
           transition={{ 
-            duration: 6,
+            duration: 15,
             repeat: Infinity,
             ease: "easeInOut",
             delay: 4
+          }}
+        ></motion.div>
+        
+        {/* Floating Neural Network Nodes */}
+        <motion.div 
+          className="absolute top-1/3 right-1/3 w-4 h-4 bg-primary-500 rounded-full border-2 border-primary-300"
+          animate={{ 
+            y: [0, -20, 0],
+            opacity: [0.3, 1, 0.3],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        ></motion.div>
+        <motion.div 
+          className="absolute top-2/3 left-1/3 w-3 h-3 bg-purple-500 rounded-full border-2 border-purple-300"
+          animate={{ 
+            y: [0, -15, 0],
+            opacity: [0.4, 0.8, 0.4],
+            scale: [1, 1.3, 1]
+          }}
+          transition={{ 
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        ></motion.div>
+        <motion.div 
+          className="absolute top-1/5 left-2/3 w-2 h-2 bg-pink-500 rounded-full border border-pink-300"
+          animate={{ 
+            y: [0, -10, 0],
+            opacity: [0.2, 0.9, 0.2],
+            scale: [1, 1.5, 1]
+          }}
+          transition={{ 
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
           }}
         ></motion.div>
       </div>
@@ -69,7 +119,7 @@ const Hero: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 Hi, I'm{' '}
-                <span className="gradient-text text-glow">Subramanian</span>
+                <span className="gradient-text">Subramanian</span>
               </motion.h1>
               
               <motion.div
@@ -92,7 +142,7 @@ const Hero: React.FC = () => {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: 0.8 }}
                 >
-                  MS Data Science @ Arizona State University
+                  Master of Science in Data Science @ Arizona State University
                 </motion.p>
               </motion.div>
             </div>
@@ -103,9 +153,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.8, delay: 1 }}
               className="text-lg md:text-xl text-gray-400 leading-relaxed"
             >
-              Passionate about building intelligent systems that solve real-world problems. 
-              Currently developing ML features for AI-driven SaaS platforms and working with 
-              knowledge graphs, neural networks, and cutting-edge AI technologies.
+              Passionate about building intelligent systems that deliver real-world impact. Currently working on GenAI and agentic AI solutions, integrating knowledge graphs, neural networks, and advanced ML pipelines to power AI-driven platforms that are scalable, adaptive, and production-ready.
             </motion.p>
             
             <motion.div
@@ -116,7 +164,7 @@ const Hero: React.FC = () => {
             >
               <motion.a
                 href="#contact"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover-lift border-glow"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover-lift"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

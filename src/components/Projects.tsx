@@ -94,7 +94,7 @@ const Projects: React.FC = () => {
   }
 
   return (
-    <section id="projects" className="section-padding bg-black">
+    <section id="projects" className="section-padding bg-dark-900">
       <div className="max-w-7xl mx-auto">
         <motion.div
           ref={ref}
