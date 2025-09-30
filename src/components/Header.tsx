@@ -23,13 +23,14 @@ const Header: React.FC = () => {
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
+      scrolled ? 'glass-effect shadow-lg backdrop-blur-md' : 'bg-dark-900/80 backdrop-blur-sm'
     }`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <a href="#" className="text-xl font-bold gradient-text">
-              Subramanian Raj Narayanan
+            <a href="#" className="text-lg sm:text-xl font-bold gradient-text">
+              <span className="hidden sm:inline">Subramanian Raj Narayanan</span>
+              <span className="sm:hidden">Subramanian</span>
             </a>
           </div>
           

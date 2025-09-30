@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden ai-bg cyber-grid">
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden ai-bg cyber-grid pt-16">
       {/* AI/ML Background Effects */}
       <div className="absolute inset-0 bg-dark-900"></div>
       
