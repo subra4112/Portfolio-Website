@@ -5,9 +5,12 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 ## 🚀 Features
 
 - **Modern Design**: Clean, professional dark theme with strategic blue accents
-- **Responsive Layout**: Optimized for all device sizes
+- **Fully Responsive**: Optimized for all device sizes (mobile, tablet, desktop)
+- **Terminal-Style Preloader**: Interactive loading animation with coder aesthetic
 - **Smooth Animations**: Framer Motion animations for enhanced user experience
 - **Interactive Components**: Hover effects, scroll animations, and form interactions
+- **Scroll Progress**: Visual scroll progress indicator
+- **Contact Form**: Functional contact form with EmailJS integration
 - **Performance Optimized**: Built with Vite for fast development and production builds
 
 ## 🛠️ Tech Stack
@@ -17,13 +20,19 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 - **Animations**: Framer Motion
 - **Build Tool**: Vite
 - **Icons**: Lucide React
+- **Email Service**: EmailJS
+- **Deployment**: Vercel
+
+## 🌐 Live Demo
+
+Visit the live website: [portfolio-website-ebon-seven-86.vercel.app](https://portfolio-website-ebon-seven-86.vercel.app)
 
 ## 📦 Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd portfolio
+   git clone https://github.com/subra4112/Portfolio-Website.git
+   cd Portfolio-Website
    ```
 
 2. **Install dependencies**
@@ -51,12 +60,13 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 
 ## 📱 Sections
 
+- **Preloader**: Terminal-style loading animation with profile information
 - **Hero**: Introduction with animated background and contact links
 - **About**: Personal background and key achievements
 - **Experience**: Professional experience timeline with current roles
-- **Projects**: Featured projects with detailed descriptions and tech stacks
+- **Projects**: Featured AI/ML projects with detailed descriptions and tech stacks
 - **Skills**: Comprehensive technical skills with progress indicators
-- **Contact**: Contact form and professional information
+- **Contact**: Functional contact form with EmailJS integration and professional information
 
 ## 🔧 Customization
 
