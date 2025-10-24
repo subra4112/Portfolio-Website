@@ -11,87 +11,50 @@ const Skills: React.FC = () => {
 
   const skillCategories = [
     {
-      title: "Programming Languages",
+      title: "Core Programming",
       icon: <Code className="w-8 h-8 text-primary-400" />,
       skills: [
         { name: "Python", level: 95, color: "bg-blue-500" },
-        { name: "Java", level: 85, color: "bg-orange-500" },
-        { name: "C++", level: 80, color: "bg-blue-600" },
         { name: "SQL", level: 90, color: "bg-red-500" },
-        { name: "Flutter/Dart", level: 75, color: "bg-cyan-500" }
+        { name: "Java", level: 85, color: "bg-orange-500" }
       ]
     },
     {
-      title: "AI/ML & Data Science",
+      title: "AI/ML & GenAI",
       icon: <Brain className="w-8 h-8 text-primary-400" />,
       skills: [
         { name: "OpenAI GPT-4", level: 95, color: "bg-green-500" },
         { name: "LangChain", level: 90, color: "bg-yellow-500" },
-        { name: "Scikit-learn", level: 85, color: "bg-orange-600" },
-        { name: "TensorFlow", level: 80, color: "bg-red-600" },
-        { name: "PyTorch", level: 80, color: "bg-orange-700" },
-        { name: "Streamlit", level: 90, color: "bg-red-400" },
         { name: "RAG Pipelines", level: 95, color: "bg-purple-500" },
-        { name: "NLP", level: 85, color: "bg-indigo-500" }
+        { name: "TensorFlow/PyTorch", level: 80, color: "bg-red-600" }
       ]
     },
     {
-      title: "Databases & Visualization",
+      title: "Data & Knowledge Graphs",
       icon: <Database className="w-8 h-8 text-primary-400" />,
       skills: [
         { name: "Neo4j", level: 90, color: "bg-green-600" },
-        { name: "Milvus", level: 75, color: "bg-blue-700" },
         { name: "ChromaDB", level: 85, color: "bg-purple-600" },
-        { name: "PostgreSQL", level: 85, color: "bg-blue-800" },
-        { name: "MongoDB", level: 80, color: "bg-green-700" },
-        { name: "Power BI", level: 75, color: "bg-yellow-600" },
-        { name: "Tableau", level: 70, color: "bg-orange-500" }
+        { name: "PostgreSQL", level: 85, color: "bg-blue-800" }
       ]
     },
     {
-      title: "Cloud & Data Engineering",
+      title: "Cloud & DevOps",
       icon: <Cloud className="w-8 h-8 text-primary-400" />,
       skills: [
-        { name: "PySpark", level: 80, color: "bg-orange-600" },
-        { name: "Kafka", level: 75, color: "bg-red-500" },
-        { name: "Airflow", level: 80, color: "bg-cyan-600" },
-        { name: "AWS (SageMaker, Redshift)", level: 85, color: "bg-orange-500" },
-        { name: "Snowflake", level: 75, color: "bg-blue-500" },
-        { name: "Data Built Tool (dbt)", level: 70, color: "bg-pink-500" }
-      ]
-    },
-    {
-      title: "DevOps & APIs",
-      icon: <Cpu className="w-8 h-8 text-primary-400" />,
-      skills: [
-        { name: "Git", level: 90, color: "bg-orange-600" },
+        { name: "AWS", level: 85, color: "bg-orange-500" },
         { name: "Docker", level: 85, color: "bg-blue-600" },
-        { name: "Kubernetes", level: 70, color: "bg-blue-700" },
-        { name: "Linux", level: 80, color: "bg-yellow-700" },
-        { name: "FastAPI", level: 90, color: "bg-green-500" },
-        { name: "CI/CD", level: 75, color: "bg-purple-600" }
-      ]
-    },
-    {
-      title: "Specialized Tools",
-      icon: <Palette className="w-8 h-8 text-primary-400" />,
-      skills: [
-        { name: "PaddleOCR", level: 85, color: "bg-red-600" },
-        { name: "LayoutLM", level: 80, color: "bg-green-600" },
-        { name: "Text Detection & Parsing", level: 90, color: "bg-blue-600" },
-        { name: "ROUGE/BLEU Evaluation", level: 85, color: "bg-purple-600" }
+        { name: "FastAPI", level: 90, color: "bg-green-500" }
       ]
     }
   ]
 
   const softSkills = [
-    { name: "Analytical Thinking", icon: "🧠" },
     { name: "Problem Solving", icon: "🔧" },
     { name: "Collaboration", icon: "🤝" },
     { name: "Communication", icon: "💬" },
-    { name: "Initiative", icon: "🚀" },
-    { name: "Adaptability", icon: "🔄" },
-    { name: "Data-Driven Decision Making", icon: "📊" }
+    { name: "Analytical Thinking", icon: "🧠" },
+    { name: "Adaptability", icon: "🔄" }
   ]
 
   return (
@@ -113,14 +76,14 @@ const Skills: React.FC = () => {
         </motion.div>
 
         {/* Technical Skills Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-16">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={categoryIndex}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-              className="glass-effect rounded-xl p-6 hover-lift"
+              className="glass-effect rounded-xl p-4 sm:p-6 hover-lift"
             >
               <div className="flex items-center space-x-3 mb-6">
                 {category.icon}
@@ -167,7 +130,7 @@ const Skills: React.FC = () => {
             <h3 className="text-2xl font-bold text-white">Soft Skills & Professional Attributes</h3>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
             {softSkills.map((skill, index) => (
               <motion.div
                 key={index}
@@ -191,8 +154,8 @@ const Skills: React.FC = () => {
           className="mt-12 grid md:grid-cols-3 gap-6"
         >
           <div className="glass-effect rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-primary-400 mb-2">40+</div>
-            <div className="text-gray-300">Technologies Mastered</div>
+            <div className="text-3xl font-bold text-primary-400 mb-2">15+</div>
+            <div className="text-gray-300">Core Technologies</div>
           </div>
           <div className="glass-effect rounded-lg p-6 text-center">
             <div className="text-3xl font-bold text-primary-400 mb-2">95%</div>

@@ -215,7 +215,7 @@ const Experience: React.FC = () => {
                       <p className="text-gray-400 text-sm mb-3">Chennai, India</p>
                     </div>
                     <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-medium">
-                      Expected May 2024
+                       May 2024
                     </div>
                   </div>
                   <div className="text-gray-300 text-sm">

@@ -130,7 +130,7 @@ const Contact: React.FC = () => {
               </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -186,7 +186,7 @@ const Contact: React.FC = () => {
                 <span className="text-white font-semibold">Available for Opportunities</span>
               </div>
               <p className="text-gray-300 text-sm">
-                Currently seeking internships and collaborative projects in AI/ML, data science, 
+                Currently seeking internships, full time roles, and collaborative projects in AI/ML, data science, 
                 and software engineering. Open to both remote and on-site opportunities.
               </p>
             </motion.div>
@@ -272,7 +272,7 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={5}
+                    rows={4}
                     className="w-full px-4 py-4 bg-dark-900/50 border border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-purple-500/20 resize-none"
                     placeholder="Tell me about your project or opportunity..."
                   />

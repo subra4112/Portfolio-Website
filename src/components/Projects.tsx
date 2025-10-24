@@ -18,6 +18,7 @@ const Projects: React.FC = () => {
       technologies: ["Python", "LSTM", "BERT", "FastAPI", "Streamlit", "ML", "Cyber Security"],
       icon: <Shield className="w-8 h-8 text-primary-400" />,
       category: "AI/ML & Security",
+      githubUrl: "https://github.com/subra4112/ArcDefender",
       highlights: [
         "Advanced threat detection using deep learning",
         "Real-time log processing and analysis",
@@ -32,6 +33,7 @@ const Projects: React.FC = () => {
       technologies: ["Python", "CodeBERT", "NLP", "Streamlit", "Terraform", "AWS", "Static Analysis"],
       icon: <Cloud className="w-8 h-8 text-primary-400" />,
       category: "DevOps & AI",
+      githubUrl: "https://github.com/subra4112/CloudSage",
       highlights: [
         "CodeBERT integration for config analysis",
         "IaC anti-pattern detection",
@@ -46,6 +48,7 @@ const Projects: React.FC = () => {
       technologies: ["Python", "LLM", "Multi-Agent", "Mobile Testing", "QA", "Agent-S", "Android"],
       icon: <Smartphone className="w-8 h-8 text-primary-400" />,
       category: "AI & Testing",
+      githubUrl: "https://github.com/subra4112/EDITH-QA",
       highlights: [
         "Multi-agent LLM system architecture",
         "Automated mobile UI testing",
@@ -60,24 +63,11 @@ const Projects: React.FC = () => {
       technologies: ["Neo4j", "ChromaDB", "GPT-4", "LangChain", "RAG", "Streamlit", "NLP"],
       icon: <Brain className="w-8 h-8 text-primary-400" />,
       category: "AI & Knowledge Graphs",
+      githubUrl: "https://github.com/subra4112/AskNeo-Smart-Health-Assistant",
       highlights: [
         "Hybrid RAG system with graph databases",
         "Multi-hop semantic question answering",
         "Voice input and comprehensive evaluation metrics"
-      ]
-    },
-    {
-      title: "Splitz",
-      subtitle: "Intelligent Multi-User Billing with AI-Enhanced Receipt Parsing",
-      date: "May 2025 – Present",
-      description: "Built a full-stack mobile application using Flutter and Dart to automate receipt uploads, extract Walmart bill details, and support real-time, multi-user bill splitting. Integrated PaddleOCR and LayoutLMv3 in Python to extract structured data (totals, taxes, itemized entries) from receipts.",
-      technologies: ["Flutter", "Dart", "Python", "PaddleOCR", "LayoutLMv3", "Mobile", "OCR"],
-      icon: <Database className="w-8 h-8 text-primary-400" />,
-      category: "Mobile & AI",
-      highlights: [
-        "Advanced OCR with LayoutLMv3",
-        "Real-time multi-user bill splitting",
-        "Full-stack mobile application"
       ]
     }
   ]
@@ -118,9 +108,9 @@ const Projects: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="glass-effect rounded-xl p-8 hover-lift group"
+              className="glass-effect rounded-xl p-4 sm:p-6 lg:p-8 hover-lift group"
             >
-              <div className="grid lg:grid-cols-3 gap-6">
+              <div className="grid lg:grid-cols-3 gap-4 lg:gap-6">
                 {/* Project Header */}
                 <div className="lg:col-span-1">
                   <div className="flex items-center space-x-3 mb-4">
@@ -141,18 +131,13 @@ const Projects: React.FC = () => {
                   </div>
                   <div className="flex space-x-3">
                     <a
-                      href="#"
-                      className="flex items-center space-x-2 text-gray-400 hover:text-primary-400 transition-colors"
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-300 hover:text-primary-200 px-3 py-2 rounded-lg border border-primary-500/30 hover:border-primary-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/20"
                     >
                       <Github size={18} />
-                      <span className="text-sm">Code</span>
-                    </a>
-                    <a
-                      href="#"
-                      className="flex items-center space-x-2 text-gray-400 hover:text-primary-400 transition-colors"
-                    >
-                      <ExternalLink size={18} />
-                      <span className="text-sm">Demo</span>
+                      <span className="text-sm font-medium">Code</span>
                     </a>
                   </div>
                 </div>

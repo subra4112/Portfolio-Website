@@ -13,7 +13,7 @@ const About: React.FC = () => {
     {
       icon: <GraduationCap className="w-8 h-8 text-primary-400" />,
       title: "Dual Education",
-      description: "MS Data Science @ ASU (2026) | BTech CSE @ SRMIST (2024)"
+      description: "MS Data Science @ ASU (Expected 2026) | BTech CSE @ SRMIST (2024)"
     },
     {
       icon: <Award className="w-8 h-8 text-primary-400" />,
@@ -60,7 +60,7 @@ const About: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -69,15 +69,15 @@ const About: React.FC = () => {
           >
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold text-white">My Journey</h3>
-              <p className="text-white leading-relaxed">
+              <p className="text-white leading-relaxed text-justify">
               I am currently pursuing my Master's in Data Science at Arizona State University, where I focus on large-scale data processing, machine learning, and advanced AI systems. I have hands-on experience as an AI/ML Engineer Intern at Vera AI, where I built ML features, 3D visualizations, and full-stack modules for an AI-driven SaaS platform, and as a Software Engineer Trainee at Techavidity, where I developed Neo4j-based knowledge graphs and Python data pipelines that powered real-time graph operations for 1,000+ users.
               </p>
-              <p className="text-white leading-relaxed">
+              <p className="text-white leading-relaxed text-justify">
               My passion lies in building intelligent, production-ready systems that bridge research and real-world implementation. I have worked on projects spanning GenAI, agentic AI, knowledge graphs, cyber defense, and large-scale data engineering pipelines. Whether it's developing LLM-powered mobile testing agents, AI-driven SaaS features, or hybrid RAG systems like AskNeo, I thrive at the intersection of AI innovation, scalability, and practical impact.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-dark-900 border border-gray-700 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-primary-400">2+</div>
                 <div className="text-sm text-white">Years Experience</div>
@@ -85,10 +85,6 @@ const About: React.FC = () => {
               <div className="bg-dark-900 border border-gray-700 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-primary-400">10+</div>
                 <div className="text-sm text-white">Projects Built</div>
-              </div>
-              <div className="bg-dark-900 border border-gray-700 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-primary-400">5K+</div>
-                <div className="text-sm text-white">Users Served</div>
               </div>
               <div className="bg-dark-900 border border-gray-700 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-primary-400">15+</div>

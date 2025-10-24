@@ -1,10 +1,19 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown, Mail, Linkedin, Github, Phone } from 'lucide-react'
+import { ChevronDown, Mail, Linkedin, Github, Phone, Download } from 'lucide-react'
 
 const Hero: React.FC = () => {
   const scrollToNext = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const downloadResume = () => {
+    const link = document.createElement('a')
+    link.href = '/resume.pdf'
+    link.download = 'Subramanian_Raj_Narayanan_Resume.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   return (
@@ -113,12 +122,12 @@ const Hero: React.FC = () => {
           >
             <div className="space-y-4 sm:space-y-6">
               <motion.h1 
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <div className="block sm:inline">Hi, I'm</div>{' '}
+                <div className="block sm:inline">Hello, I'm</div>{' '}
                 <span className="gradient-text block sm:inline mt-1 sm:mt-0">Subramanian</span>
               </motion.h1>
               
@@ -151,7 +160,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed"
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify"
             >
               Passionate about building intelligent systems that deliver real-world impact. Currently working on GenAI and agentic AI solutions, integrating knowledge graphs, neural networks, and advanced ML pipelines to power AI-driven platforms that are scalable, adaptive, and production-ready.
             </motion.p>
@@ -178,6 +187,15 @@ const Hero: React.FC = () => {
               >
                 View My Work
               </motion.a>
+              <motion.button
+                onClick={downloadResume}
+                className="border border-green-600 text-green-400 hover:bg-green-600 hover:text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 hover-lift text-sm sm:text-base"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Download resume PDF"
+              >
+                Resume <Download size={16} className="inline ml-1" />
+              </motion.button>
             </motion.div>
             
             {/* Contact Icons */}
