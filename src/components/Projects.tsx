@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Github, ExternalLink, Calendar, Code, Brain, Shield, Cloud, Smartphone, Database } from 'lucide-react'
+import { Github, Calendar, Code, Brain, Shield, Cloud, Smartphone } from 'lucide-react'
 
 const Projects: React.FC = () => {
   const [ref, inView] = useInView({

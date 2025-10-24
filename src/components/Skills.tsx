@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Code, Database, Cloud, Brain, Cpu, Palette, Users } from 'lucide-react'
+import { Code, Database, Cloud, Brain, Users } from 'lucide-react'
 
 const Skills: React.FC = () => {
   const [ref, inView] = useInView({

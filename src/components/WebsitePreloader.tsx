@@ -24,7 +24,7 @@ const WebsitePreloader: React.FC<WebsitePreloaderProps> = ({ onComplete }) => {
     const totalDuration = 3900 // Reduced to 3.9 seconds total
     const progressInterval = 39 // Update progress every 39ms
     
-    let progressTimer: NodeJS.Timeout
+    let progressTimer: number
     
     const startProgress = () => {
       progressTimer = setInterval(() => {
