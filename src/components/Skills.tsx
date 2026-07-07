@@ -1,174 +1,132 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { Code, Database, Cloud, Brain, Users } from 'lucide-react'
+import SectionHeading from './SectionHeading'
+import Reveal from './Reveal'
 
-const Skills: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  })
+/** Grouped exactly like the resume's technical-skills section. */
+const STACKS = [
+  {
+    dir: 'languages',
+    skills: ['Python', 'C++', 'SQL', 'Java', 'R', 'TypeScript'],
+  },
+  {
+    dir: 'ai-ml--genai',
+    skills: [
+      'Transformers', 'LLMs', 'PyTorch', 'TensorFlow', 'Fine-tuning', 'LoRA / QLoRA',
+      'RLHF', 'Embeddings', 'Hugging Face', 'Computer Vision', 'CUDA', 'spaCy',
+    ],
+  },
+  {
+    dir: 'agentic-ai',
+    skills: [
+      'LangChain', 'LangGraph', 'MCP', 'Multi-agent Orchestration',
+      'Tool / Function Calling', 'AI Agents', 'Persistent Memory',
+    ],
+  },
+  {
+    dir: 'retrieval--rag',
+    skills: [
+      'RAG Pipelines', 'Hybrid Retrieval', 'Reranking', 'Vector Search',
+      'Semantic Search', 'LlamaIndex', 'Prompt Engineering',
+    ],
+  },
+  {
+    dir: 'mlops--cloud',
+    skills: [
+      'Docker', 'Kubernetes', 'FastAPI', 'CI/CD', 'MLflow', 'Weights & Biases',
+      'vLLM', 'AWS SageMaker', 'Model Monitoring', 'Linux', 'Git',
+    ],
+  },
+  {
+    dir: 'databases',
+    skills: [
+      'PostgreSQL', 'MongoDB', 'Neo4j', 'ChromaDB', 'Milvus', 'Pinecone',
+      'Weaviate', 'pgvector', 'FAISS', 'MySQL',
+    ],
+  },
+  {
+    dir: 'data-engineering',
+    skills: [
+      'PySpark', 'Kafka', 'Airflow', 'ETL Pipelines', 'Databricks',
+      'Snowflake', 'Redshift', 'Grafana',
+    ],
+  },
+]
 
-  const skillCategories = [
-    {
-      title: "Core Programming",
-      icon: <Code className="w-8 h-8 text-primary-400" />,
-      skills: [
-        { name: "Python", level: 95, color: "bg-blue-500" },
-        { name: "SQL", level: 90, color: "bg-red-500" },
-        { name: "Java", level: 85, color: "bg-orange-500" }
-      ]
-    },
-    {
-      title: "AI/ML & GenAI",
-      icon: <Brain className="w-8 h-8 text-primary-400" />,
-      skills: [
-        { name: "OpenAI GPT-4", level: 95, color: "bg-green-500" },
-        { name: "LangChain", level: 90, color: "bg-yellow-500" },
-        { name: "RAG Pipelines", level: 95, color: "bg-purple-500" },
-        { name: "TensorFlow/PyTorch", level: 80, color: "bg-red-600" }
-      ]
-    },
-    {
-      title: "Data & Knowledge Graphs",
-      icon: <Database className="w-8 h-8 text-primary-400" />,
-      skills: [
-        { name: "Neo4j", level: 90, color: "bg-green-600" },
-        { name: "ChromaDB", level: 85, color: "bg-purple-600" },
-        { name: "PostgreSQL", level: 85, color: "bg-blue-800" }
-      ]
-    },
-    {
-      title: "Cloud & DevOps",
-      icon: <Cloud className="w-8 h-8 text-primary-400" />,
-      skills: [
-        { name: "AWS", level: 85, color: "bg-orange-500" },
-        { name: "Docker", level: 85, color: "bg-blue-600" },
-        { name: "FastAPI", level: 90, color: "bg-green-500" }
-      ]
-    }
-  ]
+const MARQUEE = [
+  'PyTorch', 'Transformers', 'LangChain', 'LangGraph', 'MCP', 'RAG', 'vLLM',
+  'Kubernetes', 'Docker', 'FastAPI', 'Neo4j', 'ChromaDB', 'FAISS', 'MLflow',
+  'Hugging Face', 'CUDA', 'H100', 'Kafka', 'Airflow', 'Snowflake', 'AWS',
+]
 
-  const softSkills = [
-    { name: "Problem Solving", icon: "🔧" },
-    { name: "Collaboration", icon: "🤝" },
-    { name: "Communication", icon: "💬" },
-    { name: "Analytical Thinking", icon: "🧠" },
-    { name: "Adaptability", icon: "🔄" }
-  ]
-
+export default function Skills() {
   return (
-    <section id="skills" className="section-padding bg-dark-900">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Technical <span className="gradient-text">Skills</span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            A comprehensive toolkit spanning AI/ML, data engineering, and full-stack development
-          </p>
-        </motion.div>
+    <section id="skills" className="section">
+      <SectionHeading
+        eyebrow="04 · toolbox"
+        title="The"
+        accent="stack"
+        subtitle="Everything I reach for — from transformer pretraining to the pipelines and infra that keep it alive in production."
+      />
 
-        {/* Technical Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-16">
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={categoryIndex}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-              className="glass-effect rounded-xl p-4 sm:p-6 hover-lift"
-            >
-              <div className="flex items-center space-x-3 mb-6">
-                {category.icon}
-                <h3 className="text-xl font-bold text-white">{category.title}</h3>
-              </div>
-              
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skillIndex}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) }}
-                    className="space-y-2"
-                  >
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300 font-medium">{skill.name}</span>
-                      <span className="text-primary-400 text-sm font-semibold">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-dark-700 rounded-full h-2">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={inView ? { width: `${skill.level}%` } : {}}
-                        transition={{ duration: 1, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) + 0.3 }}
-                        className={`h-2 rounded-full ${skill.color}`}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Soft Skills */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="glass-effect rounded-xl p-8"
-        >
-          <div className="flex items-center space-x-3 mb-6">
-            <Users className="w-8 h-8 text-primary-400" />
-            <h3 className="text-2xl font-bold text-white">Soft Skills & Professional Attributes</h3>
+      <Reveal>
+        <div className="term">
+          <div className="term-bar">
+            <span className="term-dot bg-rose-400/70" />
+            <span className="term-dot bg-amber-400/70" />
+            <span className="term-dot bg-primary-400/70" />
+            <span className="ml-3 font-mono text-xs text-mist-400">
+              subra@production:~/stack
+            </span>
           </div>
-          
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-            {softSkills.map((skill, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.8 + (index * 0.05) }}
-                className="bg-dark-800/50 border border-dark-700/50 rounded-lg p-4 text-center hover:border-primary-500/30 transition-all duration-300 hover-lift"
-              >
-                <div className="text-2xl mb-2">{skill.icon}</div>
-                <div className="text-gray-300 text-sm font-medium">{skill.name}</div>
-              </motion.div>
+          <div className="grid gap-x-8 gap-y-6 p-6 sm:grid-cols-2 sm:p-8">
+            {STACKS.map((s, i) => (
+              <Reveal key={s.dir} delay={i * 50} className={i === STACKS.length - 1 ? 'sm:col-span-2' : ''}>
+                <div className="font-mono text-[13px] text-mist-400">
+                  <span className="text-primary-400">$</span> ls{' '}
+                  <span className="text-violet-300">{s.dir}/</span>
+                </div>
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  {s.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-md border border-white/5 bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-mist-200 transition-colors hover:border-primary-400/40 hover:text-primary-200"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </Reveal>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </Reveal>
 
-        {/* Skills Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-12 grid md:grid-cols-3 gap-6"
-        >
-          <div className="glass-effect rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-primary-400 mb-2">15+</div>
-            <div className="text-gray-300">Core Technologies</div>
+      {/* Tech marquee */}
+      <Reveal delay={120} className="mt-10 overflow-hidden">
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-ink-950 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-ink-950 to-transparent" />
+          <div className="flex w-max animate-[marquee_28s_linear_infinite] gap-3">
+            {[...MARQUEE, ...MARQUEE].map((t, i) => (
+              <span
+                key={i}
+                className="whitespace-nowrap rounded-lg border border-white/5 bg-white/[0.02] px-4 py-2 font-mono text-sm text-mist-300"
+              >
+                {t}
+              </span>
+            ))}
           </div>
-          <div className="glass-effect rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-primary-400 mb-2">95%</div>
-            <div className="text-gray-300">Expert in AI/ML Stack</div>
-          </div>
-          <div className="glass-effect rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-primary-400 mb-2">100%</div>
-            <div className="text-gray-300">Continuous Learning</div>
-          </div>
-        </motion.div>
-      </div>
+        </div>
+      </Reveal>
+
+      <style>{`
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-\\[marquee_28s_linear_infinite\\] { animation: none; }
+        }
+      `}</style>
     </section>
   )
 }
-
-export default Skills

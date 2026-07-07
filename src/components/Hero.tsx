@@ -1,336 +1,216 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { ChevronDown, Mail, Linkedin, Github, Phone, Download } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Github, Linkedin, Mail } from 'lucide-react'
+import HeroBackground from './HeroBackground'
+import MagneticButton from './MagneticButton'
+import EcgLine from './EcgLine'
+import Counter from './Counter'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
-const Hero: React.FC = () => {
-  const scrollToNext = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
-  }
+const SOCIALS = [
+  { icon: Github, href: 'https://github.com/subra4112', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/subraraj', label: 'LinkedIn' },
+  { icon: Mail, href: 'mailto:rvanush3@gmail.com', label: 'Email' },
+]
 
-  const downloadResume = () => {
-    const link = document.createElement('a')
-    link.href = '/resume.pdf'
-    link.download = 'Subramanian_Raj_Narayanan_Resume.pdf'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
+const ROLES = [
+  'clinical foundation models',
+  'agentic AI systems',
+  'production RAG pipelines',
+  'LLMs that actually ship',
+]
+
+/** Live "vitals" — the readouts a monitor would show for this engineer. */
+const VITALS = [
+  { value: 26, suffix: 'M+', label: 'clinical events trained on' },
+  { value: 4733, suffix: '', label: 'residents modeled' },
+  { value: 0.856, suffix: '', decimals: 3, label: 'AUROC · mortality inference' },
+  { value: 20, suffix: 'K', label: 'patient trajectories simulated' },
+]
+
+function RoleRotator() {
+  const reduced = usePrefersReducedMotion()
+  const [i, setI] = useState(0)
+
+  useEffect(() => {
+    if (reduced) return
+    const id = setInterval(() => setI((v) => (v + 1) % ROLES.length), 2600)
+    return () => clearInterval(id)
+  }, [reduced])
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden ai-bg cyber-grid pt-16">
-      {/* AI/ML Background Effects */}
-      <div className="absolute inset-0 bg-dark-900"></div>
-      
-      {/* Animated Gradient Orbs */}
-      <div className="absolute inset-0">
-        <motion.div 
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/30 to-purple-500/30 rounded-full filter blur-3xl"
-          animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.1, 0.4, 0.1],
-            x: [0, 50, 0],
-            y: [0, -30, 0]
-          }}
-          transition={{ 
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        ></motion.div>
-        <motion.div 
-          className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full filter blur-3xl"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.1, 0.3],
-            x: [0, -40, 0],
-            y: [0, 20, 0]
-          }}
-          transition={{ 
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-        ></motion.div>
-        <motion.div 
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-primary-500/20 to-purple-500/20 rounded-full filter blur-2xl"
-          animate={{ 
-            scale: [1, 1.8, 1],
-            opacity: [0.05, 0.3, 0.05],
-            rotate: [0, 180, 360]
-          }}
-          transition={{ 
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4
-          }}
-        ></motion.div>
-        
-        {/* Floating Neural Network Nodes */}
-        <motion.div 
-          className="absolute top-1/3 right-1/3 w-4 h-4 bg-primary-500 rounded-full border-2 border-primary-300"
-          animate={{ 
-            y: [0, -20, 0],
-            opacity: [0.3, 1, 0.3],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ 
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        ></motion.div>
-        <motion.div 
-          className="absolute top-2/3 left-1/3 w-3 h-3 bg-purple-500 rounded-full border-2 border-purple-300"
-          animate={{ 
-            y: [0, -15, 0],
-            opacity: [0.4, 0.8, 0.4],
-            scale: [1, 1.3, 1]
-          }}
-          transition={{ 
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-        ></motion.div>
-        <motion.div 
-          className="absolute top-1/5 left-2/3 w-2 h-2 bg-pink-500 rounded-full border border-pink-300"
-          animate={{ 
-            y: [0, -10, 0],
-            opacity: [0.2, 0.9, 0.2],
-            scale: [1, 1.5, 1]
-          }}
-          transition={{ 
-            duration: 2.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-        ></motion.div>
-      </div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Left Side - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-left space-y-8"
-          >
-            <div className="space-y-4 sm:space-y-6">
-              <motion.h1 
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <div className="block sm:inline">Hello, I'm</div>{' '}
-                <span className="gradient-text block sm:inline mt-1 sm:mt-0">Subramanian</span>
-              </motion.h1>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="space-y-2 sm:space-y-3"
-              >
-                <motion.p 
-                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, delay: 0.6 }}
-                >
-                  AI/ML Engineer & Data Scientist
-                </motion.p>
-                <motion.p 
-                  className="text-sm sm:text-base md:text-lg text-gray-400"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, delay: 0.8 }}
-                >
-                  Master of Science in Data Science @ Arizona State University
-                </motion.p>
-              </motion.div>
-            </div>
-          
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify"
-            >
-              Passionate about building intelligent systems that deliver real-world impact. Currently working on GenAI and agentic AI solutions, integrating knowledge graphs, neural networks, and advanced ML pipelines to power AI-driven platforms that are scalable, adaptive, and production-ready.
-            </motion.p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
-            >
-              <motion.a
-                href="#contact"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 hover-lift text-sm sm:text-base"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get In Touch
-              </motion.a>
-              <motion.a
-                href="#projects"
-                className="border border-primary-600 text-primary-400 hover:bg-primary-600 hover:text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 hover-lift text-sm sm:text-base"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View My Work
-              </motion.a>
-              <motion.button
-                onClick={downloadResume}
-                className="border border-green-600 text-green-400 hover:bg-green-600 hover:text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 hover-lift text-sm sm:text-base"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Download resume PDF"
-              >
-                Resume <Download size={16} className="inline ml-1" />
-              </motion.button>
-            </motion.div>
-            
-            {/* Contact Icons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.4 }}
-              className="flex space-x-6 pt-4"
-            >
-              <motion.a
-                href="mailto:rvanush3@gmail.com"
-                className="text-gray-400 hover:text-primary-400 transition-colors duration-300 hover-lift"
-                aria-label="Email"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Mail size={24} />
-              </motion.a>
-              <motion.a
-                href="https://www.linkedin.com/in/subraraj"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-primary-400 transition-colors duration-300 hover-lift"
-                aria-label="LinkedIn"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Linkedin size={24} />
-              </motion.a>
-              <motion.a
-                href="https://github.com/subra4112"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-primary-400 transition-colors duration-300 hover-lift"
-                aria-label="GitHub"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Github size={24} />
-              </motion.a>
-              <motion.a
-                href="tel:+16027679281"
-                className="text-gray-400 hover:text-primary-400 transition-colors duration-300 hover-lift"
-                aria-label="Phone"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Phone size={24} />
-              </motion.a>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Side - Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-            className="flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              <motion.div
-                className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary-500/30 shadow-2xl"
-                animate={{ 
-                  rotateY: [0, 5, 0],
-                  scale: [1, 1.02, 1]
-                }}
-                transition={{ 
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <img
-                  src="/profile.jpg"
-                  alt="Subramanian Raj Narayanan"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-              
-              {/* Floating Elements */}
-              <motion.div
-                className="absolute -top-4 -right-4 w-8 h-8 bg-primary-500 rounded-full"
-                animate={{ 
-                  y: [0, -10, 0],
-                  opacity: [0.7, 1, 0.7]
-                }}
-                transition={{ 
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <motion.div
-                className="absolute -bottom-4 -left-4 w-6 h-6 bg-primary-400 rounded-full"
-                animate={{ 
-                  y: [0, 10, 0],
-                  opacity: [0.5, 0.8, 0.5]
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1
-                }}
-              />
-              <motion.div
-                className="absolute top-1/2 -right-8 w-4 h-4 bg-primary-600 rounded-full"
-                animate={{ 
-                  x: [0, -5, 0],
-                  opacity: [0.6, 1, 0.6]
-                }}
-                transition={{ 
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 2
-                }}
-              />
-            </div>
-          </motion.div>
-        </div>
-      </div>
-      
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
-        onClick={scrollToNext}
-      >
-        <ChevronDown className="text-gray-400 hover:text-primary-400 transition-colors duration-300 animate-bounce" size={32} />
-      </motion.div>
-    </section>
+    <span className="relative inline-block text-left">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={ROLES[i]}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -14 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="accent-serif inline-block text-gradient-accent"
+        >
+          {ROLES[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
   )
 }
 
-export default Hero
+/** The portrait, framed like a monitor readout: scanlines, corner ticks, tag. */
+function Portrait() {
+  return (
+    <div className="relative mx-auto w-full max-w-[280px] lg:max-w-[340px]">
+      {/* Ambient glow behind the frame */}
+      <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-primary-500/10 blur-3xl" />
+
+      <div className="relative overflow-hidden rounded-3xl border border-primary-400/25 shadow-glow-lg">
+        <img
+          src="/portrait.jpg"
+          alt="Subramanian Raj Narayanan"
+          className="block w-full object-cover"
+          loading="eager"
+        />
+        {/* Scanline + tint overlays for the monitor feel */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-40"
+          style={{
+            background:
+              'repeating-linear-gradient(0deg, rgba(4,8,7,0.14) 0px, rgba(4,8,7,0.14) 1px, transparent 1px, transparent 4px)',
+          }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent" />
+
+        {/* Corner ticks */}
+        {['top-3 left-3 border-t border-l', 'top-3 right-3 border-t border-r', 'bottom-3 left-3 border-b border-l', 'bottom-3 right-3 border-b border-r'].map(
+          (pos) => (
+            <span
+              key={pos}
+              className={`pointer-events-none absolute h-4 w-4 border-primary-400/70 ${pos}`}
+            />
+          )
+        )}
+
+        {/* Subject tag */}
+        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-lg bg-ink-950/70 px-3 py-2 backdrop-blur">
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary-300">
+            subject: subraraj
+          </span>
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary-400" />
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function Hero() {
+  return (
+    <section
+      id="hero"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden"
+    >
+      {/* 3D / fallback background */}
+      <HeroBackground />
+
+      {/* Vignette so text stays legible over the canvas */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/40 via-transparent to-ink-950" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/70 via-transparent to-transparent" />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 items-center px-5 pt-28 sm:px-8 lg:pt-24">
+        <div className="grid w-full items-center gap-10 lg:grid-cols-5">
+          {/* Copy */}
+          <div className="max-w-3xl lg:col-span-3">
+            {/* Status chip — reads like a system monitor */}
+            <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-primary-400/20 bg-primary-500/5 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-primary-200 animate-fade-in">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-400" />
+              </span>
+              clinical AI · live in production @ botco.ai
+            </div>
+
+            <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tightest text-mist-100 sm:text-7xl">
+              Subramanian
+              <br />
+              <span className="text-gradient">Raj Narayanan</span>
+            </h1>
+
+            <p className="mt-7 max-w-2xl font-display text-2xl leading-snug text-mist-200 sm:text-3xl">
+              I train <RoleRotator />
+              <br className="hidden sm:block" /> for high-stakes healthcare.
+            </p>
+
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-mist-300 sm:text-lg">
+              AI/ML Engineer at <span className="text-mist-100">Botco.ai</span>, where I built a
+              GPT-2-style transformer <span className="text-primary-300">from scratch</span> on
+              26M+ real clinical events — a first-of-its-kind generative clinical AI. From
+              pretraining to HIPAA-compliant deployment. M.S. Data Science @ ASU.
+            </p>
+
+            {/* CTAs */}
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <MagneticButton to="/projects" className="btn-primary">
+                View the work
+              </MagneticButton>
+              <MagneticButton
+                href="/resume.pdf"
+                external
+                className="btn-ghost"
+                ariaLabel="Open resume PDF"
+              >
+                Resume
+              </MagneticButton>
+              <MagneticButton to="/contact" className="btn-ghost">
+                Contact
+              </MagneticButton>
+            </div>
+
+            {/* Socials */}
+            <div className="mt-10 flex items-center gap-5">
+              {SOCIALS.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  aria-label={label}
+                  className="text-mist-400 transition-colors duration-300 hover:text-primary-300"
+                >
+                  <Icon size={22} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Portrait */}
+          <div className="lg:col-span-2">
+            <Portrait />
+          </div>
+        </div>
+      </div>
+
+      {/* Vitals strip — ECG trace + live counters */}
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-10 pt-8 sm:px-8">
+        <EcgLine className="h-10 w-full" />
+        <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/5 pt-5 sm:grid-cols-4">
+          {VITALS.map((v) => (
+            <div key={v.label}>
+              <div className="font-mono text-2xl font-medium text-primary-300 sm:text-3xl">
+                <Counter
+                  value={v.value}
+                  suffix={v.suffix}
+                  decimals={v.decimals ?? 0}
+                />
+              </div>
+              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-mist-400">
+                {v.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

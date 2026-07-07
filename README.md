@@ -1,102 +1,112 @@
-# Subramanian Raj Narayanan - Portfolio Website
+# Subramanian Raj Narayanan — Portfolio
 
-A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS. Features a dark theme with blue accent colors and showcases AI/ML engineering expertise.
+A "clinical intelligence console" — the personal portfolio of an AI/ML engineer who
+trains generative clinical AI. The whole site reads like a futuristic clinical AI
+system: an ECG boot sequence, live vitals counters, a Hugging Face-style **model
+card** About section, terminal-window skill listings, and a 3D neural field hero.
 
-## 🚀 Features
+## ✨ Highlights
 
-- **Modern Design**: Clean, professional dark theme with strategic blue accents
-- **Fully Responsive**: Optimized for all device sizes (mobile, tablet, desktop)
-- **Terminal-Style Preloader**: Interactive loading animation with coder aesthetic
-- **Smooth Animations**: Framer Motion animations for enhanced user experience
-- **Interactive Components**: Hover effects, scroll animations, and form interactions
-- **Scroll Progress**: Visual scroll progress indicator
-- **Contact Form**: Functional contact form with EmailJS integration
-- **Performance Optimized**: Built with Vite for fast development and production builds
+- **Clinical console concept** — animated ECG trace dividers, count-up "vitals"
+  readouts (26M+ clinical events, AUROC 0.856, …), bracketed console-log section
+  eyebrows, and an About section framed as a model card (`~/models/…/README.md`).
+- **Interactive 3D hero** — a GPU-rendered neural-network field (instanced points +
+  edges, custom shaders) that reacts to the pointer and drifts.
+- **Performance-first** — the three.js bundle is lazy-loaded (never blocks first
+  paint), `dpr` is clamped to `[1, 2]`, and the render loop **pauses when the hero
+  scrolls offscreen**. Mobile / low-power GPUs and `prefers-reduced-motion` users
+  get a lightweight static fallback automatically.
+- **Design system** — carbon-green base (`#040807`), ECG-mint (`#2EE8A5`) + violet
+  (`#7C66FF`) + amber (`#FFBE5C`) accents; Space Grotesk display, Instrument Serif
+  italic accent words, JetBrains Mono micro-labels, Inter body.
+- **Polished motion** — scroll-reveal, a rotating hero role line (framer-motion),
+  magnetic buttons, a cursor-aware accent ring, and a scroll-progress bar.
+- **Accessible** — semantic HTML, keyboard focus styles, AA-contrast text, reduced
+  motion support.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18 + TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Build Tool**: Vite
-- **Icons**: Lucide React
-- **Email Service**: EmailJS
-- **Deployment**: Vercel
+| Area      | Choice                                          |
+| --------- | ----------------------------------------------- |
+| Framework | React 18 + TypeScript + Vite                    |
+| 3D        | three.js · @react-three/fiber · @react-three/drei |
+| Styling   | Tailwind CSS (custom design tokens)             |
+| Icons     | lucide-react                                    |
+| Email     | EmailJS                                          |
+| Deploy    | Vercel                                          |
 
-## 🌐 Live Demo
+## 🚀 Run locally
 
-Visit the live website: [portfolio-website-ebon-seven-86.vercel.app](https://portfolio-website-ebon-seven-86.vercel.app)
+```bash
+npm install      # install deps (includes the three.js stack)
+npm run dev      # start Vite dev server → http://localhost:5173
+npm run build    # type-check + production build into /dist
+npm run preview  # preview the production build locally
+```
 
-## 📦 Installation
+## ☁️ Deploy to Vercel
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/subra4112/Portfolio-Website.git
-   cd Portfolio-Website
-   ```
+The repo already includes `vercel.json`. Either:
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+- **Dashboard:** import the GitHub repo at [vercel.com/new](https://vercel.com/new).
+  Framework preset **Vite**, build command `npm run build`, output dir `dist`.
+- **CLI:**
+  ```bash
+  npm i -g vercel
+  vercel          # preview deploy
+  vercel --prod   # production deploy
+  ```
 
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
+## ✏️ Where to edit content
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
+All copy lives as plain data arrays at the top of each section component — no CMS:
 
-## 🎨 Design Features
+| What                         | File                                  |
+| ---------------------------- | ------------------------------------- |
+| Name, tagline, social links  | `src/components/Hero.tsx`             |
+| About narrative, skill chips | `src/components/About.tsx`            |
+| **Projects** (cards + detail)| `src/components/Projects.tsx` → `PROJECTS` |
+| Experience / education / leadership | `src/components/Experience.tsx` (`ROLES`, `EDUCATION`, `LEADERSHIP`) |
+| Skills + proficiency bars    | `src/components/Skills.tsx` → `CATEGORIES`, `MARQUEE` |
+| Contact info + EmailJS keys  | `src/components/Contact.tsx` (`SERVICE_ID`, `TEMPLATE_ID`, `PUBLIC_KEY`) |
+| Nav links                    | `src/components/Nav.tsx` → `LINKS`    |
+| Colors / fonts / shadows     | `tailwind.config.js` + `src/index.css` |
+| 3D hero look (density, color)| `src/three/NeuralField.tsx`           |
 
-- **Dark Theme**: Professional dark color scheme with custom dark palette
-- **Blue Accents**: Strategic use of blue colors for highlights and interactive elements
-- **Glass Effects**: Modern glassmorphism design elements
-- **Gradient Text**: Eye-catching gradient text effects
-- **Hover Animations**: Smooth hover effects and transitions
+### Replace the résumé / images
 
-## 📱 Sections
+- Drop your résumé at `public/resume.pdf` (the nav + hero buttons link to it).
+- Profile / OG image: `public/profile.jpg`.
 
-- **Preloader**: Terminal-style loading animation with profile information
-- **Hero**: Introduction with animated background and contact links
-- **About**: Personal background and key achievements
-- **Experience**: Professional experience timeline with current roles
-- **Projects**: Featured AI/ML projects with detailed descriptions and tech stacks
-- **Skills**: Comprehensive technical skills with progress indicators
-- **Contact**: Functional contact form with EmailJS integration and professional information
+### Tune the 3D hero
 
-## 🔧 Customization
+In `src/three/NeuralField.tsx`:
 
-### Colors
-The color scheme can be customized in `tailwind.config.js`:
-- Primary colors: Blue accent colors
-- Dark colors: Custom dark palette
-- Gradients: Configurable gradient combinations
+- `nodeCount` (passed from `HeroBackground`) — number of graph nodes.
+- `uSize` uniform — node glow size.
+- `CYAN` / `VIOLET` — palette of the field.
+- Dust count / size — ambient particle density.
 
-### Content
-Update the following files to customize content:
-- Component files in `src/components/` for section content
-- `index.html` for meta information
-- `package.json` for project information
+To disable WebGL entirely, render `<StaticField />` directly in
+`src/components/HeroBackground.tsx`.
 
-## 📄 License
+## 📁 Structure
 
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+```
+src/
+├── App.tsx                 # section orchestration
+├── index.css               # design system / utilities
+├── components/             # Nav, Hero, About, Projects, Experience, Skills, Contact, Footer …
+├── hooks/                  # reduced-motion, device capability, active-section
+└── three/                  # NeuralField (R3F scene) + HeroCanvas (lazy Canvas)
+```
 
 ## 📞 Contact
 
-- **Email**: rvanush3@gmail.com
-- **LinkedIn**: [subraraj](https://www.linkedin.com/in/subraraj)
-- **GitHub**: [subra4112](https://github.com/subra4112)
-- **Phone**: (602) 767-9281
+- **Email:** rvanush3@gmail.com
+- **LinkedIn:** [in/subraraj](https://www.linkedin.com/in/subraraj)
+- **GitHub:** [subra4112](https://github.com/subra4112)
 
 ---
 
-Built with ❤️ by Subramanian Raj Narayanan
+Designed & built with React, React Three Fiber, and Tailwind.

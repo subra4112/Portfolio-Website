@@ -1,130 +1,148 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { GraduationCap, Award, Target, Users } from 'lucide-react'
+import { Brain, Bot, Database, Workflow } from 'lucide-react'
+import SectionHeading from './SectionHeading'
+import Reveal from './Reveal'
 
-const About: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  })
+/**
+ * The About section is framed as a Hugging Face-style model card — a portfolio
+ * conceit only an ML engineer would ship. Every field is real information
+ * (education, deployment, evals) dressed in model-card vocabulary.
+ */
+const MODEL_CARD: { key: string; value: string; highlight?: boolean }[] = [
+  { key: 'model_id', value: 'subramanian-raj-narayanan' },
+  { key: 'architecture', value: 'human transformer · curiosity-dense' },
+  { key: 'domain', value: 'clinical AI · LLMs · agentic systems' },
+  { key: 'pretraining', value: 'B.Tech CSE — SRM IST (2024)' },
+  { key: 'fine_tuning', value: 'M.S. Data Science — ASU (May 2026)' },
+  { key: 'deployment', value: 'Botco.ai — Scottsdale, AZ', highlight: true },
+  { key: 'eval/AUROC', value: '0.856 — hospital mortality (ETHOS repro)' },
+  { key: 'training_data', value: '26M+ clinical events · 4,733 residents' },
+  { key: 'safety', value: 'HIPAA-compliant · production-gated' },
+  { key: 'license', value: 'open to full-time roles', highlight: true },
+]
 
-  const achievements = [
-    {
-      icon: <GraduationCap className="w-8 h-8 text-primary-400" />,
-      title: "Dual Education",
-      description: "MS Data Science @ ASU (Expected 2026) | BTech CSE @ SRMIST (2024)"
-    },
-    {
-      icon: <Award className="w-8 h-8 text-primary-400" />,
-      title: "Leadership Roles",
-      description: "Director of Finance @ EISA | Operations Officer @ AI Society"
-    },
-    {
-      icon: <Target className="w-8 h-8 text-primary-400" />,
-      title: "Performance Impact",
-      description: "Reduced latency by 18% and improved query performance <200ms"
-    },
-    {
-      icon: <Users className="w-8 h-8 text-primary-400" />,
-      title: "Scale Experience",
-      description: "Built systems serving 5,000+ users with 10K+ knowledge graph entities"
-    }
-  ]
+const CLUSTERS = [
+  {
+    icon: Brain,
+    title: 'LLMs & GenAI',
+    items: ['Transformers from scratch', 'PyTorch', 'LoRA / QLoRA', 'RLHF', 'vLLM'],
+  },
+  {
+    icon: Bot,
+    title: 'Agentic AI',
+    items: ['LangChain / LangGraph', 'MCP', 'Multi-agent orchestration', 'Tool calling'],
+  },
+  {
+    icon: Database,
+    title: 'Retrieval & Data',
+    items: ['RAG + hybrid retrieval', 'Neo4j', 'ChromaDB / FAISS / pgvector', 'Reranking'],
+  },
+  {
+    icon: Workflow,
+    title: 'MLOps & Infra',
+    items: ['Docker / Kubernetes', 'FastAPI', 'MLflow / W&B', 'AWS SageMaker'],
+  },
+]
 
+export default function About() {
   return (
-    <section id="about" className="section-padding bg-dark-900">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <motion.h2 
-            className="text-4xl md:text-6xl font-bold text-white mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            About <span className="gradient-text text-glow">Me</span>
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            A passionate AI/ML engineer with expertise in data science, scalable data engineering, and full-stack development, exploring GenAI and agentic AI for real-world impact.
-          </motion.p>
-        </motion.div>
+    <section id="about" className="section">
+      <SectionHeading
+        eyebrow="01 · about"
+        title="Read the"
+        accent="model card"
+        subtitle="I build production AI/ML systems that ship to real users in high-stakes, regulated environments — where the model, the retrieval, the evals, and the deployment all have to hold up."
+      />
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
-          >
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-white">My Journey</h3>
-              <p className="text-white leading-relaxed text-justify">
-              I am currently pursuing my Master's in Data Science at Arizona State University, where I focus on large-scale data processing, machine learning, and advanced AI systems. I have hands-on experience as an AI/ML Engineer Intern at Vera AI, where I built ML features, 3D visualizations, and full-stack modules for an AI-driven SaaS platform, and as a Software Engineer Trainee at Techavidity, where I developed Neo4j-based knowledge graphs and Python data pipelines that powered real-time graph operations for 1,000+ users.
-              </p>
-              <p className="text-white leading-relaxed text-justify">
-              My passion lies in building intelligent, production-ready systems that bridge research and real-world implementation. I have worked on projects spanning GenAI, agentic AI, knowledge graphs, cyber defense, and large-scale data engineering pipelines. Whether it's developing LLM-powered mobile testing agents, AI-driven SaaS features, or hybrid RAG systems like AskNeo, I thrive at the intersection of AI innovation, scalability, and practical impact.
-              </p>
-            </div>
+      <div className="grid gap-10 lg:grid-cols-5">
+        {/* Narrative */}
+        <div className="lg:col-span-2">
+          <Reveal className="space-y-5 text-[15px] leading-relaxed text-mist-200">
+            <p>
+              My work sits at the intersection of{' '}
+              <span className="text-mist-100">clinical AI</span>,{' '}
+              <span className="text-mist-100">agentic AI</span>, and{' '}
+              <span className="text-mist-100">LLM engineering</span>. At Botco.ai I work
+              directly with the CTO on one of the most technically demanding clinical AI
+              platforms in production — architecture, deployment, and governance.
+            </p>
+            <p>
+              I trained a GPT-2-style transformer from scratch on real longitudinal EHR
+              data to predict falls, hospitalizations, and mortality for assisted-living
+              residents — a system with no existing market equivalent. Before that:
+              knowledge-graph RAG engines, multi-agent testing systems, and
+              cybersecurity ML.
+            </p>
+            <p>
+              I care about the seam where research meets a real user — the unglamorous,
+              decisive work of making AI systems evaluable, explainable, and shippable.
+            </p>
+          </Reveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-dark-900 border border-gray-700 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-primary-400">2+</div>
-                <div className="text-sm text-white">Years Experience</div>
-              </div>
-              <div className="bg-dark-900 border border-gray-700 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-primary-400">10+</div>
-                <div className="text-sm text-white">Projects Built</div>
-              </div>
-              <div className="bg-dark-900 border border-gray-700 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-primary-400">15+</div>
-                <div className="text-sm text-white">Technologies</div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="grid gap-6"
-          >
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                className="bg-dark-900 border border-gray-700 rounded-lg p-6 hover-lift"
-              >
-                <div className="flex items-start space-x-4">
-                  {achievement.icon}
-                  <div>
-                    <h4 className="text-lg font-semibold text-white mb-2">
-                      {achievement.title}
-                    </h4>
-                    <p className="text-white">
-                      {achievement.description}
-                    </p>
-                  </div>
+          {/* Skill clusters */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {CLUSTERS.map((c, i) => (
+              <Reveal key={c.title} delay={i * 70} className="card p-4">
+                <div className="mb-2.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary-500/10 text-primary-300">
+                  <c.icon size={18} />
                 </div>
-              </motion.div>
+                <h3 className="font-display text-sm font-semibold text-mist-100">{c.title}</h3>
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  {c.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-md bg-white/[0.03] px-2 py-1 text-[11px] text-mist-300"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </Reveal>
             ))}
-          </motion.div>
+          </div>
         </div>
+
+        {/* Model card terminal */}
+        <Reveal delay={100} className="lg:col-span-3">
+          <div className="term h-full">
+            <div className="term-bar">
+              <span className="term-dot bg-rose-400/70" />
+              <span className="term-dot bg-amber-400/70" />
+              <span className="term-dot bg-primary-400/70" />
+              <span className="ml-3 font-mono text-xs text-mist-400">
+                ~/models/subramanian-raj/README.md
+              </span>
+            </div>
+            <div className="p-6 font-mono text-[13px] leading-loose sm:p-7">
+              <div className="mb-4 text-mist-400">
+                <span className="text-violet-300"># Model Card</span> — human foundation
+                model, healthcare-aligned
+              </div>
+              <div className="space-y-1.5">
+                {MODEL_CARD.map((row) => (
+                  <div key={row.key} className="flex flex-wrap gap-x-3">
+                    <span className="w-32 shrink-0 text-mist-400">{row.key}:</span>
+                    <span
+                      className={
+                        row.highlight ? 'text-primary-300' : 'text-mist-100'
+                      }
+                    >
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 border-t border-white/5 pt-4 text-mist-400">
+                <span className="text-primary-400">$</span> intended_use
+                <div className="mt-1.5 text-mist-200">
+                  AI/ML Engineer · Data Scientist · Clinical AI Engineer · Forward
+                  Deployed Engineer — healthcare AI, enterprise AI, and beyond.
+                  <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 animate-blink bg-primary-400" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )
 }
-
-export default About

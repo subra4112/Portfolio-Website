@@ -102,3 +102,5 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+# Local dev logs
+dev.log

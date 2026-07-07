@@ -1,214 +1,282 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { Github, Calendar, Code, Brain, Shield, Cloud, Smartphone } from 'lucide-react'
+import { useState } from 'react'
+import {
+  Github,
+  Plus,
+  Brain,
+  Activity,
+  Smartphone,
+  ShieldCheck,
+  HeartPulse,
+  Bot,
+  Sparkles,
+  FlaskConical,
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import SectionHeading from './SectionHeading'
+import Reveal from './Reveal'
 
-const Projects: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  })
+interface Project {
+  title: string
+  tagline: string
+  year: string
+  category: string
+  icon: LucideIcon
+  blurb: string
+  problem: string
+  approach: string
+  outcome: string
+  stack: string[]
+  metrics?: string[]
+  github?: string
+  badge?: string
+  badgeIcon?: LucideIcon
+}
 
-  const projects = [
-    {
-      title: "ArcDefense",
-      subtitle: "AI Powered Cyber Defense and Threat Detection System",
-      date: "August 2025",
-      description: "Orchestrated an ML workflow with LSTMs and BERT to detect malware C2 beaconing in DNS/HTTPS traffic, improving identification of stealthy command-and-control activity. Implemented a FastAPI + Streamlit system with real-time log ingestion and model inference, enabling AI-driven cyber defense.",
-      technologies: ["Python", "LSTM", "BERT", "FastAPI", "Streamlit", "ML", "Cyber Security"],
-      icon: <Shield className="w-8 h-8 text-primary-400" />,
-      category: "AI/ML & Security",
-      githubUrl: "https://github.com/subra4112/ArcDefender",
-      highlights: [
-        "Advanced threat detection using deep learning",
-        "Real-time log processing and analysis",
-        "FastAPI backend with Streamlit frontend"
-      ]
-    },
-    {
-      title: "CloudSage",
-      subtitle: "AI Mentor for Infrastructure-as-Code",
-      date: "August 2025",
-      description: "Designed a Streamlit-based tool to analyze Terraform configs using CodeBERT and NLP for detecting IaC anti-patterns and optimization opportunities. Planned features include real-time static analysis, AWS integration, and rule-based best practice recommendations.",
-      technologies: ["Python", "CodeBERT", "NLP", "Streamlit", "Terraform", "AWS", "Static Analysis"],
-      icon: <Cloud className="w-8 h-8 text-primary-400" />,
-      category: "DevOps & AI",
-      githubUrl: "https://github.com/subra4112/CloudSage",
-      highlights: [
-        "CodeBERT integration for config analysis",
-        "IaC anti-pattern detection",
-        "AWS integration and best practices"
-      ]
-    },
-    {
-      title: "EDITH-QA",
-      subtitle: "LLM-Powered Mobile App Testing System",
-      date: "July 2025",
-      description: "Developed a multi-agent testing system using Agent-S and android_world, enabling LLM-powered Planner, Executor, Verifier, and Supervisor agents to simulate and verify mobile UI tasks. Successfully tested tasks like toggling Wi-Fi and enabling Airplane Mode, with structured output logs for QA audit.",
-      technologies: ["Python", "LLM", "Multi-Agent", "Mobile Testing", "QA", "Agent-S", "Android"],
-      icon: <Smartphone className="w-8 h-8 text-primary-400" />,
-      category: "AI & Testing",
-      githubUrl: "https://github.com/subra4112/EDITH-QA",
-      highlights: [
-        "Multi-agent LLM system architecture",
-        "Automated mobile UI testing",
-        "Structured QA audit logging"
-      ]
-    },
-    {
-      title: "AskNeo",
-      subtitle: "AI Query Engine with Knowledge Graphs and Semantic Search",
-      date: "June 2025",
-      description: "Engineered a hybrid RAG system using Neo4j (3K+ nodes, 12K+ edges), ChromaDB, and GPT-4 via LangChain to enable multi-hop semantic and graph-based question answering. Designed a Streamlit UI with voice input and prompt tuning, benchmarking LLM output using ROUGE, BLEU, and cosine similarity.",
-      technologies: ["Neo4j", "ChromaDB", "GPT-4", "LangChain", "RAG", "Streamlit", "NLP"],
-      icon: <Brain className="w-8 h-8 text-primary-400" />,
-      category: "AI & Knowledge Graphs",
-      githubUrl: "https://github.com/subra4112/AskNeo-Smart-Health-Assistant",
-      highlights: [
-        "Hybrid RAG system with graph databases",
-        "Multi-hop semantic question answering",
-        "Voice input and comprehensive evaluation metrics"
-      ]
-    }
-  ]
+const PROJECTS: Project[] = [
+  {
+    title: 'Generative Clinical AI',
+    tagline: 'A GPT-2-style transformer trained from scratch on real EHR data',
+    year: '2026',
+    category: 'Clinical AI · Foundation Models',
+    icon: HeartPulse,
+    badge: 'First of its kind',
+    badgeIcon: Sparkles,
+    blurb:
+      'At Botco.ai, I designed and trained a 10M-parameter autoregressive transformer from scratch in PyTorch on 26M+ clinical events across 4,733 assisted-living residents — a generative clinical AI system with no existing market equivalent.',
+    problem:
+      'Assisted-living operators need to know which residents are at risk of falls, hospitalization, or death — but longitudinal EHR data is fragmented, noisy, and severely imbalanced (27:1 noise-to-signal).',
+    approach:
+      'Built the entire pipeline end to end: EHR tokenization normalizing 10,144 fragmented diagnosis codes, GPT-2-style architecture, 3-tier undersampling, loss upweighting, and regression-gated multi-outcome evaluation.',
+    outcome:
+      'Fall-risk prediction lifted from random chance to AUROC 0.693 (hospitalization 0.637, mortality 0.632), now driving Phase 3: care-level transition prediction over 6/12/18-month horizons for 634 confirmed cases.',
+    metrics: ['26M+ events', '10M params', 'AUROC 0.693', '+19% Phase 2 lift'],
+    stack: ['PyTorch', 'Transformers', 'EHR Tokenization', 'Python', 'CUDA'],
+  },
+  {
+    title: 'ARES / ETHOS Reproduction',
+    tagline: 'Hospital mortality inference via 20K Monte Carlo patient futures',
+    year: '2026',
+    category: 'Research · Healthcare ML',
+    icon: Activity,
+    badge: 'Research',
+    badgeIcon: FlaskConical,
+    blurb:
+      'Reproduced the ARES/ETHOS hospital-mortality inference pipeline on an NVIDIA H100 — generating 20,000 future patient trajectories via Monte Carlo simulation to estimate mortality risk from tokenized health timelines.',
+    problem:
+      'Zero-shot clinical inference from generative patient timelines is a frontier method; reproducing published results end to end is the only way to trust — and extend — it.',
+    approach:
+      'Stood up the full pipeline on H100 GPUs: 20 Monte Carlo simulations per example over tokenized MIMIC-IV-style timelines, plus the EHRSHOT/FEMR benchmark with pretrained CLMBR-T-base weights across 15 few-shot tasks — debugging JAX, CUDA, cuDNN, and NumPy conflicts along the way.',
+    outcome:
+      'Matched published performance — AUROC 0.8561, AUPRC 0.2754, Brier 0.0158 — validating the generative-inference approach that now underpins production clinical AI work.',
+    metrics: ['AUROC 0.8561', 'Brier 0.0158', '20K trajectories', 'H100'],
+    stack: ['PyTorch', 'ETHOS', 'EHRSHOT', 'CLMBR', 'JAX', 'H100'],
+  },
+  {
+    title: 'AskNeo',
+    tagline: 'Hybrid RAG over a knowledge graph + vector store for medical QA',
+    year: '2025',
+    category: 'RAG · Knowledge Graphs',
+    icon: Brain,
+    github: 'https://github.com/subra4112/AskNeo-Smart-Health-Assistant',
+    blurb:
+      'A hybrid retrieval engine that answers multi-hop medical questions by combining a Neo4j knowledge graph (3K+ nodes, 12K+ edges) with ChromaDB vector search, orchestrated through LangChain.',
+    problem:
+      'Pure vector RAG misses structured multi-hop relationships; pure graph queries miss fuzzy semantic recall. Medical QA needs both at once.',
+    approach:
+      'Built the Neo4j graph alongside ChromaDB embeddings and routed queries through LangChain with GPT-based retrieval, enabling reasoning across structured and semantic data in a single answer.',
+    outcome:
+      'Multi-hop medical reasoning with scalable semantic search — benchmarked with ROUGE, BLEU, and cosine similarity to quantify answer quality.',
+    metrics: ['3K+ nodes', '12K+ edges', 'multi-hop QA'],
+    stack: ['Neo4j', 'ChromaDB', 'LangChain', 'GPT-4', 'Python'],
+  },
+  {
+    title: 'FocusMate',
+    tagline: 'A mobile AI co-pilot for ADHD users',
+    year: '2025',
+    category: 'Agents · Mobile',
+    icon: Smartphone,
+    github: 'https://github.com/subra4112/FocusMate_AI_Co_Pilot_for_ADHD',
+    blurb:
+      'A mobile AI productivity assistant built with React Native and FastAPI — Gmail and Google Calendar aware, with LLM-powered email triage, action-item extraction, and real-time voice input.',
+    problem:
+      'Productivity tools are passive. People with ADHD need an assistant that captures intent instantly and turns inboxes and calendars into actions automatically.',
+    approach:
+      'Integrated the Gmail and Google Calendar APIs behind a FastAPI backend, with an LLM layer for email triage and action-item extraction, plus real-time voice capture in the React Native client.',
+    outcome:
+      'Automated task management that meets users where attention is scarce — fast voice capture, triaged email, extracted to-dos.',
+    metrics: ['voice-first', 'LLM triage', 'auto task extraction'],
+    stack: ['React Native', 'FastAPI', 'Gmail API', 'Google Calendar', 'LLMs'],
+  },
+  {
+    title: 'EDITH-QA',
+    tagline: 'Multi-agent LLM system for autonomous mobile UI testing',
+    year: '2025',
+    category: 'Agents · QA',
+    icon: Bot,
+    github: 'https://github.com/subra4112/EDITH-QA',
+    blurb:
+      'An autonomous mobile testing system where Planner, Executor, Verifier, and Supervisor LLM agents collaborate — with computer vision — to run and verify Android UI tasks.',
+    problem:
+      'Mobile UI testing is brittle and manual; scripted tests break every time the UI shifts.',
+    approach:
+      'Role-specialized LLM agents coordinate through a supervisor loop with vision-grounded verification and structured audit logging for every step.',
+    outcome:
+      '95%+ task-execution accuracy, meaningfully reducing manual UI-testing effort.',
+    metrics: ['95%+ accuracy', '4 agent roles'],
+    stack: ['Python', 'LLMs', 'Multi-agent', 'Computer Vision'],
+  },
+  {
+    title: 'ArcDefender',
+    tagline: 'Deep-learning detection of malware C2 beaconing',
+    year: '2025',
+    category: 'ML · Security',
+    icon: ShieldCheck,
+    github: 'https://github.com/subra4112/ArcDefender',
+    blurb:
+      'A cyber threat detection system using LSTM and BERT models to identify command-and-control communication patterns hidden in DNS/HTTPS traffic.',
+    problem:
+      'Stealthy C2 beaconing hides in normal-looking network traffic and evades static rules.',
+    approach:
+      'Combined LSTM sequence modeling with BERT-based features, real-time log ingestion, and live model inference behind FastAPI + Streamlit.',
+    outcome:
+      'Improved identification of stealthy C2 activity with an interactive, real-time defense console.',
+    metrics: ['LSTM + BERT', 'real-time inference'],
+    stack: ['Python', 'LSTM', 'BERT', 'FastAPI', 'Streamlit'],
+  },
+]
 
-  const getCategoryColor = (category: string) => {
-    const colors = {
-      "AI/ML & Security": "bg-red-500/20 text-red-400 border-red-500/30",
-      "DevOps & AI": "bg-blue-500/20 text-blue-400 border-blue-500/30",
-      "AI & Testing": "bg-green-500/20 text-green-400 border-green-500/30",
-      "AI & Knowledge Graphs": "bg-purple-500/20 text-purple-400 border-purple-500/30",
-      "Mobile & AI": "bg-orange-500/20 text-orange-400 border-orange-500/30"
-    }
-    return colors[category as keyof typeof colors] || "bg-gray-500/20 text-gray-400 border-gray-500/30"
-  }
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [open, setOpen] = useState(false)
+  const Icon = project.icon
+  const BadgeIcon = project.badgeIcon
 
   return (
-    <section id="projects" className="section-padding bg-dark-900">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Innovative AI/ML solutions and full-stack applications solving real-world problems
-          </p>
-        </motion.div>
-
-        <div className="grid gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="glass-effect rounded-xl p-4 sm:p-6 lg:p-8 hover-lift group"
-            >
-              <div className="grid lg:grid-cols-3 gap-4 lg:gap-6">
-                {/* Project Header */}
-                <div className="lg:col-span-1">
-                  <div className="flex items-center space-x-3 mb-4">
-                    {project.icon}
-                    <div className="flex-1">
-                      <div className={`inline-block px-3 py-1 rounded-full text-sm font-medium border ${getCategoryColor(project.category)}`}>
-                        {project.category}
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <h4 className="text-lg text-primary-400 mb-3">{project.subtitle}</h4>
-                  <div className="flex items-center text-gray-400 mb-4">
-                    <Calendar size={16} className="mr-2" />
-                    <span className="text-sm">{project.date}</span>
-                  </div>
-                  <div className="flex space-x-3">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-300 hover:text-primary-200 px-3 py-2 rounded-lg border border-primary-500/30 hover:border-primary-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/20"
-                    >
-                      <Github size={18} />
-                      <span className="text-sm font-medium">Code</span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Project Description */}
-                <div className="lg:col-span-2">
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    {project.description}
-                  </p>
-                  
-                  {/* Key Highlights */}
-                  <div className="mb-6">
-                    <h5 className="text-sm font-semibold text-white mb-3 flex items-center">
-                      <Code size={16} className="mr-2" />
-                      Key Highlights
-                    </h5>
-                    <ul className="space-y-2">
-                      {project.highlights.map((highlight, highlightIndex) => (
-                        <li key={highlightIndex} className="flex items-start">
-                          <div className="w-2 h-2 bg-primary-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                          <span className="text-gray-300 text-sm">{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30 hover:bg-primary-500/30 transition-colors"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+    <Reveal delay={(index % 2) * 80} className="card group overflow-hidden lg:col-span-3">
+      <div className="p-6 sm:p-7">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start gap-4">
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary-500/10 text-primary-300 ring-1 ring-primary-400/20">
+              <Icon size={22} />
+            </div>
+            <div>
+              <div className="mb-1.5 flex flex-wrap items-center gap-2">
+                <span className="pill">{project.category}</span>
+                {project.badge && (
+                  <span className={project.badge === 'Research' ? 'pill-violet' : 'pill-amber'}>
+                    {BadgeIcon && <BadgeIcon size={10} />}
+                    {project.badge}
+                  </span>
+                )}
+                <span className="font-mono text-xs text-mist-400">{project.year}</span>
               </div>
-            </motion.div>
-          ))}
+              <h3 className="font-display text-xl font-semibold text-mist-100 transition-colors group-hover:text-primary-200">
+                {project.title}
+              </h3>
+              <p className="mt-0.5 text-sm text-primary-300/90">{project.tagline}</p>
+            </div>
+          </div>
+
+          <div className="flex shrink-0 items-center gap-1.5">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.title} on GitHub`}
+                className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-mist-300 transition-colors hover:border-primary-400/40 hover:text-primary-300"
+              >
+                <Github size={17} />
+              </a>
+            )}
+            <button
+              onClick={() => setOpen((o) => !o)}
+              aria-expanded={open}
+              aria-label={open ? 'Collapse details' : 'Expand details'}
+              className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-mist-300 transition-all hover:border-primary-400/40 hover:text-primary-300"
+            >
+              <Plus
+                size={17}
+                className={`transition-transform duration-300 ${open ? 'rotate-45' : ''}`}
+              />
+            </button>
+          </div>
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-16"
-        >
-          <div className="glass-effect rounded-xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Interested in collaborating?
-            </h3>
-            <p className="text-gray-400 mb-6">
-              I'm always excited to work on new projects and explore innovative solutions
-            </p>
-            <a
-              href="https://github.com/subra4112"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover-lift"
-            >
-              <Github size={20} />
-              <span>View All Projects</span>
-            </a>
+        <p className="mt-4 text-sm leading-relaxed text-mist-300">{project.blurb}</p>
+
+        {/* Monitor-style metric readouts */}
+        {project.metrics && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {project.metrics.map((m) => (
+              <span key={m} className="metric">
+                {m}
+              </span>
+            ))}
           </div>
-        </motion.div>
+        )}
+
+        {/* Expandable detail — grid-rows trick animates height with no JS measure */}
+        <div
+          className="grid transition-[grid-template-rows] duration-500 ease-out"
+          style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+        >
+          <div className="overflow-hidden">
+            <div className="mt-5 grid gap-4 border-t border-white/5 pt-5 sm:grid-cols-3">
+              {[
+                ['Problem', project.problem],
+                ['Approach', project.approach],
+                ['Outcome', project.outcome],
+              ].map(([label, body]) => (
+                <div key={label}>
+                  <div className="eyebrow mb-1.5 text-[10px]">{label}</div>
+                  <p className="text-[13px] leading-relaxed text-mist-300">{body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Stack */}
+        <div className="mt-5 flex flex-wrap gap-1.5">
+          {project.stack.map((t) => (
+            <span
+              key={t}
+              className="rounded-md bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-mist-300"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
       </div>
-    </section>
+    </Reveal>
   )
 }
 
-export default Projects
+export default function Projects() {
+  return (
+    <section id="projects" className="section">
+      <SectionHeading
+        eyebrow="02 · work"
+        title="Selected"
+        accent="systems"
+        subtitle="Production clinical AI, frontier research reproductions, and agentic systems — each card expands into the problem, approach, and outcome."
+      />
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-6">
+        {PROJECTS.map((p, i) => (
+          <ProjectCard key={p.title} project={p} index={i} />
+        ))}
+      </div>
+
+      <Reveal delay={120} className="mt-10 text-center">
+        <a
+          href="https://github.com/subra4112"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-ghost"
+        >
+          <Github size={18} /> More on GitHub
+        </a>
+      </Reveal>
+    </section>
+  )
+}
