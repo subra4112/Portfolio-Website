@@ -5,7 +5,6 @@ import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import CustomCursor from './components/CustomCursor'
 import Preloader from './components/Preloader'
-import BackgroundScene from './components/BackgroundScene'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
@@ -28,7 +27,6 @@ export default function App() {
   return (
     <>
       {loading && <Preloader onDone={() => setLoading(false)} />}
-      <BackgroundScene />
       <CustomCursor />
       <ScrollProgress />
       <Nav />

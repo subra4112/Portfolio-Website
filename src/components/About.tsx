@@ -13,8 +13,9 @@ const MODEL_CARD: { key: string; value: string; highlight?: boolean }[] = [
   { key: 'domain', value: 'clinical AI · LLMs · agentic systems' },
   { key: 'pretraining', value: 'B.Tech CSE — SRM IST (2024)' },
   { key: 'fine_tuning', value: 'M.S. Data Science — ASU (May 2026)' },
-  { key: 'deployment', value: 'Botco.ai — Scottsdale, AZ', highlight: true },
+  { key: 'deployment', value: 'Botco.ai — Tempe, AZ', highlight: true },
   { key: 'eval/AUROC', value: '0.856 — hospital mortality (ETHOS repro)' },
+  { key: 'eval/F1', value: '0.759 macro — adverse events (Sanofi)' },
   { key: 'training_data', value: '26M+ clinical events · 4,733 residents' },
   { key: 'safety', value: 'HIPAA-compliant · production-gated' },
   { key: 'license', value: 'open to full-time roles', highlight: true },
@@ -68,9 +69,11 @@ export default function About() {
             <p>
               I trained a GPT-2-style transformer from scratch on real longitudinal EHR
               data to predict falls, hospitalizations, and mortality for assisted-living
-              residents — a system with no existing market equivalent. Before that:
-              knowledge-graph RAG engines, multi-agent testing systems, and
-              cybersecurity ML.
+              residents — a system with no existing market equivalent. Alongside it, I
+              built adverse-event detection for a{' '}
+              <span className="text-white">Sanofi</span>-funded pharmacovigilance program
+              deployed through Sutter Health. Before that: knowledge-graph RAG engines,
+              multi-agent testing systems, and cybersecurity ML.
             </p>
             <p>
               I care about the seam where research meets a real user — the unglamorous,
@@ -105,9 +108,9 @@ export default function About() {
         <Reveal delay={100} className="lg:col-span-3">
           <div className="term h-full">
             <div className="term-bar">
-              <span className="term-dot bg-rose-400/70" />
-              <span className="term-dot bg-amber-400/70" />
-              <span className="term-dot bg-primary-400/70" />
+              <span className="term-dot bg-white/25" />
+              <span className="term-dot bg-white/25" />
+              <span className="term-dot bg-white/25" />
               <span className="ml-3 font-mono text-xs text-mist-400">
                 ~/models/subramanian-raj/README.md
               </span>

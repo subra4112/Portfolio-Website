@@ -19,12 +19,12 @@ const ROLES = [
   'LLMs that actually ship',
 ]
 
-/** Live "vitals" — the readouts a monitor would show for this engineer. */
+/** Headline numbers, all from shipped work. */
 const VITALS = [
   { value: 26, suffix: 'M+', label: 'clinical events trained on' },
-  { value: 4733, suffix: '', label: 'residents modeled' },
-  { value: 0.856, suffix: '', decimals: 3, label: 'AUROC · mortality inference' },
-  { value: 20, suffix: 'K', label: 'patient trajectories simulated' },
+  { value: 0.856, decimals: 3, suffix: '', label: 'AUROC · mortality inference' },
+  { value: 0.759, decimals: 3, suffix: '', label: 'macro F1 · adverse events' },
+  { value: 91.7, decimals: 1, suffix: '%', label: 'VAERS labeling accuracy' },
 ]
 
 function RoleRotator() {
@@ -33,7 +33,7 @@ function RoleRotator() {
 
   useEffect(() => {
     if (reduced) return
-    const id = setInterval(() => setI((v) => (v + 1) % ROLES.length), 2600)
+    const id = setInterval(() => setI((v) => (v + 1) % ROLES.length), 2800)
     return () => clearInterval(id)
   }, [reduced])
 
@@ -42,11 +42,11 @@ function RoleRotator() {
       <AnimatePresence mode="wait">
         <motion.span
           key={ROLES[i]}
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -14 }}
+          exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="accent-serif inline-block text-gradient-accent"
+          className="accent-serif inline-block"
         >
           {ROLES[i]}
         </motion.span>
@@ -55,48 +55,26 @@ function RoleRotator() {
   )
 }
 
-/** The portrait, framed like a monitor readout: scanlines, corner ticks, tag. */
+/** Portrait framed like a record card — desaturated to match the theme. */
 function Portrait() {
   return (
-    <div className="relative mx-auto w-full max-w-[280px] lg:max-w-[340px]">
-      {/* Ambient glow behind the frame */}
-      <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-primary-500/10 blur-3xl" />
-
-      <div className="relative overflow-hidden rounded-3xl border border-primary-400/25 shadow-glow-lg">
+    <div className="relative mx-auto w-full max-w-[260px] lg:max-w-[320px]">
+      <div className="relative overflow-hidden rounded-2xl border border-white/15">
         <img
           src="/portrait.jpg"
           alt="Subramanian Raj Narayanan"
-          className="block w-full object-cover"
+          className="block w-full object-cover grayscale contrast-[1.05]"
           loading="eager"
         />
-        {/* Scanline + tint overlays for the monitor feel */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-40"
-          style={{
-            background:
-              'repeating-linear-gradient(0deg, rgba(4,8,7,0.14) 0px, rgba(4,8,7,0.14) 1px, transparent 1px, transparent 4px)',
-          }}
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-transparent" />
 
-        {/* Corner ticks */}
-        {['top-3 left-3 border-t border-l', 'top-3 right-3 border-t border-r', 'bottom-3 left-3 border-b border-l', 'bottom-3 right-3 border-b border-r'].map(
-          (pos) => (
-            <span
-              key={pos}
-              className={`pointer-events-none absolute h-4 w-4 border-primary-400/70 ${pos}`}
-            />
-          )
-        )}
-
-        {/* Subject tag */}
-        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-lg bg-ink-950/70 px-3 py-2 backdrop-blur">
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary-300">
+        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-lg border border-white/10 bg-ink-950/85 px-3 py-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist-300">
             subject: subraraj
           </span>
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary-400" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
           </span>
         </div>
       </div>
@@ -110,43 +88,43 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[100svh] flex-col overflow-hidden"
     >
-      {/* Vignette so text stays legible over the persistent WebGL field */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/40 via-transparent to-ink-950" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/70 via-transparent to-transparent" />
+      {/* Static backdrop only — nothing animates behind the headline. */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute inset-0 bg-grid-faint [background-size:64px_64px] opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink-950/70 to-ink-950" />
+      </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 items-center px-5 pt-28 sm:px-8 lg:pt-24">
-        <div className="grid w-full items-center gap-10 lg:grid-cols-5">
-          {/* Copy */}
+        <div className="grid w-full items-center gap-12 lg:grid-cols-5">
           <div className="max-w-3xl lg:col-span-3">
-            {/* Status chip — reads like a system monitor */}
-            <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-primary-400/20 bg-primary-500/5 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-primary-200 animate-fade-in">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-400" />
+            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-mist-200">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
               </span>
               clinical AI · live in production @ botco.ai
             </div>
 
-            <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tightest text-mist-100 sm:text-7xl">
+            <h1 className="font-display text-6xl font-bold leading-[0.95] tracking-tightest text-white sm:text-8xl">
               Subramanian
               <br />
               <span className="text-gradient">Raj Narayanan</span>
             </h1>
 
-            <p className="mt-7 max-w-2xl font-display text-2xl leading-snug text-mist-200 sm:text-3xl">
+            <p className="mt-8 max-w-2xl font-display text-2xl leading-snug text-mist-200 sm:text-[1.75rem]">
               I train <RoleRotator />
               <br className="hidden sm:block" /> for high-stakes healthcare.
             </p>
 
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-mist-300 sm:text-lg">
-              AI/ML Engineer at <span className="text-mist-100">Botco.ai</span>, where I built a
-              GPT-2-style transformer <span className="text-primary-300">from scratch</span> on
-              26M+ real clinical events — a first-of-its-kind generative clinical AI. From
-              pretraining to HIPAA-compliant deployment. M.S. Data Science @ ASU.
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-mist-300">
+              AI/ML Engineer at <span className="text-white">Botco.ai</span> — I trained a
+              GPT-2-style transformer <span className="text-white">from scratch</span> on
+              26M+ real clinical events, and built adverse-event detection for a{' '}
+              <span className="text-white">Sanofi</span>-funded program deployed through
+              Sutter Health. M.S. Data Science @ ASU.
             </p>
 
-            {/* CTAs */}
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-3">
               <MagneticButton to="/projects" className="btn-primary">
                 View the work
               </MagneticButton>
@@ -163,7 +141,6 @@ export default function Hero() {
               </MagneticButton>
             </div>
 
-            {/* Socials */}
             <div className="mt-10 flex items-center gap-5">
               {SOCIALS.map(({ icon: Icon, href, label }) => (
                 <a
@@ -172,35 +149,34 @@ export default function Hero() {
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   aria-label={label}
-                  className="text-mist-400 transition-colors duration-300 hover:text-primary-300"
+                  className="text-mist-400 transition-colors duration-300 hover:text-white"
                 >
-                  <Icon size={22} />
+                  <Icon size={21} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Portrait */}
           <div className="lg:col-span-2">
             <Portrait />
           </div>
         </div>
       </div>
 
-      {/* Vitals strip — ECG trace + live counters */}
+      {/* Vitals strip */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-10 pt-8 sm:px-8">
-        <EcgLine className="h-10 w-full" />
-        <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/5 pt-5 sm:grid-cols-4">
+        <EcgLine className="h-9 w-full" color="#ffffff" />
+        <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/10 pt-5 sm:grid-cols-4">
           {VITALS.map((v) => (
             <div key={v.label}>
-              <div className="font-mono text-2xl font-medium text-primary-300 sm:text-3xl">
+              <div className="font-mono text-2xl font-medium text-white sm:text-3xl">
                 <Counter
                   value={v.value}
                   suffix={v.suffix}
                   decimals={v.decimals ?? 0}
                 />
               </div>
-              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-mist-400">
+              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-mist-400">
                 {v.label}
               </div>
             </div>

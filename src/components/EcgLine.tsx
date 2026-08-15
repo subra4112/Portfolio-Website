@@ -13,7 +13,7 @@ interface EcgLineProps {
  */
 export default function EcgLine({
   className = '',
-  color = '#2ee8a5',
+  color = '#ffffff',
   animate = true,
 }: EcgLineProps) {
   return (

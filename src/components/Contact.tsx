@@ -11,7 +11,7 @@ const PUBLIC_KEY = 'UGzNe5K_OvWmvd5kQ'
 
 const CONTACT = [
   { icon: Mail, label: 'Email', value: 'rvanush3@gmail.com', href: 'mailto:rvanush3@gmail.com' },
-  { icon: MapPin, label: 'Location', value: 'Scottsdale / Tempe, Arizona' },
+  { icon: MapPin, label: 'Location', value: 'San Francisco Bay Area' },
   { icon: Linkedin, label: 'LinkedIn', value: '/in/subraraj', href: 'https://www.linkedin.com/in/subraraj' },
   { icon: Github, label: 'GitHub', value: '@subra4112', href: 'https://github.com/subra4112' },
 ]
@@ -105,8 +105,8 @@ export default function Contact() {
 
             <div className="mt-6 flex items-center gap-2.5 rounded-xl bg-primary-500/5 p-3.5 text-xs text-mist-300 ring-1 ring-primary-400/15">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
               </span>
               Available for opportunities · responds within a day
             </div>
@@ -118,7 +118,7 @@ export default function Contact() {
           <form onSubmit={onSubmit} className="card p-6 sm:p-7">
             {status === 'sent' ? (
               <div className="grid place-items-center py-16 text-center">
-                <CheckCircle2 className="mb-4 text-emerald-400" size={48} />
+                <CheckCircle2 className="mb-4 text-white" size={48} />
                 <h4 className="font-display text-xl font-semibold text-mist-100">
                   Message sent
                 </h4>
@@ -190,7 +190,7 @@ export default function Contact() {
                 </div>
 
                 {status === 'error' && (
-                  <p className="text-sm text-rose-400">
+                  <p className="text-sm text-white">
                     Something went wrong. Email me directly at{' '}
                     <a href="mailto:rvanush3@gmail.com" className="underline">
                       rvanush3@gmail.com

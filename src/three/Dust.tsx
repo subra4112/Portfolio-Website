@@ -59,7 +59,7 @@ export default function Dust({
       blending: THREE.AdditiveBlending,
       uniforms: {
         uTime: { value: 0 },
-        uColor: { value: new THREE.Color('#5bf5bd') },
+        uColor: { value: new THREE.Color('#ffffff') },
         uOpacity: { value: opacity },
       },
     })

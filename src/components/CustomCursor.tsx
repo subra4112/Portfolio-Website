@@ -33,8 +33,8 @@ export default function CustomCursor() {
         ring.current.style.width = interactive ? '56px' : '28px'
         ring.current.style.height = interactive ? '56px' : '28px'
         ring.current.style.borderColor = interactive
-          ? 'rgba(46,232,165,0.9)'
-          : 'rgba(46,232,165,0.4)'
+          ? 'rgba(255,255,255,0.9)'
+          : 'rgba(255,255,255,0.35)'
       }
     }
     const loop = () => {
@@ -63,7 +63,7 @@ export default function CustomCursor() {
       <div
         ref={dot}
         className="absolute -ml-1 -mt-1 h-2 w-2 rounded-full bg-primary-300"
-        style={{ boxShadow: '0 0 12px rgba(46,232,165,0.9)' }}
+        style={{ boxShadow: '0 0 12px rgba(255,255,255,0.9)' }}
       />
       <div
         ref={ring}
@@ -71,7 +71,7 @@ export default function CustomCursor() {
         style={{
           marginLeft: '-14px',
           marginTop: '-14px',
-          borderColor: 'rgba(46,232,165,0.4)',
+          borderColor: 'rgba(255,255,255,0.35)',
           transition: 'width 0.25s ease, height 0.25s ease, border-color 0.25s ease',
         }}
       />

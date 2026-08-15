@@ -10,6 +10,7 @@ import {
   Bot,
   Sparkles,
   FlaskConical,
+  Syringe,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import SectionHeading from './SectionHeading'
@@ -52,6 +53,25 @@ const PROJECTS: Project[] = [
       'Fall-risk prediction lifted from random chance to AUROC 0.693 (hospitalization 0.637, mortality 0.632), now driving Phase 3: care-level transition prediction over 6/12/18-month horizons for 634 confirmed cases.',
     metrics: ['26M+ events', '10M params', 'AUROC 0.693', '+19% Phase 2 lift'],
     stack: ['PyTorch', 'Transformers', 'EHR Tokenization', 'Python', 'CUDA'],
+  },
+  {
+    title: 'Beyfortus Adverse-Event Detection',
+    tagline: 'A RoBERTa classifier for a Sanofi-funded pharmacovigilance program',
+    year: '2026',
+    category: 'Clinical NLP · Pharmacovigilance',
+    icon: Syringe,
+    badge: 'Sanofi-funded',
+    badgeIcon: Sparkles,
+    blurb:
+      'Fine-tuned a RoBERTa classifier to detect adverse events in parent-reported symptom language for the Beyfortus (nirsevimab) RSV program, validated and deployed through Sutter Health.',
+    problem:
+      'Adverse events hide inside informal, parent-reported free text — and the source VAERS data arrives raw and unlabeled, so there is no ground truth to train a classifier against.',
+    approach:
+      'Built a dual-verification labeling pipeline combining rule-based and model-based checks to bootstrap trustworthy labels at scale, then fine-tuned RoBERTa and validated it against real-world parent-reported symptom phrases.',
+    outcome:
+      'Macro F1 0.7594 with 91.7% labeling accuracy across the raw dataset — validated against real reported phrasing before deployment through Sutter Health.',
+    metrics: ['macro F1 0.759', '91.7% labeling acc', 'CTCAE-aligned'],
+    stack: ['RoBERTa', 'PyTorch', 'Hugging Face', 'NLP', 'VAERS'],
   },
   {
     title: 'ARES / ETHOS Reproduction',

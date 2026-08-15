@@ -70,9 +70,9 @@ export default function Skills() {
       <Reveal>
         <div className="term">
           <div className="term-bar">
-            <span className="term-dot bg-rose-400/70" />
-            <span className="term-dot bg-amber-400/70" />
-            <span className="term-dot bg-primary-400/70" />
+            <span className="term-dot bg-white/25" />
+            <span className="term-dot bg-white/25" />
+            <span className="term-dot bg-white/25" />
             <span className="ml-3 font-mono text-xs text-mist-400">
               subra@production:~/stack
             </span>

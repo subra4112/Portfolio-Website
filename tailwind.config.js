@@ -7,65 +7,64 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary accent — ECG mint / clinical monitor green
+        /* Strictly monochrome. `primary` is the accent ramp — in this theme the
+           accent IS white, so emphasis comes from contrast, not hue. */
         primary: {
-          50: '#eafff6',
-          100: '#c9ffe9',
-          200: '#93fdd4',
-          300: '#5bf5bd',
-          400: '#2ee8a5', // core pulse mint
-          500: '#14d493',
-          600: '#0bb37d',
-          700: '#0a8f66',
-          800: '#0c7053',
-          900: '#0b5c45',
-          950: '#04241b',
+          50: '#ffffff',
+          100: '#fbfbfb',
+          200: '#f2f2f2',
+          300: '#e6e6e6',
+          400: '#ffffff',
+          500: '#d4d4d4',
+          600: '#a3a3a3',
+          700: '#7d7d7d',
+          800: '#5a5a5a',
+          900: '#3d3d3d',
+          950: '#1a1a1a',
         },
-        // Secondary accent — soft violet (model / research tone)
+        /* Kept as names so existing classes keep working — all neutral now. */
         violet: {
-          300: '#b3a6ff',
-          400: '#9683ff',
-          500: '#7c66ff',
-          600: '#6450e0',
-          700: '#4d3daf',
+          300: '#e0e0e0',
+          400: '#c4c4c4',
+          500: '#a3a3a3',
+          600: '#7d7d7d',
+          700: '#5a5a5a',
         },
-        // Tertiary accent — warm amber (alerts / highlights)
         amber: {
-          200: '#ffe3b3',
-          300: '#ffd28a',
-          400: '#ffbe5c',
-          500: '#ffab33',
+          200: '#f0f0f0',
+          300: '#dedede',
+          400: '#bdbdbd',
+          500: '#9e9e9e',
         },
-        // Near-black backgrounds with a hint of clinical green
+        /* Surfaces — near-black through charcoal. */
         ink: {
-          950: '#040807',
-          900: '#060b0a',
-          850: '#081010',
-          800: '#0b1514',
-          750: '#0e1a19',
-          700: '#122120',
-          600: '#1a2e2c',
+          950: '#0a0a0a',
+          900: '#0f0f0f',
+          850: '#141414',
+          800: '#181818',
+          750: '#1f1f1f',
+          700: '#262626',
+          600: '#333333',
         },
-        // Keep a `dark` alias mapped to the ink scale for legacy classes
         dark: {
-          50: '#f6fbf9',
-          100: '#e9f5f0',
-          200: '#c4d8d1',
-          300: '#93aca6',
-          400: '#64807a',
-          500: '#3f5651',
-          600: '#1a2e2c',
-          700: '#122120',
-          800: '#0b1514',
-          900: '#060b0a',
-          950: '#040807',
+          50: '#fafafa',
+          100: '#f0f0f0',
+          200: '#d9d9d9',
+          300: '#b8b8b8',
+          400: '#8f8f8f',
+          500: '#666666',
+          600: '#333333',
+          700: '#262626',
+          800: '#181818',
+          900: '#0f0f0f',
+          950: '#0a0a0a',
         },
-        // Soft text tones
+        /* Text tones — tuned for contrast on #0a0a0a. */
         mist: {
-          100: '#e9f5f0', // primary text
-          200: '#c4d8d1',
-          300: '#93aca6', // muted green-gray
-          400: '#64807a',
+          100: '#fafafa', // headings — ~19:1
+          200: '#e4e4e4', // strong body — ~15:1
+          300: '#b4b4b4', // body — ~9:1
+          400: '#8a8a8a', // muted labels — ~5.4:1
         },
       },
       fontFamily: {
@@ -75,19 +74,19 @@ export default {
         serif: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
       letterSpacing: {
-        tightest: '-0.04em',
+        tightest: '-0.045em',
       },
       boxShadow: {
-        glow: '0 0 24px rgba(46, 232, 165, 0.35)',
-        'glow-lg': '0 0 60px rgba(46, 232, 165, 0.25)',
-        'glow-violet': '0 0 40px rgba(124, 102, 255, 0.3)',
-        panel: '0 20px 60px -20px rgba(0, 0, 0, 0.8)',
+        glow: '0 0 24px rgba(255, 255, 255, 0.12)',
+        'glow-lg': '0 0 60px rgba(255, 255, 255, 0.08)',
+        'glow-violet': '0 0 40px rgba(255, 255, 255, 0.08)',
+        panel: '0 20px 60px -20px rgba(0, 0, 0, 0.9)',
       },
       backgroundImage: {
         'grid-faint':
-          'linear-gradient(rgba(46,232,165,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(46,232,165,0.045) 1px, transparent 1px)',
+          'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
         'radial-glow':
-          'radial-gradient(circle at 50% 0%, rgba(20,212,147,0.16), transparent 60%)',
+          'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 60%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out both',

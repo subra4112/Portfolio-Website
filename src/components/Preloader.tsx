@@ -67,9 +67,9 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           <div className="term shadow-panel">
             <div className="term-bar justify-between">
               <div className="flex items-center gap-2">
-                <span className="term-dot bg-rose-400/70" />
-                <span className="term-dot bg-amber-400/70" />
-                <span className="term-dot bg-primary-400/70" />
+                <span className="term-dot bg-white/25" />
+                <span className="term-dot bg-white/25" />
+                <span className="term-dot bg-white/25" />
                 <span className="ml-3 font-mono text-xs text-mist-400">
                   subraraj.os — boot
                 </span>
@@ -115,8 +115,8 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
             {/* Progress bar */}
             <div className="h-1 w-full bg-white/5">
               <div
-                className="h-full bg-gradient-to-r from-primary-400 to-violet-500 transition-[width] duration-300 ease-out"
-                style={{ width: `${progress}%`, boxShadow: '0 0 12px rgba(46,232,165,0.7)' }}
+                className="h-full bg-white transition-[width] duration-300 ease-out"
+                style={{ width: `${progress}%` }}
               />
             </div>
           </div>
