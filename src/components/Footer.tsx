@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react'
+import AvatarLogo from './AvatarLogo'
 
 const SOCIALS = [
   { icon: Github, href: 'https://github.com/subra4112', label: 'GitHub' },
@@ -25,8 +26,11 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div>
-            <Link to="/" className="font-mono text-lg font-semibold text-mist-100">
-              subra<span className="text-primary-400">raj</span>
+            <Link to="/" className="inline-flex items-center gap-3">
+              <AvatarLogo size={34} />
+              <span className="font-display text-xl font-extrabold tracking-tight text-white">
+                Subbu
+              </span>
             </Link>
             <p className="mt-2 max-w-sm text-sm text-mist-400">
               AI/ML engineer building generative clinical AI, agentic systems, and the

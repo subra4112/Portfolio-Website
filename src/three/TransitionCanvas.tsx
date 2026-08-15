@@ -6,10 +6,12 @@ import type { ShapeKey } from './shapes'
 export type FieldPhase = 'enter' | 'in' | 'out'
 
 /** Per-phase look: the field flies in from far and wide, settles, then implodes. */
+/* Deliberately small. The geometry is a mark above the label, not a backdrop
+   the text has to fight through. */
 const PHASES: Record<FieldPhase, { scale: number; opacity: number; z: number }> = {
-  enter: { scale: 1.7, opacity: 0, z: 11.5 },
-  in: { scale: 1, opacity: 1, z: 7 },
-  out: { scale: 0.55, opacity: 0, z: 5 },
+  enter: { scale: 1.15, opacity: 0, z: 13 },
+  in: { scale: 0.62, opacity: 1, z: 10.5 },
+  out: { scale: 0.3, opacity: 0, z: 9 },
 }
 
 /** Eases the camera toward the phase's distance — a dolly, not a cut. */

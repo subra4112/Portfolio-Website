@@ -126,14 +126,15 @@ export function usePageTransition(): PageTransitionResult {
           }}
         />
 
-        {/* Full bleed and radially masked, so the canvas has no visible edge. */}
+        {/* Sits in the upper half only, radially masked so it has no edge and
+            never crowds the label underneath. */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-x-0 top-0 h-[58%]"
           style={{
             maskImage:
-              'radial-gradient(circle at 50% 44%, #000 0%, #000 42%, transparent 72%)',
+              'radial-gradient(circle at 50% 52%, #000 0%, #000 32%, transparent 66%)',
             WebkitMaskImage:
-              'radial-gradient(circle at 50% 44%, #000 0%, #000 42%, transparent 72%)',
+              'radial-gradient(circle at 50% 52%, #000 0%, #000 32%, transparent 66%)',
           }}
         >
           {mounted && (
@@ -149,7 +150,7 @@ export function usePageTransition(): PageTransitionResult {
           )}
         </div>
 
-        <div className="absolute inset-x-0 bottom-[17%] flex flex-col items-center gap-5 px-6">
+        <div className="absolute inset-x-0 bottom-0 top-[58%] flex flex-col items-center gap-5 px-6 pt-6">
           <motion.span
             className="font-mono text-[11px] uppercase tracking-[0.34em]"
             style={{ color: theme.text }}

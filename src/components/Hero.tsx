@@ -18,30 +18,6 @@ const ROLES = [
   'LLMs that actually ship',
 ]
 
-/** What I do, in plain language, written for a recruiter skimming for fit. */
-const SPECIALTIES = [
-  {
-    color: '#63a8f8',
-    label: 'Healthcare Generative AI',
-    text: 'Clinical foundation models trained from scratch on real patient records.',
-  },
-  {
-    color: '#f491c0',
-    label: 'Clinical NLP and Drug Safety',
-    text: 'Adverse event detection for a Sanofi funded program, live through Sutter Health.',
-  },
-  {
-    color: '#b795f5',
-    label: 'Agentic AI and RAG',
-    text: 'Multi agent LLM systems and hybrid graph plus vector retrieval.',
-  },
-  {
-    color: '#6cc971',
-    label: 'Production MLOps',
-    text: 'HIPAA compliant clinical AI on Kubernetes, architected with the CTO.',
-  },
-]
-
 function RoleRotator() {
   const reduced = usePrefersReducedMotion()
   const [i, setI] = useState(0)
@@ -136,9 +112,9 @@ export default function Hero() {
               AI/ML Engineer at <span className="text-white">Botco.ai</span>, where I
               trained a clinical transformer{' '}
               <span className="text-white">from scratch</span> on real patient records and
-              shipped adverse event detection for a{' '}
-              <span className="text-white">Sanofi</span> funded program. I work directly
-              with the CTO on systems that reach real clinicians. M.S. Data Science at ASU.
+              shipped adverse event detection on the{' '}
+              <span className="text-white">Sanofi</span> project. I work directly with the
+              CTO on systems that reach real clinicians. M.S. Data Science at ASU.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -180,27 +156,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* What I specialize in */}
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-10 sm:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-6 pt-10 sm:px-8">
         <EcgLine className="h-9 w-full" color="#3a83f7" />
-        <div className="mt-4 border-t border-white/10 pt-8">
-          <h2 className="mb-6 font-display text-2xl font-bold text-white sm:text-3xl">
-            What I specialize in
-          </h2>
-          <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
-            {SPECIALTIES.map((s) => (
-              <div key={s.label} className="border-l-2 pl-4" style={{ borderColor: s.color }}>
-                <div
-                  className="font-display text-lg font-bold leading-tight"
-                  style={{ color: s.color }}
-                >
-                  {s.label}
-                </div>
-                <p className="mt-2 text-[15px] leading-relaxed text-mist-300">{s.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   )

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Menu, X, FileText } from 'lucide-react'
+import AvatarLogo from './AvatarLogo'
 
 const LINKS = [
   
@@ -38,12 +39,10 @@ export default function Nav() {
           }`}
         >
           {/* Wordmark */}
-          <Link to="/" className="group flex items-center gap-2.5" aria-label="Home">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-primary-400 to-violet-500 font-mono text-sm font-bold text-ink-950">
-              ⌁
-            </span>
-            <span className="font-mono text-sm font-semibold tracking-wide text-mist-100">
-              subra<span className="text-primary-400">raj</span>
+          <Link to="/" className="group flex items-center gap-3" aria-label="Home">
+            <AvatarLogo size={38} />
+            <span className="font-display text-[17px] font-extrabold tracking-tight text-white">
+              Subbu
             </span>
           </Link>
 

@@ -9,7 +9,6 @@ import {
   HeartPulse,
   Bot,
   Syringe,
-  LayoutDashboard,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import SectionHeading from './SectionHeading'
@@ -39,68 +38,49 @@ interface Project {
 const BLUE = { c: '#3a83f7', bg: '#133463' }
 const PINK = { c: '#f077af', bg: '#663049' }
 const PURPLE = { c: '#a67df2', bg: '#3b2366' }
-const GREEN = { c: '#53b559', bg: '#1f4e25' }
 const YELLOW = { c: '#f6c543', bg: '#734615' }
 const ORANGE = { c: '#ee7c37', bg: '#653218' }
 
 const PROJECTS: Project[] = [
   {
-    title: 'Carlton AI Dashboard',
-    tagline: 'The clinical risk console care staff actually use',
+    title: 'Carlton AI',
+    tagline: 'A clinical foundation model, and the console that makes it usable',
     year: '2026',
-    category: 'Product · Clinical AI',
-    icon: LayoutDashboard,
-    badge: 'Live product',
-    tone: GREEN,
-    live: '/carlton-dashboard.html',
-    blurb:
-      'The interface that turns model output into daily decisions. It surfaces resident risk, ranks who needs attention, and explains why, taking the research prototype all the way to something staff open every morning.',
-    problem:
-      'A model that only lives in a notebook changes nothing about how a facility runs.',
-    approach:
-      'Designed and built a resident risk console that reads the model, ranks residents by urgency, and shows the signals behind each score.',
-    outcome:
-      'A working MVP dashboard, the first of its kind in this corner of healthcare AI.',
-    metrics: ['MVP shipped', 'daily use', 'risk ranking'],
-    stack: ['React', 'TypeScript', 'Clinical AI', 'Data Viz'],
-  },
-  {
-    title: 'Beyfortus Adverse Event Detection',
-    tagline: 'A RoBERTa classifier for a Sanofi funded safety program',
-    year: '2026',
-    category: 'Clinical NLP · Drug Safety',
-    icon: Syringe,
-    badge: 'Sanofi funded',
-    tone: PINK,
-    blurb:
-      'Fine tuned a RoBERTa transformer into a five class adverse event classifier for Sanofi’s Beyfortus program, plus the review frontend that lets a human check every flagged case before it counts.',
-    problem:
-      'Adverse events hide in informal parent reported language, and the source VAERS data arrives raw with no labels to train on.',
-    approach:
-      'Built a dual verification labeling pipeline combining keyword rules with model agreement, then fine tuned RoBERTa across six training rounds and shipped a review UI for the ambiguous cases.',
-    outcome:
-      'Macro F1 0.7594, validated on 36 of 40 real trigger phrases before deployment through Sutter Health.',
-    metrics: ['macro F1 0.759', '91.7% labeling accuracy', 'review frontend'],
-    stack: ['RoBERTa', 'PyTorch', 'Hugging Face', 'React', 'VAERS'],
-  },
-  {
-    title: 'Generative Clinical AI',
-    tagline: 'A transformer trained from scratch on real patient records',
-    year: '2026',
-    category: 'Foundation Models',
+    category: 'Foundation Models · Product',
     icon: HeartPulse,
     badge: 'First of its kind',
     tone: BLUE,
+    live: '/carlton-dashboard.html',
     blurb:
-      'Designed and trained a GPT2 style autoregressive transformer from scratch in PyTorch on millions of clinical events, producing a generative clinical AI system with no existing market equivalent.',
+      'A GPT2 style transformer I trained from scratch in PyTorch on millions of real clinical events, plus the risk console that turns its output into something care staff open every morning. Try the live dashboard below.',
     problem:
-      'Longitudinal records are fragmented, noisy and heavily imbalanced, so off the shelf models learn almost nothing useful.',
+      'Longitudinal records are fragmented, noisy and heavily imbalanced, so off the shelf models learn almost nothing. And a model that lives only in a notebook changes nothing about how a facility runs.',
     approach:
-      'Owned the pipeline end to end: tokenizing thousands of fragmented diagnosis codes, designing the architecture, then fixing the imbalance with tiered undersampling and loss reweighting.',
+      'Owned it end to end. Tokenized thousands of fragmented diagnosis codes, designed the architecture, fixed the imbalance with tiered undersampling and loss reweighting, then built the console that ranks residents by urgency and shows the signals behind every score.',
     outcome:
-      'Lifted fall risk prediction from random chance to a usable signal, and now leads Phase 3 care transition forecasting.',
+      'Fall risk prediction went from random chance to a usable signal, and the research prototype became a working dashboard with no equivalent on the market.',
     metrics: ['26M+ events', '10M params', 'Phase 3 lead'],
-    stack: ['PyTorch', 'Transformers', 'Tokenization', 'CUDA'],
+    stack: ['PyTorch', 'Transformers', 'React', 'TypeScript', 'CUDA'],
+  },
+  {
+    title: 'Beyfortus AE Reporting Companion',
+    tagline: 'Catching adverse events in the words parents actually use',
+    year: '2026',
+    category: 'Clinical NLP · Drug Safety',
+    icon: Syringe,
+    badge: 'Sanofi project',
+    tone: PINK,
+    live: '/beyfortus-demo.html',
+    blurb:
+      'A five class adverse event classifier built on RoBERTa for the Beyfortus program at Sanofi, wrapped in a reporting companion that walks a parent through describing a reaction and routes anything serious to a human. The demo below is live.',
+    problem:
+      'Adverse events hide inside informal parent reported language, and the source VAERS data arrives raw with no labels to train against.',
+    approach:
+      'Built a dual verification labeling pipeline pairing keyword rules with model agreement, fine tuned RoBERTa across six training rounds, then shipped the reporting interface that puts a human in the loop on every serious case.',
+    outcome:
+      'Macro F1 0.7594, validated against 36 of 40 real trigger phrases, headed for deployment through Sutter Health.',
+    metrics: ['macro F1 0.759', '91.7% labeling accuracy', 'live demo'],
+    stack: ['RoBERTa', 'PyTorch', 'Hugging Face', 'Next.js', 'VAERS'],
   },
   {
     title: 'ARES and ETHOS Reproduction',

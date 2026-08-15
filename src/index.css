@@ -273,6 +273,96 @@
   }
 }
 
+/* The whole site recedes while a demo popup is open. The popup is portalled
+   to <body>, outside #root, so it stays perfectly sharp. */
+body.has-modal #root {
+  filter: blur(6px) saturate(0.75) brightness(0.75);
+}
+#root {
+  transition: filter 0.32s ease;
+}
+
+/* ---- Animated avatar mark ------------------------------------------------ */
+.avatar-ring {
+  background: conic-gradient(
+    from 0deg,
+    #3a83f7,
+    #a67df2,
+    #f077af,
+    #f6c543,
+    #53b559,
+    #3a83f7
+  );
+  animation: avatar-spin 5.5s linear infinite;
+  padding: 2px;
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 0);
+}
+
+.avatar-aura {
+  background: radial-gradient(circle, rgba(58, 131, 247, 0.55), transparent 68%);
+  filter: blur(7px);
+  animation: avatar-breathe 3.4s ease-in-out infinite;
+}
+
+.avatar-img {
+  filter: contrast(1.08) saturate(1.12);
+  transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.avatar-scan {
+  top: -35%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.32),
+    transparent
+  );
+  animation: avatar-scan 3.6s ease-in-out infinite;
+}
+
+.avatar-logo:hover .avatar-ring {
+  animation-duration: 1.6s;
+}
+.avatar-logo:hover .avatar-img {
+  transform: scale(1.09);
+  filter: contrast(1.15) saturate(1.3);
+}
+
+@keyframes avatar-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes avatar-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.06);
+  }
+}
+@keyframes avatar-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(430%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(430%);
+    opacity: 0;
+  }
+}
+
 @keyframes bubble-float {
   0%,
   100% {
@@ -320,7 +410,10 @@
     opacity: 1;
     transform: none;
   }
-  .bubble {
+  .bubble,
+  .avatar-ring,
+  .avatar-aura,
+  .avatar-scan {
     animation: none;
   }
   .ecg-path {
