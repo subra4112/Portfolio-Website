@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Github, Linkedin, Mail } from 'lucide-react'
 import MagneticButton from './MagneticButton'
 import EcgLine from './EcgLine'
-import Counter from './Counter'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 const SOCIALS = [
@@ -19,12 +18,31 @@ const ROLES = [
   'LLMs that actually ship',
 ]
 
-/** Headline numbers, all from shipped work. */
-const VITALS = [
-  { value: 26, suffix: 'M+', label: 'clinical events trained on' },
-  { value: 0.856, decimals: 3, suffix: '', label: 'AUROC · mortality inference' },
-  { value: 0.759, decimals: 3, suffix: '', label: 'macro F1 · adverse events' },
-  { value: 91.7, decimals: 1, suffix: '%', label: 'VAERS labeling accuracy' },
+/**
+ * What I do, in plain language — written for a recruiter skimming for fit,
+ * not a benchmark table.
+ */
+const SPECIALTIES = [
+  {
+    color: '#63a8f8',
+    label: 'Healthcare Generative AI',
+    text: 'Clinical foundation models trained from scratch on real patient records — a first of its kind in assisted living.',
+  },
+  {
+    color: '#f491c0',
+    label: 'Clinical NLP & Drug Safety',
+    text: 'Adverse-event detection for a Sanofi-funded program, validated on real-world reports and deployed through Sutter Health.',
+  },
+  {
+    color: '#b795f5',
+    label: 'Agentic AI & RAG',
+    text: 'Multi-agent LLM systems and hybrid graph + vector retrieval built for multi-hop clinical reasoning.',
+  },
+  {
+    color: '#6cc971',
+    label: 'Production MLOps',
+    text: 'HIPAA-compliant clinical AI on Kubernetes, architected hands-on with the CTO and shipped to real care staff.',
+  },
 ]
 
 function RoleRotator() {
@@ -124,11 +142,12 @@ export default function Hero() {
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-mist-300">
-              AI/ML Engineer at <span className="text-white">Botco.ai</span> — I trained a
-              GPT-2-style transformer <span className="text-white">from scratch</span> on
-              26M+ real clinical events, and built adverse-event detection for a{' '}
-              <span className="text-white">Sanofi</span>-funded program deployed through
-              Sutter Health. M.S. Data Science @ ASU.
+              AI/ML Engineer at <span className="text-white">Botco.ai</span>, where I
+              trained a clinical transformer{' '}
+              <span className="text-white">from scratch</span> on real patient records and
+              shipped adverse-event detection for a{' '}
+              <span className="text-white">Sanofi</span>-funded program — architecting
+              production clinical AI hands-on with the CTO. M.S. Data Science @ ASU.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -170,24 +189,28 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Vitals strip */}
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-10 pt-8 sm:px-8">
-        <EcgLine className="h-9 w-full" color="#ffffff" />
-        <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/10 pt-5 sm:grid-cols-4">
-          {VITALS.map((v) => (
-            <div key={v.label}>
-              <div className="font-mono text-2xl font-medium text-white sm:text-3xl">
-                <Counter
-                  value={v.value}
-                  suffix={v.suffix}
-                  decimals={v.decimals ?? 0}
-                />
+      {/* What I specialize in */}
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-12 pt-8 sm:px-8">
+        <EcgLine className="h-9 w-full" color="#3a83f7" />
+        <div className="mt-3 border-t border-white/10 pt-6">
+          <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.28em] text-mist-400">
+            What I specialize in
+          </div>
+          <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+            {SPECIALTIES.map((s) => (
+              <div key={s.label} className="border-l pl-4" style={{ borderColor: s.color }}>
+                <div
+                  className="font-display text-[15px] font-semibold"
+                  style={{ color: s.color }}
+                >
+                  {s.label}
+                </div>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-mist-300">
+                  {s.text}
+                </p>
               </div>
-              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-mist-400">
-                {v.label}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

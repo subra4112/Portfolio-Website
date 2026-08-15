@@ -9,7 +9,7 @@ import { buildShapes, type ShapeKey } from './shapes'
 const STAGGER = 0.35 // fraction of the morph spent staggering points in
 const SPAN = 1 - STAGGER
 const BURST = 0.6 // how far points bow outward mid-flight
-const MORPH_SECONDS = 1.25
+const MORPH_SECONDS = 0.8
 
 const vertexShader = /* glsl */ `
   uniform float uTime;
@@ -279,9 +279,9 @@ export default function MorphField({
     a.pulse += (pulse - a.pulse) * d * 3
     u.uPulse.value = thump * a.pulse
 
-    // Ease route-driven properties instead of snapping them.
-    a.scale += (scale - a.scale) * d * 2.4
-    a.opacity += (opacity - a.opacity) * d * 2.4
+    // Ease phase-driven properties instead of snapping them.
+    a.scale += (scale - a.scale) * d * 4.2
+    a.opacity += (opacity - a.opacity) * d * 4.2
     u.uScale.value = a.scale
     u.uOpacity.value = a.opacity
 
