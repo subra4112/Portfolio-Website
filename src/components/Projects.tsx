@@ -8,14 +8,14 @@ import {
   ShieldCheck,
   HeartPulse,
   Bot,
-  Sparkles,
-  FlaskConical,
   Syringe,
+  LayoutDashboard,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import SectionHeading from './SectionHeading'
 import Reveal from './Reveal'
 import TiltCard from './TiltCard'
+import LivePreview from './LivePreview'
 
 interface Project {
   title: string
@@ -31,276 +31,301 @@ interface Project {
   metrics?: string[]
   github?: string
   badge?: string
-  badgeIcon?: LucideIcon
+  /** Renders a running preview of the real product inside the card. */
+  live?: string
+  tone: { c: string; bg: string }
 }
+
+const BLUE = { c: '#3a83f7', bg: '#133463' }
+const PINK = { c: '#f077af', bg: '#663049' }
+const PURPLE = { c: '#a67df2', bg: '#3b2366' }
+const GREEN = { c: '#53b559', bg: '#1f4e25' }
+const YELLOW = { c: '#f6c543', bg: '#734615' }
+const ORANGE = { c: '#ee7c37', bg: '#653218' }
 
 const PROJECTS: Project[] = [
   {
-    title: 'Generative Clinical AI',
-    tagline: 'A GPT-2-style transformer trained from scratch on real EHR data',
+    title: 'Carlton AI Dashboard',
+    tagline: 'The clinical risk console care staff actually use',
     year: '2026',
-    category: 'Clinical AI · Foundation Models',
+    category: 'Product · Clinical AI',
+    icon: LayoutDashboard,
+    badge: 'Live product',
+    tone: GREEN,
+    live: '/carlton-dashboard.html',
+    blurb:
+      'The interface that turns model output into daily decisions. It surfaces resident risk, ranks who needs attention, and explains why, taking the research prototype all the way to something staff open every morning.',
+    problem:
+      'A model that only lives in a notebook changes nothing about how a facility runs.',
+    approach:
+      'Designed and built a resident risk console that reads the model, ranks residents by urgency, and shows the signals behind each score.',
+    outcome:
+      'A working MVP dashboard, the first of its kind in this corner of healthcare AI.',
+    metrics: ['MVP shipped', 'daily use', 'risk ranking'],
+    stack: ['React', 'TypeScript', 'Clinical AI', 'Data Viz'],
+  },
+  {
+    title: 'Beyfortus Adverse Event Detection',
+    tagline: 'A RoBERTa classifier for a Sanofi funded safety program',
+    year: '2026',
+    category: 'Clinical NLP · Drug Safety',
+    icon: Syringe,
+    badge: 'Sanofi funded',
+    tone: PINK,
+    blurb:
+      'Fine tuned a RoBERTa transformer into a five class adverse event classifier for Sanofi’s Beyfortus program, plus the review frontend that lets a human check every flagged case before it counts.',
+    problem:
+      'Adverse events hide in informal parent reported language, and the source VAERS data arrives raw with no labels to train on.',
+    approach:
+      'Built a dual verification labeling pipeline combining keyword rules with model agreement, then fine tuned RoBERTa across six training rounds and shipped a review UI for the ambiguous cases.',
+    outcome:
+      'Macro F1 0.7594, validated on 36 of 40 real trigger phrases before deployment through Sutter Health.',
+    metrics: ['macro F1 0.759', '91.7% labeling accuracy', 'review frontend'],
+    stack: ['RoBERTa', 'PyTorch', 'Hugging Face', 'React', 'VAERS'],
+  },
+  {
+    title: 'Generative Clinical AI',
+    tagline: 'A transformer trained from scratch on real patient records',
+    year: '2026',
+    category: 'Foundation Models',
     icon: HeartPulse,
     badge: 'First of its kind',
-    badgeIcon: Sparkles,
+    tone: BLUE,
     blurb:
-      'At Botco.ai, I designed and trained a 10M-parameter autoregressive transformer from scratch in PyTorch on 26M+ clinical events across 4,733 assisted-living residents — a generative clinical AI system with no existing market equivalent.',
+      'Designed and trained a GPT2 style autoregressive transformer from scratch in PyTorch on millions of clinical events, producing a generative clinical AI system with no existing market equivalent.',
     problem:
-      'Assisted-living operators need to know which residents are at risk of falls, hospitalization, or death — but longitudinal EHR data is fragmented, noisy, and severely imbalanced (27:1 noise-to-signal).',
+      'Longitudinal records are fragmented, noisy and heavily imbalanced, so off the shelf models learn almost nothing useful.',
     approach:
-      'Built the entire pipeline end to end: EHR tokenization normalizing 10,144 fragmented diagnosis codes, GPT-2-style architecture, 3-tier undersampling, loss upweighting, and regression-gated multi-outcome evaluation.',
+      'Owned the pipeline end to end: tokenizing thousands of fragmented diagnosis codes, designing the architecture, then fixing the imbalance with tiered undersampling and loss reweighting.',
     outcome:
-      'Fall-risk prediction lifted from random chance to AUROC 0.693 (hospitalization 0.637, mortality 0.632), now driving Phase 3: care-level transition prediction over 6/12/18-month horizons for 634 confirmed cases.',
-    metrics: ['26M+ events', '10M params', 'AUROC 0.693', '+19% Phase 2 lift'],
-    stack: ['PyTorch', 'Transformers', 'EHR Tokenization', 'Python', 'CUDA'],
+      'Lifted fall risk prediction from random chance to a usable signal, and now leads Phase 3 care transition forecasting.',
+    metrics: ['26M+ events', '10M params', 'Phase 3 lead'],
+    stack: ['PyTorch', 'Transformers', 'Tokenization', 'CUDA'],
   },
   {
-    title: 'Beyfortus Adverse-Event Detection',
-    tagline: 'A RoBERTa classifier for a Sanofi-funded pharmacovigilance program',
+    title: 'ARES and ETHOS Reproduction',
+    tagline: 'Mortality inference from thousands of simulated patient futures',
     year: '2026',
-    category: 'Clinical NLP · Pharmacovigilance',
-    icon: Syringe,
-    badge: 'Sanofi-funded',
-    badgeIcon: Sparkles,
-    blurb:
-      'Fine-tuned a RoBERTa classifier to detect adverse events in parent-reported symptom language for the Beyfortus (nirsevimab) RSV program, validated and deployed through Sutter Health.',
-    problem:
-      'Adverse events hide inside informal, parent-reported free text — and the source VAERS data arrives raw and unlabeled, so there is no ground truth to train a classifier against.',
-    approach:
-      'Built a dual-verification labeling pipeline combining rule-based and model-based checks to bootstrap trustworthy labels at scale, then fine-tuned RoBERTa and validated it against real-world parent-reported symptom phrases.',
-    outcome:
-      'Macro F1 0.7594 with 91.7% labeling accuracy across the raw dataset — validated against real reported phrasing before deployment through Sutter Health.',
-    metrics: ['macro F1 0.759', '91.7% labeling acc', 'CTCAE-aligned'],
-    stack: ['RoBERTa', 'PyTorch', 'Hugging Face', 'NLP', 'VAERS'],
-  },
-  {
-    title: 'ARES / ETHOS Reproduction',
-    tagline: 'Hospital mortality inference via 20K Monte Carlo patient futures',
-    year: '2026',
-    category: 'Research · Healthcare ML',
+    category: 'Research',
     icon: Activity,
     badge: 'Research',
-    badgeIcon: FlaskConical,
+    tone: PURPLE,
     blurb:
-      'Reproduced the ARES/ETHOS hospital-mortality inference pipeline on an NVIDIA H100 — generating 20,000 future patient trajectories via Monte Carlo simulation to estimate mortality risk from tokenized health timelines.',
+      'Reproduced a frontier hospital mortality inference pipeline on an NVIDIA H100, generating twenty thousand possible patient futures by Monte Carlo simulation to estimate risk from tokenized health timelines.',
     problem:
-      'Zero-shot clinical inference from generative patient timelines is a frontier method; reproducing published results end to end is the only way to trust — and extend — it.',
+      'Zero shot clinical inference from generative timelines is new, and trusting it means reproducing it yourself.',
     approach:
-      'Stood up the full pipeline on H100 GPUs: 20 Monte Carlo simulations per example over tokenized MIMIC-IV-style timelines, plus the EHRSHOT/FEMR benchmark with pretrained CLMBR-T-base weights across 15 few-shot tasks — debugging JAX, CUDA, cuDNN, and NumPy conflicts along the way.',
+      'Stood up the full pipeline on H100 GPUs and benchmarked EHRSHOT with pretrained CLMBR weights, clearing JAX, CUDA and cuDNN conflicts on the way.',
     outcome:
-      'Matched published performance — AUROC 0.8561, AUPRC 0.2754, Brier 0.0158 — validating the generative-inference approach that now underpins production clinical AI work.',
-    metrics: ['AUROC 0.8561', 'Brier 0.0158', '20K trajectories', 'H100'],
-    stack: ['PyTorch', 'ETHOS', 'EHRSHOT', 'CLMBR', 'JAX', 'H100'],
+      'Matched published performance, validating the approach that now underpins the production work.',
+    metrics: ['AUROC 0.8561', '20K trajectories', 'H100'],
+    stack: ['PyTorch', 'ETHOS', 'EHRSHOT', 'JAX'],
   },
   {
     title: 'AskNeo',
-    tagline: 'Hybrid RAG over a knowledge graph + vector store for medical QA',
+    tagline: 'Hybrid retrieval over a knowledge graph and a vector store',
     year: '2025',
     category: 'RAG · Knowledge Graphs',
     icon: Brain,
     github: 'https://github.com/subra4112/AskNeo-Smart-Health-Assistant',
+    tone: YELLOW,
     blurb:
-      'A hybrid retrieval engine that answers multi-hop medical questions by combining a Neo4j knowledge graph (3K+ nodes, 12K+ edges) with ChromaDB vector search, orchestrated through LangChain.',
+      'A retrieval engine that answers multi hop medical questions by combining a Neo4j knowledge graph with ChromaDB vector search through LangChain.',
     problem:
-      'Pure vector RAG misses structured multi-hop relationships; pure graph queries miss fuzzy semantic recall. Medical QA needs both at once.',
+      'Vector search misses structured relationships. Graph queries miss fuzzy recall. Medical questions need both.',
     approach:
-      'Built the Neo4j graph alongside ChromaDB embeddings and routed queries through LangChain with GPT-based retrieval, enabling reasoning across structured and semantic data in a single answer.',
+      'Built the graph alongside embeddings and routed every query through both, then merged the evidence into one answer.',
     outcome:
-      'Multi-hop medical reasoning with scalable semantic search — benchmarked with ROUGE, BLEU, and cosine similarity to quantify answer quality.',
-    metrics: ['3K+ nodes', '12K+ edges', 'multi-hop QA'],
-    stack: ['Neo4j', 'ChromaDB', 'LangChain', 'GPT-4', 'Python'],
+      'Multi hop reasoning across structured and semantic data, benchmarked on answer quality.',
+    metrics: ['3K+ nodes', '12K+ edges'],
+    stack: ['Neo4j', 'ChromaDB', 'LangChain', 'Python'],
   },
   {
     title: 'FocusMate',
-    tagline: 'A mobile AI co-pilot for ADHD users',
+    tagline: 'A mobile AI copilot for people with ADHD',
     year: '2025',
     category: 'Agents · Mobile',
     icon: Smartphone,
     github: 'https://github.com/subra4112/FocusMate_AI_Co_Pilot_for_ADHD',
+    tone: ORANGE,
     blurb:
-      'A mobile AI productivity assistant built with React Native and FastAPI — Gmail and Google Calendar aware, with LLM-powered email triage, action-item extraction, and real-time voice input.',
+      'A productivity assistant in React Native and FastAPI that reads your inbox and calendar, triages what matters, and captures tasks by voice.',
     problem:
-      'Productivity tools are passive. People with ADHD need an assistant that captures intent instantly and turns inboxes and calendars into actions automatically.',
+      'Productivity tools wait to be used. Attention is exactly what is in short supply.',
     approach:
-      'Integrated the Gmail and Google Calendar APIs behind a FastAPI backend, with an LLM layer for email triage and action-item extraction, plus real-time voice capture in the React Native client.',
+      'Wired the Gmail and Calendar APIs behind FastAPI, with an LLM layer for triage and action extraction and instant voice capture.',
     outcome:
-      'Automated task management that meets users where attention is scarce — fast voice capture, triaged email, extracted to-dos.',
-    metrics: ['voice-first', 'LLM triage', 'auto task extraction'],
-    stack: ['React Native', 'FastAPI', 'Gmail API', 'Google Calendar', 'LLMs'],
+      'Automated task management that meets people where their attention already is.',
+    metrics: ['voice first', 'LLM triage'],
+    stack: ['React Native', 'FastAPI', 'Gmail API', 'LLMs'],
   },
   {
-    title: 'EDITH-QA',
-    tagline: 'Multi-agent LLM system for autonomous mobile UI testing',
+    title: 'EDITH QA',
+    tagline: 'Four agents that test mobile apps on their own',
     year: '2025',
     category: 'Agents · QA',
     icon: Bot,
     github: 'https://github.com/subra4112/EDITH-QA',
+    tone: BLUE,
     blurb:
-      'An autonomous mobile testing system where Planner, Executor, Verifier, and Supervisor LLM agents collaborate — with computer vision — to run and verify Android UI tasks.',
-    problem:
-      'Mobile UI testing is brittle and manual; scripted tests break every time the UI shifts.',
+      'An autonomous testing system where Planner, Executor, Verifier and Supervisor agents collaborate, with computer vision, to run and confirm Android UI tasks.',
+    problem: 'Scripted UI tests break every time the interface shifts.',
     approach:
-      'Role-specialized LLM agents coordinate through a supervisor loop with vision-grounded verification and structured audit logging for every step.',
-    outcome:
-      '95%+ task-execution accuracy, meaningfully reducing manual UI-testing effort.',
+      'Role specialised agents coordinate through a supervisor loop with vision grounded verification and a full audit log.',
+    outcome: 'Over 95% task execution accuracy, cutting manual testing effort.',
     metrics: ['95%+ accuracy', '4 agent roles'],
-    stack: ['Python', 'LLMs', 'Multi-agent', 'Computer Vision'],
+    stack: ['Python', 'LLMs', 'Computer Vision'],
   },
   {
     title: 'ArcDefender',
-    tagline: 'Deep-learning detection of malware C2 beaconing',
+    tagline: 'Deep learning detection of malware beaconing',
     year: '2025',
     category: 'ML · Security',
     icon: ShieldCheck,
     github: 'https://github.com/subra4112/ArcDefender',
+    tone: PINK,
     blurb:
-      'A cyber threat detection system using LSTM and BERT models to identify command-and-control communication patterns hidden in DNS/HTTPS traffic.',
-    problem:
-      'Stealthy C2 beaconing hides in normal-looking network traffic and evades static rules.',
+      'A threat detection system using LSTM and BERT models to find command and control traffic hiding inside ordinary DNS and HTTPS activity.',
+    problem: 'Stealthy beaconing looks like normal traffic and slips past static rules.',
     approach:
-      'Combined LSTM sequence modeling with BERT-based features, real-time log ingestion, and live model inference behind FastAPI + Streamlit.',
-    outcome:
-      'Improved identification of stealthy C2 activity with an interactive, real-time defense console.',
-    metrics: ['LSTM + BERT', 'real-time inference'],
-    stack: ['Python', 'LSTM', 'BERT', 'FastAPI', 'Streamlit'],
+      'Combined sequence modelling with transformer features over live log ingestion.',
+    outcome: 'Better identification of covert activity, in an interactive console.',
+    metrics: ['LSTM + BERT', 'real time'],
+    stack: ['Python', 'LSTM', 'BERT', 'FastAPI'],
   },
-]
-
-/* One ChatGPT theme hue per card, cycled in order. */
-const CARD_COLORS = [
-  { c: '#3a83f7', bg: '#133463' }, // blue
-  { c: '#f077af', bg: '#663049' }, // pink
-  { c: '#a67df2', bg: '#3b2366' }, // purple
-  { c: '#53b559', bg: '#1f4e25' }, // green
-  { c: '#f6c543', bg: '#734615' }, // yellow
-  { c: '#ee7c37', bg: '#653218' }, // orange
-  { c: '#63a8f8', bg: '#133463' }, // light blue
 ]
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [open, setOpen] = useState(false)
   const Icon = project.icon
-  const BadgeIcon = project.badgeIcon
-  const tone = CARD_COLORS[index % CARD_COLORS.length]
+  const tone = project.tone
 
   return (
     <TiltCard className="lg:col-span-3">
       <Reveal
-        delay={(index % 2) * 80}
+        delay={(index % 2) * 70}
         className="card tilt-glare group relative h-full overflow-hidden"
       >
         <div className="p-6 sm:p-7">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-4">
-            <div
-              className="grid h-12 w-12 shrink-0 place-items-center rounded-xl ring-1"
-              style={{
-                backgroundColor: tone.bg,
-                color: tone.c,
-                boxShadow: `inset 0 0 0 1px ${tone.c}44`,
-              }}
-            >
-              <Icon size={22} />
-            </div>
-            <div>
-              <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                <span
-                  className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                  style={{
-                    backgroundColor: `${tone.c}1a`,
-                    color: tone.c,
-                    border: `1px solid ${tone.c}44`,
-                  }}
-                >
-                  {project.category}
-                </span>
-                {project.badge && (
-                  <span className={project.badge === 'Research' ? 'pill-violet' : 'pill-amber'}>
-                    {BadgeIcon && <BadgeIcon size={10} />}
-                    {project.badge}
-                  </span>
-                )}
-                <span className="font-mono text-xs text-mist-400">{project.year}</span>
-              </div>
-              <h3 className="font-display text-xl font-semibold text-white">
-                {project.title}
-              </h3>
-              <p className="mt-0.5 text-sm" style={{ color: tone.c }}>
-                {project.tagline}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex shrink-0 items-center gap-1.5">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${project.title} on GitHub`}
-                className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-mist-300 transition-colors hover:border-primary-400/40 hover:text-primary-300"
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex min-w-0 items-start gap-4">
+              <div
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-xl"
+                style={{
+                  backgroundColor: tone.bg,
+                  color: tone.c,
+                  boxShadow: `inset 0 0 0 1px ${tone.c}44`,
+                }}
               >
-                <Github size={17} />
-              </a>
-            )}
-            <button
-              onClick={() => setOpen((o) => !o)}
-              aria-expanded={open}
-              aria-label={open ? 'Collapse details' : 'Expand details'}
-              className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-mist-300 transition-all hover:border-primary-400/40 hover:text-primary-300"
-            >
-              <Plus
-                size={17}
-                className={`transition-transform duration-300 ${open ? 'rotate-45' : ''}`}
-              />
-            </button>
-          </div>
-        </div>
-
-        <p className="mt-4 text-sm leading-relaxed text-mist-300">{project.blurb}</p>
-
-        {/* Monitor-style metric readouts */}
-        {project.metrics && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {project.metrics.map((m) => (
-              <span key={m} className="metric">
-                {m}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Expandable detail — grid-rows trick animates height with no JS measure */}
-        <div
-          className="grid transition-[grid-template-rows] duration-500 ease-out"
-          style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
-        >
-          <div className="overflow-hidden">
-            <div className="mt-5 grid gap-4 border-t border-white/5 pt-5 sm:grid-cols-3">
-              {[
-                ['Problem', project.problem],
-                ['Approach', project.approach],
-                ['Outcome', project.outcome],
-              ].map(([label, body]) => (
-                <div key={label}>
-                  <div className="eyebrow mb-1.5 text-[10px]">{label}</div>
-                  <p className="text-[13px] leading-relaxed text-mist-300">{body}</p>
+                <Icon size={22} />
+              </div>
+              <div className="min-w-0">
+                <div className="mb-2 flex flex-wrap items-center gap-2">
+                  <span
+                    className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium"
+                    style={{
+                      backgroundColor: `${tone.c}1a`,
+                      color: tone.c,
+                      border: `1px solid ${tone.c}44`,
+                    }}
+                  >
+                    {project.category}
+                  </span>
+                  {project.badge && (
+                    <span
+                      className="inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-medium"
+                      style={{ backgroundColor: tone.bg, color: '#ffffff' }}
+                    >
+                      {project.badge}
+                    </span>
+                  )}
+                  <span className="font-mono text-[11px] text-mist-400">{project.year}</span>
                 </div>
+                <h3 className="font-display text-2xl font-bold leading-tight text-white">
+                  {project.title}
+                </h3>
+                <p className="mt-1 text-[15px]" style={{ color: tone.c }}>
+                  {project.tagline}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-1.5">
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} on GitHub`}
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-mist-300 transition-colors hover:border-white/40 hover:text-white"
+                >
+                  <Github size={17} />
+                </a>
+              )}
+              <button
+                onClick={() => setOpen((o) => !o)}
+                aria-expanded={open}
+                aria-label={open ? 'Collapse details' : 'Expand details'}
+                className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-mist-300 transition-all hover:border-white/40 hover:text-white"
+              >
+                <Plus
+                  size={17}
+                  className={`transition-transform duration-300 ${open ? 'rotate-45' : ''}`}
+                />
+              </button>
+            </div>
+          </div>
+
+          <p className="mt-4 text-[15px] leading-relaxed text-mist-300">{project.blurb}</p>
+
+          {project.live && (
+            <LivePreview src={project.live} title={project.title} tone={tone.c} />
+          )}
+
+          {project.metrics && (
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {project.metrics.map((m) => (
+                <span key={m} className="metric">
+                  {m}
+                </span>
               ))}
             </div>
-          </div>
-        </div>
+          )}
 
-        {/* Stack */}
-        <div className="mt-5 flex flex-wrap gap-1.5">
-          {project.stack.map((t) => (
-            <span
-              key={t}
-              className="rounded-md bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-mist-300"
-            >
-              {t}
-            </span>
-          ))}
+          <div
+            className="grid transition-[grid-template-rows] duration-500 ease-out"
+            style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+          >
+            <div className="overflow-hidden">
+              <div className="mt-5 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-3">
+                {[
+                  ['Problem', project.problem],
+                  ['Approach', project.approach],
+                  ['Outcome', project.outcome],
+                ].map(([label, body]) => (
+                  <div key={label}>
+                    <div
+                      className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.2em]"
+                      style={{ color: tone.c }}
+                    >
+                      {label}
+                    </div>
+                    <p className="text-[13px] leading-relaxed text-mist-300">{body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-1.5">
+            {project.stack.map((t) => (
+              <span
+                key={t}
+                className="rounded-md bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-mist-300"
+              >
+                {t}
+              </span>
+            ))}
           </div>
         </div>
       </Reveal>
@@ -313,10 +338,9 @@ export default function Projects() {
     <section id="projects" className="section">
       <SectionHeading
         color="#6cc971"
-        eyebrow="02 · work"
         title="Selected"
-        accent="systems"
-        subtitle="Production clinical AI, frontier research reproductions, and agentic systems — each card expands into the problem, approach, and outcome."
+        accent="work"
+        subtitle="Clinical AI in production, frontier research, and the products people actually open."
       />
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-6">
         {PROJECTS.map((p, i) => (

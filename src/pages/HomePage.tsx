@@ -1,17 +1,15 @@
 import Seo from '../components/Seo'
 import Hero from '../components/Hero'
-import SectionIndex from '../components/SectionIndex'
 
 export default function HomePage() {
   return (
     <>
       <Seo
-        title="Subramanian Raj Narayanan — AI/ML Engineer · Clinical AI & LLMs"
-        description="AI/ML Engineer at Botco.ai building first-of-its-kind generative clinical AI — a transformer trained from scratch on 26M+ clinical events, adverse-event detection for Sanofi, RAG pipelines and agentic AI."
+        title="Subramanian Raj Narayanan, AI/ML Engineer in Clinical AI and LLMs"
+        description="AI/ML Engineer at Botco.ai building healthcare generative AI. Clinical foundation models trained from scratch, adverse event detection for a Sanofi funded program, agentic AI and production MLOps."
         path="/"
       />
       <Hero />
-      <SectionIndex />
     </>
   )
 }

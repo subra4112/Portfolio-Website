@@ -57,11 +57,10 @@ export default function Contact() {
     <section id="contact" className="section">
       <SectionHeading
         color="#f491c0"
-        eyebrow="05 · contact"
         title="Open a"
         accent="session"
         align="center"
-        subtitle="Open to full-time AI/ML Engineer, Data Scientist, Clinical AI, and Forward Deployed Engineer roles — healthcare AI, enterprise AI, and beyond."
+        subtitle="Open to full time AI/ML Engineer, Data Scientist, Clinical AI and Forward Deployed Engineer roles across healthcare AI and enterprise AI."
       />
 
       <div className="grid gap-6 lg:grid-cols-5">
@@ -70,7 +69,7 @@ export default function Contact() {
           <div className="card h-full p-6 sm:p-7">
             <h3 className="font-display text-lg font-semibold text-mist-100">Get in touch</h3>
             <p className="mt-2 text-sm leading-relaxed text-mist-300">
-              I'm always up for discussing clinical AI, LLM systems, research, or a role
+              I am always up for discussing clinical AI, LLM systems, research or a role
               where I can ship real impact.
             </p>
 
@@ -124,7 +123,7 @@ export default function Contact() {
                   Message sent
                 </h4>
                 <p className="mt-1 text-sm text-mist-300">
-                  Thanks for reaching out — I'll get back to you soon.
+                  Thanks for reaching out. I will get back to you soon.
                 </p>
               </div>
             ) : (

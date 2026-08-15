@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import MorphField from './MorphField'
-import Dust from './Dust'
 import type { ShapeKey } from './shapes'
 
 export type FieldPhase = 'enter' | 'in' | 'out'
@@ -57,7 +56,8 @@ export default function TransitionCanvas({
       style={{ pointerEvents: 'none' }}
     >
       <Dolly z={p.z} />
-      <Dust count={Math.round(count * 0.08)} opacity={p.opacity * 0.5} />
+      {/* No ambient dust here: it filled the viewport corners and made the
+          canvas read as a visible rectangle. */}
       <MorphField
         count={count}
         shape={shape}

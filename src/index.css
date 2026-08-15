@@ -75,7 +75,25 @@
 
 @layer components {
   .font-display {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-optical-sizing: auto;
+  }
+
+  /* Floating skill bubbles */
+  .bubble {
+    @apply inline-flex items-center rounded-full font-medium transition-all duration-300;
+    background: #212121;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #e8e8e8;
+    animation: bubble-float var(--dur, 7s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform;
+  }
+  .bubble:hover {
+    transform: translateY(-4px) scale(1.06);
+    border-color: var(--tone, #3a83f7);
+    color: #ffffff;
+    box-shadow: 0 0 28px -6px var(--tone, #3a83f7);
   }
 
   .accent-serif {
@@ -255,6 +273,16 @@
   }
 }
 
+@keyframes bubble-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
 @keyframes ecg-draw {
   0% {
     stroke-dashoffset: 1000;
@@ -291,6 +319,9 @@
   .reveal {
     opacity: 1;
     transform: none;
+  }
+  .bubble {
+    animation: none;
   }
   .ecg-path {
     stroke-dashoffset: 0;

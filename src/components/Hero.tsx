@@ -18,30 +18,27 @@ const ROLES = [
   'LLMs that actually ship',
 ]
 
-/**
- * What I do, in plain language — written for a recruiter skimming for fit,
- * not a benchmark table.
- */
+/** What I do, in plain language, written for a recruiter skimming for fit. */
 const SPECIALTIES = [
   {
     color: '#63a8f8',
     label: 'Healthcare Generative AI',
-    text: 'Clinical foundation models trained from scratch on real patient records — a first of its kind in assisted living.',
+    text: 'Clinical foundation models trained from scratch on real patient records.',
   },
   {
     color: '#f491c0',
-    label: 'Clinical NLP & Drug Safety',
-    text: 'Adverse-event detection for a Sanofi-funded program, validated on real-world reports and deployed through Sutter Health.',
+    label: 'Clinical NLP and Drug Safety',
+    text: 'Adverse event detection for a Sanofi funded program, live through Sutter Health.',
   },
   {
     color: '#b795f5',
-    label: 'Agentic AI & RAG',
-    text: 'Multi-agent LLM systems and hybrid graph + vector retrieval built for multi-hop clinical reasoning.',
+    label: 'Agentic AI and RAG',
+    text: 'Multi agent LLM systems and hybrid graph plus vector retrieval.',
   },
   {
     color: '#6cc971',
     label: 'Production MLOps',
-    text: 'HIPAA-compliant clinical AI on Kubernetes, architected hands-on with the CTO and shipped to real care staff.',
+    text: 'HIPAA compliant clinical AI on Kubernetes, architected with the CTO.',
   },
 ]
 
@@ -73,10 +70,9 @@ function RoleRotator() {
   )
 }
 
-/** Portrait in full colour, framed on a soft blue glow. */
 function Portrait() {
   return (
-    <div className="relative mx-auto w-full max-w-[270px] lg:max-w-[330px]">
+    <div className="relative mx-auto w-full max-w-[280px] lg:max-w-[340px]">
       <div
         className="absolute -inset-5 -z-10 rounded-[2rem] blur-3xl"
         style={{
@@ -92,7 +88,6 @@ function Portrait() {
           loading="eager"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/85 via-transparent to-transparent" />
-
         <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-full border border-white/15 bg-ink-900/85 px-3.5 py-2 backdrop-blur">
           <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-mist-200">
             open to work
@@ -109,45 +104,41 @@ function Portrait() {
 
 export default function Hero() {
   return (
-    <section
-      id="hero"
-      className="relative flex min-h-[100svh] flex-col overflow-hidden"
-    >
-      {/* Static backdrop only — nothing animates behind the headline. */}
+    <section id="hero" className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-grid-faint [background-size:64px_64px] opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink-950/70 to-ink-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink-900/70 to-ink-900" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 items-center px-5 pt-28 sm:px-8 lg:pt-24">
-        <div className="grid w-full items-center gap-12 lg:grid-cols-5">
-          <div className="max-w-3xl lg:col-span-3">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-4 pt-28 sm:px-8 sm:pt-32">
+        <div className="grid w-full items-center gap-10 lg:grid-cols-5 lg:gap-14">
+          <div className="lg:col-span-3">
             <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-blue/35 bg-blue-bg/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-blue-text">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue opacity-70" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue" />
               </span>
-              clinical AI · live in production @ botco.ai
+              clinical AI, live in production at botco.ai
             </div>
 
-            <h1 className="font-display text-6xl font-bold leading-[0.95] tracking-tightest text-white sm:text-8xl">
+            <h1 className="font-display text-[3.5rem] font-extrabold leading-[0.92] tracking-tightest text-white sm:text-[5.5rem] lg:text-[6rem]">
               Subramanian
               <br />
               <span className="text-gradient">Raj Narayanan</span>
             </h1>
 
-            <p className="mt-8 max-w-2xl font-display text-2xl leading-snug text-mist-200 sm:text-[1.75rem]">
+            <p className="mt-8 font-display text-2xl leading-snug text-mist-200 sm:text-3xl">
               I train <RoleRotator />
-              <br className="hidden sm:block" /> for high-stakes healthcare.
+              <br className="hidden sm:block" /> for high stakes healthcare.
             </p>
 
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-mist-300">
+            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-mist-300">
               AI/ML Engineer at <span className="text-white">Botco.ai</span>, where I
               trained a clinical transformer{' '}
               <span className="text-white">from scratch</span> on real patient records and
-              shipped adverse-event detection for a{' '}
-              <span className="text-white">Sanofi</span>-funded program — architecting
-              production clinical AI hands-on with the CTO. M.S. Data Science @ ASU.
+              shipped adverse event detection for a{' '}
+              <span className="text-white">Sanofi</span> funded program. I work directly
+              with the CTO on systems that reach real clinicians. M.S. Data Science at ASU.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -167,7 +158,7 @@ export default function Hero() {
               </MagneticButton>
             </div>
 
-            <div className="mt-10 flex items-center gap-5">
+            <div className="mt-9 flex items-center gap-5">
               {SOCIALS.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -190,24 +181,22 @@ export default function Hero() {
       </div>
 
       {/* What I specialize in */}
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-12 pt-8 sm:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-10 sm:px-8">
         <EcgLine className="h-9 w-full" color="#3a83f7" />
-        <div className="mt-3 border-t border-white/10 pt-6">
-          <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.28em] text-mist-400">
+        <div className="mt-4 border-t border-white/10 pt-8">
+          <h2 className="mb-6 font-display text-2xl font-bold text-white sm:text-3xl">
             What I specialize in
-          </div>
-          <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+          </h2>
+          <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
             {SPECIALTIES.map((s) => (
-              <div key={s.label} className="border-l pl-4" style={{ borderColor: s.color }}>
+              <div key={s.label} className="border-l-2 pl-4" style={{ borderColor: s.color }}>
                 <div
-                  className="font-display text-[15px] font-semibold"
+                  className="font-display text-lg font-bold leading-tight"
                   style={{ color: s.color }}
                 >
                   {s.label}
                 </div>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-mist-300">
-                  {s.text}
-                </p>
+                <p className="mt-2 text-[15px] leading-relaxed text-mist-300">{s.text}</p>
               </div>
             ))}
           </div>

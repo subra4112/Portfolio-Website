@@ -4,10 +4,10 @@ import Projects from '../components/Projects'
 
 export default function ProjectsPage() {
   return (
-    <PageShell next={{ to: '/experience', label: 'Experience — training epochs' }}>
+    <PageShell next={{ to: '/experience', label: 'Experience' }}>
       <Seo
-        title="Projects | Subramanian Raj Narayanan"
-        description="Generative clinical AI trained from scratch on 26M+ EHR events, an ARES/ETHOS reproduction on H100 GPUs, hybrid knowledge-graph RAG, multi-agent testing and security ML."
+        title="Work | Subramanian Raj Narayanan"
+        description="The Carlton AI clinical dashboard, Beyfortus adverse event detection for Sanofi, a clinical transformer trained from scratch, plus agentic AI and security machine learning."
         path="/projects"
       />
       <Projects />

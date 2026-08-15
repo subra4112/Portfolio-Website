@@ -8,7 +8,7 @@ const SOCIALS = [
 ]
 
 const LINKS = [
-  { to: '/about', label: 'About' },
+  
   { to: '/projects', label: 'Projects' },
   { to: '/experience', label: 'Experience' },
   { to: '/skills', label: 'Skills' },

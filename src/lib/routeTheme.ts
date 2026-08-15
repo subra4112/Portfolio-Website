@@ -5,16 +5,15 @@ export interface RouteTheme {
   /** Shown during the transition loader. */
   loading: string
   shape: ShapeKey
-  /** ChatGPT theme-color family this route is keyed to. */
   color: string
   bg: string
   text: string
 }
 
 /**
- * Every route owns one of ChatGPT's six theme colors. That colour drives the
+ * Every route owns one of ChatGPT's six theme colours. That colour drives the
  * page's accents and the 3D transition loader, so navigation reads as moving
- * between distinct, colour-coded places rather than one flat surface.
+ * between distinct places rather than one flat surface.
  */
 export const ROUTE_THEMES: Record<string, RouteTheme> = {
   '/': {
@@ -25,16 +24,8 @@ export const ROUTE_THEMES: Record<string, RouteTheme> = {
     bg: '#133463',
     text: '#63a8f8',
   },
-  '/about': {
-    label: 'About',
-    loading: 'Loading model card',
-    shape: 'brain',
-    color: '#a67df2',
-    bg: '#3b2366',
-    text: '#b795f5',
-  },
   '/projects': {
-    label: 'Projects',
+    label: 'Work',
     loading: 'Fetching systems',
     shape: 'lattice',
     color: '#53b559',
@@ -50,7 +41,7 @@ export const ROUTE_THEMES: Record<string, RouteTheme> = {
     text: '#f1a275',
   },
   '/skills': {
-    label: 'Skills',
+    label: 'Stack',
     loading: 'Mounting stack',
     shape: 'sphere',
     color: '#f6c543',

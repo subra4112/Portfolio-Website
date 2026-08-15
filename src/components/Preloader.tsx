@@ -16,9 +16,9 @@ const EXIT_MS = NOMINAL_MS + 600 // curtain starts lifting
 const DONE_MS = EXIT_MS + 750 // unmount
 
 /**
- * Boot-sequence curtain: a terminal types its startup checks while an ECG
- * trace draws and a progress readout climbs to 100 — then "SYSTEMS NOMINAL"
- * flashes and the curtain lifts. Reduced-motion users skip straight through.
+ * Boot sequence curtain: a terminal types its startup checks while an ECG
+ * trace draws and a progress readout climbs to 100, then SYSTEMS NOMINAL
+ * flashes and the curtain lifts. Reduced motion users skip straight through.
  */
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const reduced = usePrefersReducedMotion()
@@ -71,7 +71,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
                 <span className="term-dot bg-white/25" />
                 <span className="term-dot bg-white/25" />
                 <span className="ml-3 font-mono text-xs text-mist-400">
-                  subraraj.os — boot
+                  subraraj.os boot
                 </span>
               </div>
               <span className="font-mono text-xs tabular-nums text-primary-300">

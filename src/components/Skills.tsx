@@ -1,133 +1,129 @@
 import SectionHeading from './SectionHeading'
 import Reveal from './Reveal'
 
-/** Grouped exactly like the resume's technical-skills section. */
-const STACKS = [
+interface Group {
+  name: string
+  tone: string
+  /** Weight drives bubble size: 2 is a headline skill, 0 is supporting. */
+  skills: [string, 0 | 1 | 2][]
+}
+
+const GROUPS: Group[] = [
   {
-    dir: 'languages',
-    skills: ['Python', 'C++', 'SQL', 'Java', 'R', 'TypeScript'],
-  },
-  {
-    dir: 'ai-ml--genai',
+    name: 'AI and Generative AI',
+    tone: '#3a83f7',
     skills: [
-      'Transformers', 'LLMs', 'PyTorch', 'TensorFlow', 'Fine-tuning', 'LoRA / QLoRA',
-      'RLHF', 'Embeddings', 'Hugging Face', 'Computer Vision', 'CUDA', 'spaCy',
+      ['PyTorch', 2], ['Transformers', 2], ['LLMs', 2], ['Fine Tuning', 1],
+      ['LoRA and QLoRA', 1], ['RLHF', 1], ['Embeddings', 1], ['Hugging Face', 1],
+      ['TensorFlow', 0], ['Scikit learn', 0], ['Computer Vision', 0], ['CUDA', 0], ['spaCy', 0],
     ],
   },
   {
-    dir: 'agentic-ai',
+    name: 'Agentic AI',
+    tone: '#a67df2',
     skills: [
-      'LangChain', 'LangGraph', 'MCP', 'Multi-agent Orchestration',
-      'Tool / Function Calling', 'AI Agents', 'Persistent Memory',
+      ['LangChain', 2], ['LangGraph', 2], ['MCP', 1], ['Agent Orchestration', 1],
+      ['Tool Calling', 1], ['AI Agents', 1], ['Persistent Memory', 0],
     ],
   },
   {
-    dir: 'retrieval--rag',
+    name: 'Retrieval and RAG',
+    tone: '#f077af',
     skills: [
-      'RAG Pipelines', 'Hybrid Retrieval', 'Reranking', 'Vector Search',
-      'Semantic Search', 'LlamaIndex', 'Prompt Engineering',
+      ['RAG Pipelines', 2], ['Hybrid Retrieval', 1], ['Reranking', 1], ['Vector Search', 1],
+      ['Semantic Search', 0], ['LlamaIndex', 0], ['Prompt Engineering', 0],
     ],
   },
   {
-    dir: 'mlops--cloud',
+    name: 'MLOps and Cloud',
+    tone: '#53b559',
     skills: [
-      'Docker', 'Kubernetes', 'FastAPI', 'CI/CD', 'MLflow', 'Weights & Biases',
-      'vLLM', 'AWS SageMaker', 'Model Monitoring', 'Linux', 'Git',
+      ['Docker', 2], ['Kubernetes', 2], ['FastAPI', 1], ['MLflow', 1],
+      ['Weights and Biases', 1], ['vLLM', 1], ['AWS SageMaker', 1],
+      ['CI and CD', 0], ['Model Monitoring', 0], ['Linux', 0], ['Git', 0],
     ],
   },
   {
-    dir: 'databases',
+    name: 'Databases and Vectors',
+    tone: '#f6c543',
     skills: [
-      'PostgreSQL', 'MongoDB', 'Neo4j', 'ChromaDB', 'Milvus', 'Pinecone',
-      'Weaviate', 'pgvector', 'FAISS', 'MySQL',
+      ['PostgreSQL', 2], ['Neo4j', 2], ['ChromaDB', 1], ['FAISS', 1], ['pgvector', 1],
+      ['Pinecone', 0], ['Milvus', 0], ['Weaviate', 0], ['MongoDB', 0], ['MySQL', 0],
     ],
   },
   {
-    dir: 'data-engineering',
+    name: 'Data Engineering',
+    tone: '#ee7c37',
     skills: [
-      'PySpark', 'Kafka', 'Airflow', 'ETL Pipelines', 'Databricks',
-      'Snowflake', 'Redshift', 'Grafana',
+      ['PySpark', 2], ['Kafka', 1], ['Airflow', 1], ['ETL Pipelines', 1],
+      ['Databricks', 0], ['Snowflake', 0], ['Redshift', 0], ['Grafana', 0],
+    ],
+  },
+  {
+    name: 'Languages',
+    tone: '#63a8f8',
+    skills: [
+      ['Python', 2], ['SQL', 2], ['C++', 1], ['TypeScript', 1], ['Java', 0], ['R', 0],
     ],
   },
 ]
 
-const MARQUEE = [
-  'PyTorch', 'Transformers', 'LangChain', 'LangGraph', 'MCP', 'RAG', 'vLLM',
-  'Kubernetes', 'Docker', 'FastAPI', 'Neo4j', 'ChromaDB', 'FAISS', 'MLflow',
-  'Hugging Face', 'CUDA', 'H100', 'Kafka', 'Airflow', 'Snowflake', 'AWS',
-]
+/** Bigger for headline skills, smaller for supporting ones. */
+const SIZE: Record<0 | 1 | 2, string> = {
+  2: 'px-6 py-3.5 text-lg sm:text-xl',
+  1: 'px-5 py-3 text-base',
+  0: 'px-4 py-2.5 text-sm',
+}
 
 export default function Skills() {
   return (
     <section id="skills" className="section">
       <SectionHeading
         color="#f6c543"
-        eyebrow="04 · toolbox"
         title="The"
         accent="stack"
-        subtitle="Everything I reach for — from transformer pretraining to the pipelines and infra that keep it alive in production."
+        subtitle="What I reach for, sized by how often I actually reach for it."
       />
 
-      <Reveal>
-        <div className="term">
-          <div className="term-bar">
-            <span className="term-dot bg-white/25" />
-            <span className="term-dot bg-white/25" />
-            <span className="term-dot bg-white/25" />
-            <span className="ml-3 font-mono text-xs text-mist-400">
-              subra@production:~/stack
-            </span>
-          </div>
-          <div className="grid gap-x-8 gap-y-6 p-6 sm:grid-cols-2 sm:p-8">
-            {STACKS.map((s, i) => (
-              <Reveal key={s.dir} delay={i * 50} className={i === STACKS.length - 1 ? 'sm:col-span-2' : ''}>
-                <div className="font-mono text-[13px] text-mist-400">
-                  <span className="text-yellow">$</span> ls{' '}
-                  <span className="text-violet-300">{s.dir}/</span>
-                </div>
-                <div className="mt-2.5 flex flex-wrap gap-1.5">
-                  {s.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-md border border-white/5 bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-mist-200 transition-colors hover:border-yellow/50 hover:text-yellow"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Tech marquee */}
-      <Reveal delay={120} className="mt-10 overflow-hidden">
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-ink-950 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-ink-950 to-transparent" />
-          <div className="flex w-max animate-[marquee_28s_linear_infinite] gap-3">
-            {[...MARQUEE, ...MARQUEE].map((t, i) => (
+      <div className="space-y-12">
+        {GROUPS.map((group, gi) => (
+          <Reveal key={group.name} delay={gi * 60}>
+            <div className="mb-5 flex items-center gap-3">
               <span
-                key={i}
-                className="whitespace-nowrap rounded-lg border border-white/5 bg-white/[0.02] px-4 py-2 font-mono text-sm text-mist-300"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-      </Reveal>
+                className="h-2.5 w-2.5 shrink-0 rounded-full"
+                style={{ backgroundColor: group.tone }}
+              />
+              <h3 className="font-display text-xl font-bold text-white sm:text-2xl">
+                {group.name}
+              </h3>
+              <span
+                className="h-px flex-1"
+                style={{ background: `linear-gradient(90deg, ${group.tone}55, transparent)` }}
+              />
+            </div>
 
-      <style>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .animate-\\[marquee_28s_linear_infinite\\] { animation: none; }
-        }
-      `}</style>
+            <div className="flex flex-wrap gap-3">
+              {group.skills.map(([skill, weight], i) => (
+                <span
+                  key={skill}
+                  className={`bubble ${SIZE[weight]}`}
+                  style={
+                    {
+                      '--tone': group.tone,
+                      '--delay': `${(i % 7) * 0.42}s`,
+                      '--dur': `${6.5 + (i % 4) * 0.9}s`,
+                      color: weight === 2 ? '#ffffff' : undefined,
+                      borderColor: weight === 2 ? `${group.tone}66` : undefined,
+                    } as React.CSSProperties
+                  }
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        ))}
+      </div>
     </section>
   )
 }

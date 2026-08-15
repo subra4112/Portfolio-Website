@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Menu, X, FileText } from 'lucide-react'
 
 const LINKS = [
-  { to: '/about', label: 'About' },
+  
   { to: '/projects', label: 'Projects' },
   { to: '/experience', label: 'Experience' },
   { to: '/skills', label: 'Skills' },

@@ -126,7 +126,16 @@ export function usePageTransition(): PageTransitionResult {
           }}
         />
 
-        <div className="relative h-[46vh] max-h-[430px] w-full max-w-[560px]">
+        {/* Full bleed and radially masked, so the canvas has no visible edge. */}
+        <div
+          className="absolute inset-0"
+          style={{
+            maskImage:
+              'radial-gradient(circle at 50% 44%, #000 0%, #000 42%, transparent 72%)',
+            WebkitMaskImage:
+              'radial-gradient(circle at 50% 44%, #000 0%, #000 42%, transparent 72%)',
+          }}
+        >
           {mounted && (
             <Suspense fallback={null}>
               <TransitionCanvas

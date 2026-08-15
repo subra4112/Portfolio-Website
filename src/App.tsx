@@ -7,7 +7,6 @@ import CustomCursor from './components/CustomCursor'
 import Preloader from './components/Preloader'
 import { usePageTransition } from './components/PageTransition'
 import HomePage from './pages/HomePage'
-import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ExperiencePage from './pages/ExperiencePage'
 import SkillsPage from './pages/SkillsPage'
@@ -43,7 +42,6 @@ export default function App() {
         {/* Routed against displayLocation so the page swaps behind the curtain. */}
         <Routes location={displayLocation} key={displayLocation.pathname}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/experience" element={<ExperiencePage />} />
           <Route path="/skills" element={<SkillsPage />} />
