@@ -46,7 +46,7 @@ function RoleRotator() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="accent-serif inline-block"
+          className="accent-serif inline-block text-gradient-accent"
         >
           {ROLES[i]}
         </motion.span>
@@ -55,26 +55,33 @@ function RoleRotator() {
   )
 }
 
-/** Portrait framed like a record card — desaturated to match the theme. */
+/** Portrait in full colour, framed on a soft blue glow. */
 function Portrait() {
   return (
-    <div className="relative mx-auto w-full max-w-[260px] lg:max-w-[320px]">
-      <div className="relative overflow-hidden rounded-2xl border border-white/15">
+    <div className="relative mx-auto w-full max-w-[270px] lg:max-w-[330px]">
+      <div
+        className="absolute -inset-5 -z-10 rounded-[2rem] blur-3xl"
+        style={{
+          background:
+            'radial-gradient(circle at 50% 40%, rgba(58,131,247,0.35), rgba(166,125,242,0.18) 55%, transparent 75%)',
+        }}
+      />
+      <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-ink-800">
         <img
           src="/portrait.jpg"
           alt="Subramanian Raj Narayanan"
-          className="block w-full object-cover grayscale contrast-[1.05]"
+          className="block w-full object-cover"
           loading="eager"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/85 via-transparent to-transparent" />
 
-        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-lg border border-white/10 bg-ink-950/85 px-3 py-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist-300">
-            subject: subraraj
+        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-full border border-white/15 bg-ink-900/85 px-3.5 py-2 backdrop-blur">
+          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-mist-200">
+            open to work
           </span>
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green opacity-70" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green" />
           </span>
         </div>
       </div>
@@ -97,10 +104,10 @@ export default function Hero() {
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 items-center px-5 pt-28 sm:px-8 lg:pt-24">
         <div className="grid w-full items-center gap-12 lg:grid-cols-5">
           <div className="max-w-3xl lg:col-span-3">
-            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-mist-200">
+            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-blue/35 bg-blue-bg/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-blue-text">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue opacity-70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue" />
               </span>
               clinical AI · live in production @ botco.ai
             </div>

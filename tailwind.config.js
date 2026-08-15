@@ -1,4 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+
+/*
+ * Palette lifted from ChatGPT's own design tokens (read off chatgpt.com):
+ *   --bg-primary #212121   --bg-secondary #303030   --bg-elevated-primary #1b1b1b
+ *   --text-primary #fff    --text-secondary #cdcdcd --text-tertiary #afafaf
+ *   --border-default #ffffff26
+ *   --bg-accent-static #3a83f7   --text-accent #63a8f8
+ * plus its six theme colors, which is where the site gets its color from.
+ */
 export default {
   content: [
     "./index.html",
@@ -7,86 +16,96 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* Strictly monochrome. `primary` is the accent ramp — in this theme the
-           accent IS white, so emphasis comes from contrast, not hue. */
+        /* Accent — ChatGPT blue */
         primary: {
-          50: '#ffffff',
-          100: '#fbfbfb',
-          200: '#f2f2f2',
-          300: '#e6e6e6',
-          400: '#ffffff',
-          500: '#d4d4d4',
-          600: '#a3a3a3',
-          700: '#7d7d7d',
-          800: '#5a5a5a',
-          900: '#3d3d3d',
-          950: '#1a1a1a',
+          50: '#eef5fe',
+          100: '#d7e8fd',
+          200: '#b0d0fb',
+          300: '#8fc2fa',
+          400: '#63a8f8', // --text-accent
+          500: '#3a83f7', // --bg-accent-static
+          600: '#2c67c5',
+          700: '#214e94',
+          800: '#173763',
+          900: '#133463',
+          950: '#0d2039',
         },
-        /* Kept as names so existing classes keep working — all neutral now. */
+        /* The six theme colors, each with a tinted dark background + light text */
+        blue:   { DEFAULT: '#3a83f7', text: '#63a8f8', bg: '#133463', on: '#e8f3fe' },
+        green:  { DEFAULT: '#53b559', text: '#6cc971', bg: '#1f4e25', on: '#def3e5' },
+        yellow: { DEFAULT: '#f6c543', text: '#f6c543', bg: '#734615', on: '#fdf6dc' },
+        orange: { DEFAULT: '#ee7c37', text: '#f1a275', bg: '#653218', on: '#fbe8db' },
+        purple: { DEFAULT: '#a67df2', text: '#b795f5', bg: '#3b2366', on: '#ede5fc' },
+        pink:   { DEFAULT: '#f077af', text: '#f491c0', bg: '#663049', on: '#fdedf4' },
+
+        /* Legacy alias kept so existing violet-* classes stay valid */
         violet: {
-          300: '#e0e0e0',
-          400: '#c4c4c4',
-          500: '#a3a3a3',
-          600: '#7d7d7d',
-          700: '#5a5a5a',
+          300: '#b795f5',
+          400: '#a67df2',
+          500: '#8b5cf0',
+          600: '#7040d4',
+          700: '#3b2366',
         },
         amber: {
-          200: '#f0f0f0',
-          300: '#dedede',
-          400: '#bdbdbd',
-          500: '#9e9e9e',
+          200: '#fdf6dc',
+          300: '#f6c543',
+          400: '#ee7c37',
+          500: '#d9661f',
         },
-        /* Surfaces — near-black through charcoal. */
+        /* Surfaces */
         ink: {
-          950: '#0a0a0a',
-          900: '#0f0f0f',
-          850: '#141414',
-          800: '#181818',
-          750: '#1f1f1f',
-          700: '#262626',
-          600: '#333333',
+          950: '#000000',
+          900: '#0d0d0d',
+          850: '#171717',
+          800: '#1b1b1b', // --bg-elevated-primary
+          750: '#212121', // --bg-primary
+          700: '#303030', // --bg-secondary
+          600: '#414141', // --bg-tertiary
         },
         dark: {
-          50: '#fafafa',
-          100: '#f0f0f0',
-          200: '#d9d9d9',
-          300: '#b8b8b8',
+          50: '#ffffff',
+          100: '#f5f5f5',
+          200: '#cdcdcd',
+          300: '#afafaf',
           400: '#8f8f8f',
-          500: '#666666',
-          600: '#333333',
-          700: '#262626',
-          800: '#181818',
-          900: '#0f0f0f',
-          950: '#0a0a0a',
+          500: '#676767',
+          600: '#414141',
+          700: '#303030',
+          800: '#212121',
+          900: '#0d0d0d',
+          950: '#000000',
         },
-        /* Text tones — tuned for contrast on #0a0a0a. */
+        /* Text */
         mist: {
-          100: '#fafafa', // headings — ~19:1
-          200: '#e4e4e4', // strong body — ~15:1
-          300: '#b4b4b4', // body — ~9:1
-          400: '#8a8a8a', // muted labels — ~5.4:1
+          100: '#ffffff', // --text-primary
+          200: '#cdcdcd', // --text-secondary
+          300: '#afafaf', // --text-tertiary
+          400: '#8f8f8f',
         },
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
         serif: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
       letterSpacing: {
         tightest: '-0.045em',
       },
+      borderRadius: {
+        '4xl': '1.75rem',
+      },
       boxShadow: {
-        glow: '0 0 24px rgba(255, 255, 255, 0.12)',
-        'glow-lg': '0 0 60px rgba(255, 255, 255, 0.08)',
-        'glow-violet': '0 0 40px rgba(255, 255, 255, 0.08)',
-        panel: '0 20px 60px -20px rgba(0, 0, 0, 0.9)',
+        glow: '0 0 24px rgba(58, 131, 247, 0.28)',
+        'glow-lg': '0 0 60px rgba(58, 131, 247, 0.18)',
+        'glow-violet': '0 0 40px rgba(166, 125, 242, 0.25)',
+        panel: '0 20px 60px -20px rgba(0, 0, 0, 0.85)',
       },
       backgroundImage: {
         'grid-faint':
           'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
         'radial-glow':
-          'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 60%)',
+          'radial-gradient(circle at 50% 0%, rgba(58,131,247,0.14), transparent 60%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out both',

@@ -51,11 +51,12 @@ export default function Contact() {
   }
 
   const inputCls =
-    'w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-mist-100 placeholder-mist-400 transition-colors focus:border-primary-400/60 focus:outline-none focus:ring-1 focus:ring-primary-400/40'
+    'w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-mist-100 placeholder-mist-400 transition-colors focus:border-pink/60 focus:outline-none focus:ring-1 focus:ring-pink/40'
 
   return (
     <section id="contact" className="section">
       <SectionHeading
+        color="#f491c0"
         eyebrow="05 · contact"
         title="Open a"
         accent="session"
@@ -76,8 +77,8 @@ export default function Contact() {
             <div className="mt-6 space-y-3">
               {CONTACT.map(({ icon: Icon, label, value, href }) => {
                 const inner = (
-                  <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 transition-colors hover:border-primary-400/30">
-                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary-500/10 text-primary-300">
+                  <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 transition-colors hover:border-pink/40">
+                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-pink-bg text-pink-text">
                       <Icon size={17} />
                     </span>
                     <div>
@@ -103,7 +104,7 @@ export default function Contact() {
               })}
             </div>
 
-            <div className="mt-6 flex items-center gap-2.5 rounded-xl bg-primary-500/5 p-3.5 text-xs text-mist-300 ring-1 ring-primary-400/15">
+            <div className="mt-6 flex items-center gap-2.5 rounded-xl bg-pink-bg/40 p-3.5 text-xs text-mist-300 ring-1 ring-pink/25">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />

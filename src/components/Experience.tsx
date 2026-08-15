@@ -105,6 +105,7 @@ export default function Experience() {
   return (
     <section id="experience" className="section">
       <SectionHeading
+        color="#f1a275"
         eyebrow="03 · experience"
         title="Training"
         accent="epochs"
@@ -113,17 +114,17 @@ export default function Experience() {
 
       {/* Timeline */}
       <div className="relative">
-        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-primary-400/50 via-white/10 to-transparent sm:left-[9px]" />
+        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-orange/60 via-white/10 to-transparent sm:left-[9px]" />
         <div className="space-y-6">
           {ROLES.map((role, i) => (
             <Reveal key={`${role.org}-${role.period}`} delay={i * 60} className="relative pl-8 sm:pl-10">
               <span
                 className={`absolute left-0 top-2 grid h-4 w-4 place-items-center rounded-full ring-4 ring-ink-950 ${
-                  role.current ? 'bg-primary-400' : 'bg-white/20'
+                  role.current ? "bg-orange" : "bg-white/20"
                 }`}
               >
                 {role.current && (
-                  <span className="absolute inline-flex h-4 w-4 animate-ping rounded-full bg-primary-400/60" />
+                  <span className="absolute inline-flex h-4 w-4 animate-ping rounded-full bg-orange/60" />
                 )}
               </span>
 
@@ -132,7 +133,7 @@ export default function Experience() {
                   <div>
                     <h3 className="font-display text-lg font-semibold text-mist-100">
                       {role.title}{' '}
-                      <span className="text-primary-300">· {role.org}</span>
+                      <span className="text-orange-text">· {role.org}</span>
                     </h3>
                     <div className="mt-1 flex items-center gap-1.5 text-xs text-mist-400">
                       <MapPin size={12} /> {role.location}
@@ -141,7 +142,7 @@ export default function Experience() {
                   <span
                     className={`rounded-full px-3 py-1 font-mono text-xs font-medium ${
                       role.current
-                        ? 'bg-primary-500/15 text-primary-200 ring-1 ring-primary-400/30'
+                        ? 'bg-orange-bg text-orange-on ring-1 ring-orange/40'
                         : 'bg-white/5 text-mist-300'
                     }`}
                   >
@@ -152,7 +153,7 @@ export default function Experience() {
                 <ul className="mt-4 space-y-2">
                   {role.points.map((p, j) => (
                     <li key={j} className="flex gap-2.5 text-sm leading-relaxed text-mist-300">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-400/70" />
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange/70" />
                       {p}
                     </li>
                   ))}
@@ -179,7 +180,7 @@ export default function Experience() {
       {/* Education + Leadership */}
       <div className="mt-12 grid gap-5 md:grid-cols-2">
         <Reveal className="card p-6">
-          <div className="mb-5 flex items-center gap-2.5 text-primary-300">
+          <div className="mb-5 flex items-center gap-2.5 text-orange-text">
             <GraduationCap size={20} />
             <h3 className="font-display text-lg font-semibold text-mist-100">Education</h3>
           </div>
@@ -187,7 +188,7 @@ export default function Experience() {
             {EDUCATION.map((e) => (
               <div key={e.school} className="border-l border-white/10 pl-4">
                 <div className="font-medium text-mist-100">{e.degree}</div>
-                <div className="text-sm text-primary-300">{e.school}</div>
+                <div className="text-sm text-orange-text">{e.school}</div>
                 <div className="mt-0.5 text-xs text-mist-400">
                   {e.place} · {e.when}
                 </div>
@@ -197,7 +198,7 @@ export default function Experience() {
         </Reveal>
 
         <Reveal delay={80} className="card p-6">
-          <div className="mb-5 flex items-center gap-2.5 text-primary-300">
+          <div className="mb-5 flex items-center gap-2.5 text-orange-text">
             <Users size={20} />
             <h3 className="font-display text-lg font-semibold text-mist-100">Leadership</h3>
           </div>
@@ -205,7 +206,7 @@ export default function Experience() {
             {LEADERSHIP.map((l) => (
               <div key={l.org} className="border-l border-white/10 pl-4">
                 <div className="font-medium text-mist-100">{l.role}</div>
-                <div className="text-sm text-primary-300">{l.org}</div>
+                <div className="text-sm text-orange-text">{l.org}</div>
                 <div className="mt-0.5 text-xs text-mist-400">{l.when}</div>
               </div>
             ))}

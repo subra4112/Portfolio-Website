@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import CustomCursor from './components/CustomCursor'
 import Preloader from './components/Preloader'
+import { usePageTransition } from './components/PageTransition'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
@@ -12,9 +13,8 @@ import ExperiencePage from './pages/ExperiencePage'
 import SkillsPage from './pages/SkillsPage'
 import ContactPage from './pages/ContactPage'
 
-/** Jump to the top on every route change (instant — no smooth-scroll fight). */
-function ScrollToTop() {
-  const { pathname } = useLocation()
+/** Jump to the top whenever the rendered page actually changes. */
+function ScrollToTop({ pathname }: { pathname: string }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
   }, [pathname])
@@ -23,6 +23,8 @@ function ScrollToTop() {
 
 export default function App() {
   const [loading, setLoading] = useState(true)
+  const location = useLocation()
+  const { displayLocation, overlay } = usePageTransition()
 
   return (
     <>
@@ -30,15 +32,16 @@ export default function App() {
       <CustomCursor />
       <ScrollProgress />
       <Nav />
-      <ScrollToTop />
+      <ScrollToTop pathname={displayLocation.pathname} />
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-lg focus:bg-primary-400 focus:px-4 focus:py-2 focus:font-semibold focus:text-ink-950"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-ink-900"
       >
         Skip to content
       </a>
       <main id="main">
-        <Routes>
+        {/* Routed against displayLocation so the page swaps behind the curtain. */}
+        <Routes location={displayLocation} key={displayLocation.pathname}>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
@@ -49,6 +52,9 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      {overlay}
+      {/* location is read so the transition hook re-runs on every navigation */}
+      <span hidden data-path={location.pathname} />
     </>
   )
 }

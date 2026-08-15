@@ -166,10 +166,22 @@ const PROJECTS: Project[] = [
   },
 ]
 
+/* One ChatGPT theme hue per card, cycled in order. */
+const CARD_COLORS = [
+  { c: '#3a83f7', bg: '#133463' }, // blue
+  { c: '#f077af', bg: '#663049' }, // pink
+  { c: '#a67df2', bg: '#3b2366' }, // purple
+  { c: '#53b559', bg: '#1f4e25' }, // green
+  { c: '#f6c543', bg: '#734615' }, // yellow
+  { c: '#ee7c37', bg: '#653218' }, // orange
+  { c: '#63a8f8', bg: '#133463' }, // light blue
+]
+
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [open, setOpen] = useState(false)
   const Icon = project.icon
   const BadgeIcon = project.badgeIcon
+  const tone = CARD_COLORS[index % CARD_COLORS.length]
 
   return (
     <TiltCard className="lg:col-span-3">
@@ -180,12 +192,28 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div className="p-6 sm:p-7">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary-500/10 text-primary-300 ring-1 ring-primary-400/20">
+            <div
+              className="grid h-12 w-12 shrink-0 place-items-center rounded-xl ring-1"
+              style={{
+                backgroundColor: tone.bg,
+                color: tone.c,
+                boxShadow: `inset 0 0 0 1px ${tone.c}44`,
+              }}
+            >
               <Icon size={22} />
             </div>
             <div>
               <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                <span className="pill">{project.category}</span>
+                <span
+                  className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+                  style={{
+                    backgroundColor: `${tone.c}1a`,
+                    color: tone.c,
+                    border: `1px solid ${tone.c}44`,
+                  }}
+                >
+                  {project.category}
+                </span>
                 {project.badge && (
                   <span className={project.badge === 'Research' ? 'pill-violet' : 'pill-amber'}>
                     {BadgeIcon && <BadgeIcon size={10} />}
@@ -194,10 +222,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 )}
                 <span className="font-mono text-xs text-mist-400">{project.year}</span>
               </div>
-              <h3 className="font-display text-xl font-semibold text-mist-100 transition-colors group-hover:text-primary-200">
+              <h3 className="font-display text-xl font-semibold text-white">
                 {project.title}
               </h3>
-              <p className="mt-0.5 text-sm text-primary-300/90">{project.tagline}</p>
+              <p className="mt-0.5 text-sm" style={{ color: tone.c }}>
+                {project.tagline}
+              </p>
             </div>
           </div>
 
@@ -282,6 +312,7 @@ export default function Projects() {
   return (
     <section id="projects" className="section">
       <SectionHeading
+        color="#6cc971"
         eyebrow="02 · work"
         title="Selected"
         accent="systems"

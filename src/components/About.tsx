@@ -48,6 +48,7 @@ export default function About() {
   return (
     <section id="about" className="section">
       <SectionHeading
+        color="#b795f5"
         eyebrow="01 · about"
         title="Read the"
         accent="model card"
@@ -85,7 +86,7 @@ export default function About() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {CLUSTERS.map((c, i) => (
               <Reveal key={c.title} delay={i * 70} className="card p-4">
-                <div className="mb-2.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary-500/10 text-primary-300">
+                <div className="mb-2.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-purple-bg text-purple-text">
                   <c.icon size={18} />
                 </div>
                 <h3 className="font-display text-sm font-semibold text-mist-100">{c.title}</h3>
@@ -117,7 +118,7 @@ export default function About() {
             </div>
             <div className="p-6 font-mono text-[13px] leading-loose sm:p-7">
               <div className="mb-4 text-mist-400">
-                <span className="text-violet-300"># Model Card</span> — human foundation
+                <span className="text-purple-text"># Model Card</span> — human foundation
                 model, healthcare-aligned
               </div>
               <div className="space-y-1.5">
@@ -126,7 +127,7 @@ export default function About() {
                     <span className="w-32 shrink-0 text-mist-400">{row.key}:</span>
                     <span
                       className={
-                        row.highlight ? 'text-primary-300' : 'text-mist-100'
+                        row.highlight ? 'text-purple-text' : 'text-mist-100'
                       }
                     >
                       {row.value}
@@ -135,11 +136,11 @@ export default function About() {
                 ))}
               </div>
               <div className="mt-6 border-t border-white/5 pt-4 text-mist-400">
-                <span className="text-primary-400">$</span> intended_use
+                <span className="text-purple-text">$</span> intended_use
                 <div className="mt-1.5 text-mist-200">
                   AI/ML Engineer · Data Scientist · Clinical AI Engineer · Forward
                   Deployed Engineer — healthcare AI, enterprise AI, and beyond.
-                  <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 animate-blink bg-primary-400" />
+                  <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 animate-blink bg-purple" />
                 </div>
               </div>
             </div>

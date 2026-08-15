@@ -61,6 +61,7 @@ export default function Skills() {
   return (
     <section id="skills" className="section">
       <SectionHeading
+        color="#f6c543"
         eyebrow="04 · toolbox"
         title="The"
         accent="stack"
@@ -81,14 +82,14 @@ export default function Skills() {
             {STACKS.map((s, i) => (
               <Reveal key={s.dir} delay={i * 50} className={i === STACKS.length - 1 ? 'sm:col-span-2' : ''}>
                 <div className="font-mono text-[13px] text-mist-400">
-                  <span className="text-primary-400">$</span> ls{' '}
+                  <span className="text-yellow">$</span> ls{' '}
                   <span className="text-violet-300">{s.dir}/</span>
                 </div>
                 <div className="mt-2.5 flex flex-wrap gap-1.5">
                   {s.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-md border border-white/5 bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-mist-200 transition-colors hover:border-primary-400/40 hover:text-primary-200"
+                      className="rounded-md border border-white/5 bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-mist-200 transition-colors hover:border-yellow/50 hover:text-yellow"
                     >
                       {skill}
                     </span>

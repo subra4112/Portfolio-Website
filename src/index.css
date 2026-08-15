@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Surfaces, borders and text follow ChatGPT's own tokens; color comes from its
+   six theme hues, applied per section and per project category. */
+
 @layer base {
   :root {
     color-scheme: dark;
-    --bg: #0a0a0a;
-    --accent: #ffffff;
+    --bg-page: #0d0d0d;
+    --bg-surface: #212121;
+    --bg-elevated: #1b1b1b;
+    --bg-hover: #303030;
+    --border-default: rgba(255, 255, 255, 0.15);
+    --border-light: rgba(255, 255, 255, 0.08);
+    --accent: #3a83f7;
   }
 
   html {
@@ -16,23 +24,22 @@
   }
 
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background-color: var(--bg);
-    color: #e4e4e4;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--bg-page);
+    color: #cdcdcd;
     overflow-x: hidden;
-    /* Slightly open tracking + taller lines read better at low weights. */
-    letter-spacing: 0.005em;
   }
 
-  /* One quiet vignette. Nothing moves behind body copy. */
+  /* A single quiet wash — nothing animated sits behind body copy. */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -3;
     background:
-      radial-gradient(70rem 50rem at 50% -15%, rgba(255, 255, 255, 0.055), transparent 70%),
-      #0a0a0a;
+      radial-gradient(60rem 40rem at 50% -10%, rgba(58, 131, 247, 0.09), transparent 70%),
+      radial-gradient(40rem 30rem at 92% 8%, rgba(166, 125, 242, 0.06), transparent 70%),
+      var(--bg-page);
   }
 
   * {
@@ -40,29 +47,29 @@
   }
 
   ::selection {
-    background: rgba(255, 255, 255, 0.85);
-    color: #0a0a0a;
+    background: rgba(58, 131, 247, 0.35);
+    color: #ffffff;
   }
 
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: var(--bg-page);
   }
   ::-webkit-scrollbar-thumb {
-    background: #333333;
+    background: #414141;
     border-radius: 999px;
-    border: 2px solid #0a0a0a;
+    border: 2px solid var(--bg-page);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #4d4d4d;
+    background: #676767;
   }
 
   :focus-visible {
-    outline: 2px solid #ffffff;
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
 }
 
@@ -71,40 +78,41 @@
     font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
-  /* Editorial italic serif accent — bright enough to actually read. */
   .accent-serif {
     font-family: 'Instrument Serif', Georgia, serif;
     font-style: italic;
     font-weight: 400;
     letter-spacing: -0.005em;
-    color: #ffffff;
   }
 
-  /* Display headline: white with a soft fade into gray. */
+  /* Headline: white fading into a blue-tinted gray. */
   .text-gradient {
-    background: linear-gradient(180deg, #ffffff 0%, #9a9a9a 130%);
+    background: linear-gradient(180deg, #ffffff 0%, #8fc2fa 145%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .text-gradient-accent {
-    color: #ffffff;
+    background: linear-gradient(100deg, #63a8f8, #a67df2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .text-gradient-warm {
-    color: #d4d4d4;
+    color: #f6c543;
   }
 
-  /* Flat, high-contrast surface — no translucency behind body text. */
+  /* Opaque surfaces — no translucency over moving pixels. */
   .glass {
-    background: #111111;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #212121;
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .glass-strong {
-    background: rgba(13, 13, 13, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(27, 27, 27, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
@@ -113,25 +121,27 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.28),
+      rgba(58, 131, 247, 0.5),
+      rgba(166, 125, 242, 0.5),
       transparent
     );
     height: 1px;
   }
 
   .card {
-    @apply glass rounded-2xl;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+    @apply rounded-2xl;
+    background: #212121;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
   }
   .card:hover {
     transform: translateY(-4px);
-    background: #151515;
-    border-color: rgba(255, 255, 255, 0.24);
+    background: #262626;
+    border-color: rgba(255, 255, 255, 0.28);
     box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.9);
   }
 
-  /* Pointer-tracked 3D tilt wrapper (see TiltCard) */
   .tilt-wrap {
     transform-style: preserve-3d;
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -148,7 +158,7 @@
     transition: opacity 0.4s ease;
     background: radial-gradient(
       16rem circle at var(--gx, 50%) var(--gy, 50%),
-      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.06),
       transparent 62%
     );
   }
@@ -156,67 +166,70 @@
     opacity: 1;
   }
 
-  /* Terminal-window chrome */
+  /* Terminal chrome */
   .term {
     @apply rounded-2xl overflow-hidden;
-    background: #0f0f0f;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #1b1b1b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
   .term-bar {
     @apply flex items-center gap-2 px-4 py-2.5;
-    background: #161616;
+    background: #212121;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .term-dot {
     @apply h-2.5 w-2.5 rounded-full;
   }
 
-  /* Primary CTA — white on black, the highest-contrast element on the page. */
+  /* Primary CTA — white pill, matching ChatGPT's --interactive-bg-primary. */
   .btn-primary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 font-semibold transition-all duration-300;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-all duration-300;
     background: #ffffff;
-    color: #0a0a0a;
+    color: #0d0d0d;
   }
   .btn-primary:hover {
-    transform: translateY(-2px);
-    background: #e4e4e4;
-    box-shadow: 0 12px 32px -12px rgba(255, 255, 255, 0.35);
+    background: #e6e6e6;
+    transform: translateY(-1px);
   }
 
   .btn-ghost {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 font-semibold transition-all duration-300;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-all duration-300;
     background: transparent;
-    color: #e4e4e4;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   .btn-ghost:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
+    background: #303030;
+    border-color: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
   }
 
   .pill {
     @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
-    background: rgba(255, 255, 255, 0.06);
-    color: #d4d4d4;
+    background: rgba(255, 255, 255, 0.07);
+    color: #cdcdcd;
     border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
-  .pill-violet,
+  .pill-violet {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium;
+    background: #3b2366;
+    color: #ede5fc;
+    border: 1px solid rgba(166, 125, 242, 0.4);
+  }
+
   .pill-amber {
     @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium;
-    background: rgba(255, 255, 255, 0.09);
-    color: #f0f0f0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #734615;
+    color: #fdf6dc;
+    border: 1px solid rgba(246, 197, 67, 0.4);
   }
 
-  /* Metric chip — mono readouts */
   .metric {
     @apply inline-flex items-baseline gap-1 rounded-md px-2 py-1 font-mono text-[11px];
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #e4e4e4;
+    color: #cdcdcd;
   }
 
   .section {
@@ -224,7 +237,7 @@
   }
 
   .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.28em] text-mist-400;
+    @apply font-mono text-xs uppercase tracking-[0.28em];
   }
 }
 
@@ -242,7 +255,6 @@
   }
 }
 
-/* ECG trace draw */
 @keyframes ecg-draw {
   0% {
     stroke-dashoffset: 1000;

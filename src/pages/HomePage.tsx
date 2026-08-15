@@ -1,6 +1,5 @@
 import Seo from '../components/Seo'
 import Hero from '../components/Hero'
-import ShapeLab from '../components/ShapeLab'
 import SectionIndex from '../components/SectionIndex'
 
 export default function HomePage() {
@@ -12,7 +11,6 @@ export default function HomePage() {
         path="/"
       />
       <Hero />
-      <ShapeLab />
       <SectionIndex />
     </>
   )
