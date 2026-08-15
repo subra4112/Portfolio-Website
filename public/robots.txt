@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio-website-five-ashy-63.vercel.app/sitemap.xml

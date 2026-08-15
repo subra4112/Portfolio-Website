@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Github, Linkedin, Mail } from 'lucide-react'
-import HeroBackground from './HeroBackground'
 import MagneticButton from './MagneticButton'
 import EcgLine from './EcgLine'
 import Counter from './Counter'
@@ -111,10 +110,7 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[100svh] flex-col overflow-hidden"
     >
-      {/* 3D / fallback background */}
-      <HeroBackground />
-
-      {/* Vignette so text stays legible over the canvas */}
+      {/* Vignette so text stays legible over the persistent WebGL field */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/40 via-transparent to-ink-950" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/70 via-transparent to-transparent" />
 

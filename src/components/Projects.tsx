@@ -14,6 +14,7 @@ import {
 import type { LucideIcon } from 'lucide-react'
 import SectionHeading from './SectionHeading'
 import Reveal from './Reveal'
+import TiltCard from './TiltCard'
 
 interface Project {
   title: string
@@ -151,8 +152,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const BadgeIcon = project.badgeIcon
 
   return (
-    <Reveal delay={(index % 2) * 80} className="card group overflow-hidden lg:col-span-3">
-      <div className="p-6 sm:p-7">
+    <TiltCard className="lg:col-span-3">
+      <Reveal
+        delay={(index % 2) * 80}
+        className="card tilt-glare group relative h-full overflow-hidden"
+      >
+        <div className="p-6 sm:p-7">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-4">
             <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary-500/10 text-primary-300 ring-1 ring-primary-400/20">
@@ -246,9 +251,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               {t}
             </span>
           ))}
+          </div>
         </div>
-      </div>
-    </Reveal>
+      </Reveal>
+    </TiltCard>
   )
 }
 

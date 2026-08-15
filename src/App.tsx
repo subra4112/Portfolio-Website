@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import CustomCursor from './components/CustomCursor'
 import Preloader from './components/Preloader'
+import BackgroundScene from './components/BackgroundScene'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
@@ -27,11 +28,18 @@ export default function App() {
   return (
     <>
       {loading && <Preloader onDone={() => setLoading(false)} />}
+      <BackgroundScene />
       <CustomCursor />
       <ScrollProgress />
       <Nav />
       <ScrollToTop />
-      <main>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-lg focus:bg-primary-400 focus:px-4 focus:py-2 focus:font-semibold focus:text-ink-950"
+      >
+        Skip to content
+      </a>
+      <main id="main">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
