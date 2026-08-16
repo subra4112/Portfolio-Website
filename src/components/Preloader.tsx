@@ -1,137 +1,124 @@
 import { useEffect, useState } from 'react'
-import EcgLine from './EcgLine'
+import { motion } from 'framer-motion'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
-const BOOT_LINES = [
-  { text: 'boot subraraj.os --env=production', prompt: true },
-  { text: 'loading model weights', status: 'OK' },
-  { text: 'mounting clinical knowledge base', status: 'OK' },
-  { text: 'spinning up agents · planner / executor / verifier', status: 'OK' },
-  { text: 'running vitals check', status: 'OK' },
-]
+const GREETING = 'Hey, I am Subbu'
 
-const STEP_MS = 320
-const NOMINAL_MS = BOOT_LINES.length * STEP_MS + 250 // "SYSTEMS NOMINAL" moment
-const EXIT_MS = NOMINAL_MS + 600 // curtain starts lifting
-const DONE_MS = EXIT_MS + 750 // unmount
+/* The avatar swings in and waves, the greeting types itself, then the
+   curtain lifts. Timer driven end to end so it can never strand. */
+const AVATAR_AT = 120
+const GREET_AT = 620
+const SUB_AT = 1180
+const EXIT_AT = 2050
+const DONE_AT = 2750
 
 /**
- * Boot sequence curtain: a terminal types its startup checks while an ECG
- * trace draws and a progress readout climbs to 100, then SYSTEMS NOMINAL
- * flashes and the curtain lifts. Reduced motion users skip straight through.
+ * The opening welcome. Uses the animated avatar generated from Subbu's own
+ * photo, waving the visitor in.
  */
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const reduced = usePrefersReducedMotion()
-  const [step, setStep] = useState(0)
-  const [nominal, setNominal] = useState(false)
+  const [stage, setStage] = useState(0)
   const [leaving, setLeaving] = useState(false)
 
   useEffect(() => {
     if (reduced) {
-      const t = setTimeout(onDone, 350)
+      const t = setTimeout(onDone, 300)
       return () => clearTimeout(t)
     }
-    const interval = setInterval(
-      () => setStep((s) => Math.min(s + 1, BOOT_LINES.length)),
-      STEP_MS
-    )
-    const t1 = setTimeout(() => setNominal(true), NOMINAL_MS)
-    const t2 = setTimeout(() => setLeaving(true), EXIT_MS)
-    const t3 = setTimeout(onDone, DONE_MS)
-    return () => {
-      clearInterval(interval)
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-    }
+    const timers = [
+      setTimeout(() => setStage(1), AVATAR_AT),
+      setTimeout(() => setStage(2), GREET_AT),
+      setTimeout(() => setStage(3), SUB_AT),
+      setTimeout(() => setLeaving(true), EXIT_AT),
+      setTimeout(onDone, DONE_AT),
+    ]
+    return () => timers.forEach(clearTimeout)
   }, [onDone, reduced])
 
   if (reduced) {
-    return <div className="fixed inset-0 z-[200] bg-ink-950" aria-hidden />
+    return <div className="fixed inset-0 z-[200] bg-ink-900" aria-hidden />
   }
 
-  const progress = Math.round((step / BOOT_LINES.length) * 100)
-
   return (
-    <div
-      className="fixed inset-0 z-[200] overflow-hidden bg-ink-950 transition-transform duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
-      style={{ transform: leaving ? 'translateY(-100%)' : 'translateY(0)' }}
+    <motion.div
+      className="fixed inset-0 z-[200] overflow-hidden bg-ink-900"
+      initial={{ y: 0 }}
+      animate={{ y: leaving ? '-100%' : 0 }}
+      transition={{ duration: 0.7, ease: [0.83, 0, 0.17, 1] }}
       aria-hidden
     >
-      {/* Faint grid backdrop */}
-      <div className="absolute inset-0 bg-grid-faint [background-size:60px_60px] opacity-30" />
+      {/* Warm wash behind the avatar */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(40rem 30rem at 50% 38%, rgba(58,131,247,0.22), transparent 70%), radial-gradient(30rem 24rem at 50% 90%, rgba(166,125,242,0.14), transparent 70%)',
+        }}
+      />
+      <div className="absolute inset-0 bg-grid-faint [background-size:64px_64px] opacity-25" />
 
       <div className="relative grid h-full place-items-center px-6">
-        <div className="w-full max-w-lg">
-          {/* Terminal */}
-          <div className="term shadow-panel">
-            <div className="term-bar justify-between">
-              <div className="flex items-center gap-2">
-                <span className="term-dot bg-white/25" />
-                <span className="term-dot bg-white/25" />
-                <span className="term-dot bg-white/25" />
-                <span className="ml-3 font-mono text-xs text-mist-400">
-                  subraraj.os boot
-                </span>
-              </div>
-              <span className="font-mono text-xs tabular-nums text-primary-300">
-                {progress}%
-              </span>
-            </div>
-            <div className="min-h-[172px] p-5 font-mono text-[12.5px] leading-relaxed sm:text-[13px]">
-              {BOOT_LINES.slice(0, step).map((line, i) => (
-                <div key={i} className="flex items-baseline justify-between gap-4">
-                  <span className={line.prompt ? 'text-mist-100' : 'text-mist-300'}>
-                    {line.prompt ? (
-                      <>
-                        <span className="text-primary-400">$ </span>
-                        {line.text}
-                      </>
-                    ) : (
-                      <>
-                        <span className="text-mist-400">&gt; </span>
-                        {line.text}
-                      </>
-                    )}
-                  </span>
-                  {line.status && (
-                    <span className="shrink-0 text-primary-300">[ {line.status} ]</span>
-                  )}
-                </div>
-              ))}
-              {!nominal && step < BOOT_LINES.length && (
-                <span className="inline-block h-4 w-2 translate-y-0.5 animate-blink bg-primary-400" />
-              )}
-              {nominal && (
-                <div className="mt-3 inline-flex items-center gap-2 rounded-md border border-primary-400/30 bg-primary-500/10 px-3 py-1 font-semibold tracking-[0.25em] text-primary-300">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-400" />
-                  </span>
-                  SYSTEMS NOMINAL
-                </div>
-              )}
-            </div>
-            {/* Progress bar */}
-            <div className="h-1 w-full bg-white/5">
-              <div
-                className="h-full bg-white transition-[width] duration-300 ease-out"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+        <div className="flex flex-col items-center">
+          {/* Avatar, swinging in with a wave */}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, scale: 0.5, y: 40, rotate: -12 }}
+            animate={
+              stage >= 1
+                ? { opacity: 1, scale: 1, y: 0, rotate: 0 }
+                : { opacity: 0, scale: 0.5, y: 40, rotate: -12 }
+            }
+            transition={{ type: 'spring', stiffness: 170, damping: 14 }}
+          >
+            <span
+              className="absolute -inset-6 rounded-full blur-2xl"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(58,131,247,0.5), transparent 68%)',
+              }}
+            />
+            <motion.img
+              src="/avatar-wave.jpg"
+              alt=""
+              className="preload-avatar relative h-40 w-40 rounded-full object-cover ring-2 ring-white/20 sm:h-52 sm:w-52"
+              animate={stage >= 1 ? { rotate: [0, 4, -3, 3, 0] } : {}}
+              transition={{ duration: 1.5, delay: 0.25, ease: 'easeInOut' }}
+            />
+          </motion.div>
+
+          {/* Greeting */}
+          <div className="mt-9 overflow-hidden">
+            <motion.h1
+              className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
+              initial={{ y: '110%' }}
+              animate={{ y: stage >= 2 ? '0%' : '110%' }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {GREETING}
+            </motion.h1>
           </div>
 
-          {/* ECG trace under the terminal */}
-          <div className="preloader-trace mt-6">
-            <EcgLine className="h-10 w-full" />
+          <motion.p
+            className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.3em] text-blue-text"
+            initial={{ opacity: 0, y: 8 }}
+            animate={stage >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+            transition={{ duration: 0.4 }}
+          >
+            AI and ML Engineer
+          </motion.p>
+
+          {/* Progress rail */}
+          <div className="mt-8 h-px w-44 overflow-hidden bg-white/15">
+            <motion.div
+              className="h-full bg-blue"
+              initial={{ width: '0%' }}
+              animate={{ width: '100%' }}
+              transition={{ duration: EXIT_AT / 1000, ease: 'easeInOut' }}
+            />
           </div>
         </div>
       </div>
-
-      {/* The boot trace draws in one fast pass instead of the ambient loop */}
-      <style>{`.preloader-trace .ecg-path { animation-duration: ${
-        NOMINAL_MS / 1000
-      }s; animation-iteration-count: 1; animation-fill-mode: forwards; }`}</style>
-    </div>
+    </motion.div>
   )
 }

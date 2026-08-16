@@ -29,12 +29,12 @@ const EDUCATION = [
   {
     degree: 'M.S. Data Science',
     school: 'Arizona State University',
-    when: '2024 to 2026',
+    when: 'Aug 2024 to May 2026',
   },
   {
     degree: 'B.Tech Computer Science Engineering',
     school: 'SRM Institute of Science and Technology',
-    when: '2020 to 2024',
+    when: 'Sep 2020 to May 2024',
   },
 ]
 
@@ -42,12 +42,16 @@ const WORK = [
   {
     role: 'AI/ML Engineer',
     org: 'Botco.ai',
-    when: '2026 to now',
+    when: 'Jun 2026 to Present',
     current: true,
   },
-  { role: 'AI/ML Engineer Intern', org: 'Botco.ai', when: '2026' },
-  { role: 'Software Engineer Intern', org: 'Techavidity', when: '2025' },
-  { role: 'Research Intern', org: 'Centre of Electric Mobility, SRMIST', when: '2023 to 2024' },
+  { role: 'AI/ML Engineer Intern', org: 'Botco.ai', when: 'Jan 2026 to May 2026' },
+  { role: 'Software Engineer Intern', org: 'Techavidity', when: 'Jun 2025 to Aug 2025' },
+  {
+    role: 'Research Intern',
+    org: 'Centre of Electric Mobility, SRMIST',
+    when: 'Feb 2023 to Feb 2024',
+  },
 ]
 
 /**

@@ -28,10 +28,10 @@ export default function AvatarLogo({ size = 38, className = '' }: AvatarLogoProp
         style={{ width: size - 5, height: size - 5 }}
       >
         <img
-          src="/portrait.jpg"
+          src="/avatar-logo.jpg"
           alt=""
           className="avatar-img h-full w-full object-cover"
-          style={{ objectPosition: '50% 22%' }}
+          style={{ objectPosition: '50% 30%' }}
         />
         <span className="avatar-scan pointer-events-none absolute inset-x-0 h-1/3" />
         <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-inset ring-white/25" />

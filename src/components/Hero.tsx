@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Github, Linkedin, Mail } from 'lucide-react'
 import MagneticButton from './MagneticButton'
 import EcgLine from './EcgLine'
+import ResumeModal from './ResumeModal'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 const SOCIALS = [
@@ -79,6 +80,8 @@ function Portrait() {
 }
 
 export default function Hero() {
+  const [resumeOpen, setResumeOpen] = useState(false)
+
   return (
     <section id="hero" className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -89,14 +92,6 @@ export default function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-4 pt-28 sm:px-8 sm:pt-32">
         <div className="grid w-full items-center gap-10 lg:grid-cols-5 lg:gap-14">
           <div className="lg:col-span-3">
-            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-blue/35 bg-blue-bg/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-blue-text">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue opacity-70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue" />
-              </span>
-              clinical AI, live in production at botco.ai
-            </div>
-
             <h1 className="font-display text-[3.5rem] font-extrabold leading-[0.92] tracking-tightest text-white sm:text-[5.5rem] lg:text-[6rem]">
               Subramanian
               <br />
@@ -122,10 +117,9 @@ export default function Hero() {
                 View the work
               </MagneticButton>
               <MagneticButton
-                href="/resume.pdf"
-                external
+                onClick={() => setResumeOpen(true)}
                 className="btn-ghost"
-                ariaLabel="Open resume PDF"
+                ariaLabel="Open resume"
               >
                 Resume
               </MagneticButton>
@@ -159,6 +153,8 @@ export default function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-6 pt-10 sm:px-8">
         <EcgLine className="h-9 w-full" color="#3a83f7" />
       </div>
+
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} />
     </section>
   )
 }

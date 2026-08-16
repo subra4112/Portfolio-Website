@@ -9,9 +9,9 @@ export type FieldPhase = 'enter' | 'in' | 'out'
 /* Deliberately small. The geometry is a mark above the label, not a backdrop
    the text has to fight through. */
 const PHASES: Record<FieldPhase, { scale: number; opacity: number; z: number }> = {
-  enter: { scale: 1.15, opacity: 0, z: 13 },
-  in: { scale: 0.62, opacity: 1, z: 10.5 },
-  out: { scale: 0.3, opacity: 0, z: 9 },
+  enter: { scale: 1.5, opacity: 0, z: 11 },
+  in: { scale: 0.92, opacity: 1, z: 7.8 },
+  out: { scale: 0.5, opacity: 0, z: 6.4 },
 }
 
 /** Eases the camera toward the phase's distance — a dolly, not a cut. */

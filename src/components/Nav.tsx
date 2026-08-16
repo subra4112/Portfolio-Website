@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Menu, X, FileText } from 'lucide-react'
 import AvatarLogo from './AvatarLogo'
+import ResumeModal from './ResumeModal'
 
 const LINKS = [
   
@@ -14,6 +15,7 @@ const LINKS = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [resume, setResume] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
@@ -68,14 +70,12 @@ export default function Nav() {
                 )}
               </NavLink>
             ))}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 inline-flex items-center gap-1.5 rounded-lg border border-primary-400/30 bg-primary-500/10 px-3.5 py-2 text-sm font-semibold text-primary-300 transition-all hover:border-primary-400/60 hover:text-primary-200"
+            <button
+              onClick={() => setResume(true)}
+              className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-blue/40 bg-blue-bg/60 px-4 py-2 text-sm font-semibold text-blue-text transition-all hover:border-blue hover:text-white"
             >
               <FileText size={15} /> Resume
-            </a>
+            </button>
           </div>
 
           {/* Mobile toggle */}
@@ -104,17 +104,16 @@ export default function Nav() {
                 {link.label}
               </NavLink>
             ))}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 inline-flex items-center gap-1.5 rounded-lg border border-primary-400/30 bg-primary-500/10 px-3 py-2.5 text-sm font-semibold text-primary-300"
+            <button
+              onClick={() => setResume(true)}
+              className="mt-1 inline-flex items-center justify-center gap-1.5 rounded-full border border-blue/40 bg-blue-bg/60 px-3 py-2.5 text-sm font-semibold text-blue-text"
             >
               <FileText size={15} /> Resume
-            </a>
+            </button>
           </div>
         )}
       </nav>
+      <ResumeModal open={resume} onClose={() => setResume(false)} />
     </header>
   )
 }

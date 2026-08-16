@@ -1,5 +1,10 @@
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import { X } from 'lucide-react'
 import SectionHeading from './SectionHeading'
 import Reveal from './Reveal'
+import { SKILL_INFO } from '../lib/skillInfo'
 
 interface Group {
   name: string
@@ -68,21 +73,71 @@ const GROUPS: Group[] = [
   },
 ]
 
-/** Bigger for headline skills, smaller for supporting ones. */
 const SIZE: Record<0 | 1 | 2, string> = {
   2: 'px-6 py-3.5 text-lg sm:text-xl',
   1: 'px-5 py-3 text-base',
   0: 'px-4 py-2.5 text-sm',
 }
 
+interface Active {
+  skill: string
+  tone: string
+  /** Viewport coordinates of the bubble that opened it. */
+  top: number
+  left: number
+  width: number
+  height: number
+}
+
+const POP_W = 320
+const GUTTER = 12
+
+/** Clamps the popup inside the viewport so it can never cause overflow. */
+function popPosition(a: Active) {
+  const vw = document.documentElement.clientWidth
+  const vh = document.documentElement.clientHeight
+  const w = Math.min(POP_W, vw - GUTTER * 2)
+  const centered = a.left + a.width / 2 - w / 2
+  const left = Math.max(GUTTER, Math.min(centered, vw - w - GUTTER))
+  // Flip above the bubble when there is no room below.
+  const below = a.top + a.height
+  const flip = below + 190 > vh && a.top > 200
+  return { w, left, top: flip ? a.top - 10 : below + 10, flip }
+}
+
 export default function Skills() {
+  const [active, setActive] = useState<Active | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+
+  // Dismiss on Escape, on a click outside, and on scroll or resize, since the
+  // popup is anchored to where the bubble was when it opened.
+  useEffect(() => {
+    if (!active) return
+    const close = () => setActive(null)
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    const onDown = (e: MouseEvent) => {
+      const t = e.target as HTMLElement
+      if (!t.closest('[data-skill-pop]') && !t.closest('[data-bubble]')) close()
+    }
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('mousedown', onDown)
+    window.addEventListener('scroll', close, { passive: true })
+    window.addEventListener('resize', close)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('mousedown', onDown)
+      window.removeEventListener('scroll', close)
+      window.removeEventListener('resize', close)
+    }
+  }, [active])
+
   return (
-    <section id="skills" className="section">
+    <section id="skills" className="section" ref={rootRef}>
       <SectionHeading
         color="#f6c543"
         title="The"
         accent="stack"
-        subtitle="What I reach for, sized by how often I actually reach for it."
+        subtitle="Sized by how often I reach for it. Tap any of them and I will explain what it actually is."
       />
 
       <div className="space-y-12">
@@ -103,27 +158,98 @@ export default function Skills() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {group.skills.map(([skill, weight], i) => (
-                <span
-                  key={skill}
-                  className={`bubble ${SIZE[weight]}`}
-                  style={
-                    {
-                      '--tone': group.tone,
-                      '--delay': `${(i % 7) * 0.42}s`,
-                      '--dur': `${6.5 + (i % 4) * 0.9}s`,
-                      color: weight === 2 ? '#ffffff' : undefined,
-                      borderColor: weight === 2 ? `${group.tone}66` : undefined,
-                    } as React.CSSProperties
-                  }
-                >
-                  {skill}
-                </span>
-              ))}
+              {group.skills.map(([skill, weight], i) => {
+                const isOpen = active?.skill === skill
+                return (
+                  <span key={skill} className="inline-flex">
+                    <button
+                      data-bubble
+                      onClick={(e) => {
+                        if (isOpen) return setActive(null)
+                        const r = e.currentTarget.getBoundingClientRect()
+                        setActive({
+                          skill,
+                          tone: group.tone,
+                          top: r.top,
+                          left: r.left,
+                          width: r.width,
+                          height: r.height,
+                        })
+                      }}
+                      aria-expanded={isOpen}
+                      className={`bubble ${SIZE[weight]}`}
+                      style={
+                        {
+                          '--tone': group.tone,
+                          '--delay': `${(i % 7) * 0.42}s`,
+                          '--dur': `${6.5 + (i % 4) * 0.9}s`,
+                          color: isOpen || weight === 2 ? '#ffffff' : undefined,
+                          borderColor: isOpen
+                            ? group.tone
+                            : weight === 2
+                              ? `${group.tone}66`
+                              : undefined,
+                          boxShadow: isOpen ? `0 0 28px -6px ${group.tone}` : undefined,
+                        } as React.CSSProperties
+                      }
+                    >
+                      {skill}
+                    </button>
+                  </span>
+                )
+              })}
             </div>
           </Reveal>
         ))}
       </div>
+
+      {/* Portalled and fixed, so a Reveal transform can never trap it and it
+          can never widen the page. */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {active && (() => {
+              const { w, left, top, flip } = popPosition(active)
+              return (
+                <motion.div
+                  data-skill-pop
+                  initial={{ opacity: 0, y: flip ? 6 : -6, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: flip ? 6 : -6, scale: 0.97 }}
+                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  className="fixed z-[120] rounded-2xl border bg-ink-800 p-4 text-left shadow-panel"
+                  style={{
+                    borderColor: `${active.tone}66`,
+                    width: w,
+                    left,
+                    top,
+                    transform: flip ? 'translateY(-100%)' : undefined,
+                  }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <span
+                      className="font-display text-[15px] font-bold"
+                      style={{ color: active.tone }}
+                    >
+                      {active.skill}
+                    </span>
+                    <button
+                      onClick={() => setActive(null)}
+                      aria-label="Close"
+                      className="mt-0.5 shrink-0 text-mist-400 transition-colors hover:text-white"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-mist-200">
+                    {SKILL_INFO[active.skill] ?? 'Part of my day to day toolkit.'}
+                  </p>
+                </motion.div>
+              )
+            })()}
+          </AnimatePresence>,
+          document.body
+        )}
     </section>
   )
 }
