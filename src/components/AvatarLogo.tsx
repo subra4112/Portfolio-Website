@@ -19,7 +19,8 @@ export default function AvatarLogo({ size = 38, className = '' }: AvatarLogoProp
       {/* Breathing aura */}
       <span className="avatar-aura absolute inset-[-22%] rounded-full" />
 
-      {/* Rotating gradient ring */}
+      {/* Static rim, with a single blue sweep travelling around it */}
+      <span className="avatar-track absolute inset-0 rounded-full" />
       <span className="avatar-ring absolute inset-0 rounded-full" />
 
       {/* Portrait */}

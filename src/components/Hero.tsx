@@ -92,10 +92,11 @@ export default function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-4 pt-28 sm:px-8 sm:pt-32">
         <div className="grid w-full items-center gap-10 lg:grid-cols-5 lg:gap-14">
           <div className="lg:col-span-3">
-            <h1 className="font-display text-[3.5rem] font-extrabold leading-[0.92] tracking-tightest text-white sm:text-[5.5rem] lg:text-[6rem]">
-              Subramanian
-              <br />
-              <span className="text-gradient">Raj Narayanan</span>
+            {/* Sized with clamp and set nowrap so "Raj Narayanan" always holds
+                one line, at every width, without ever overflowing. */}
+            <h1 className="font-display text-[clamp(2.3rem,6vw,4.9rem)] font-extrabold leading-[0.95] tracking-tightest text-white">
+              <span className="block whitespace-nowrap">Subramanian</span>
+              <span className="text-gradient block whitespace-nowrap">Raj Narayanan</span>
             </h1>
 
             <p className="mt-8 font-display text-2xl leading-snug text-mist-200 sm:text-3xl">

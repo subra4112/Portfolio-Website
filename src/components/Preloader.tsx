@@ -22,8 +22,9 @@ const CELS: [number, number][] = [
   [1, 430], // settle with the hand up
 ]
 
-/** Cross fade length. Long enough to blur the change, short enough to stay crisp. */
-const FADE_MS = 165
+/* The dissolve itself lives in .cel-in (165ms), so it runs off a keyframe that
+   restarts cleanly on every cel rather than a transition that can be
+   interrupted mid flight. */
 
 const GREET_AT = 560
 const SUB_AT = 1080
@@ -76,6 +77,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   }
 
   const frame = FRAMES[CELS[cel][0]]
+  const prevFrame = FRAMES[CELS[Math.max(0, cel - 1)][0]]
 
   return (
     <motion.div
@@ -124,19 +126,21 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
               animate={{ y: [0, -2.5, 0, -2.5, 0, -1.5, 0] }}
               transition={{ duration: 2.6, ease: 'easeInOut', times: [0, 0.18, 0.34, 0.5, 0.66, 0.82, 1] }}
             >
-              {FRAMES.map((f) => (
-                <img
-                  key={f}
-                  src={f}
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-cover"
-                  style={{
-                    opacity: f === frame ? 1 : 0,
-                    transition: `opacity ${FADE_MS}ms cubic-bezier(0.45, 0, 0.55, 1)`,
-                    willChange: 'opacity',
-                  }}
-                />
-              ))}
+              {/* Two layers, never a gap. The outgoing cel stays fully opaque
+                  underneath while the incoming one fades in on top. Fading
+                  every layer at once let the dark background show through the
+                  middle of each blend, which is what made it blink. */}
+              <img
+                src={prevFrame}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <img
+                key={cel}
+                src={frame}
+                alt=""
+                className="cel-in absolute inset-0 h-full w-full object-cover"
+              />
             </motion.div>
           </motion.div>
 
