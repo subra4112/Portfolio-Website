@@ -2,61 +2,23 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
-/* Three matched renders of the same avatar, differing only in the arm:
-   0 arm down, 1 hand raised, 2 hand tilted. Played as cels, the way a hand
-   drawn wave works, so the character waves instead of the picture rotating. */
-const FRAMES = ['/wave-0.jpg', '/wave-1.jpg', '/wave-2.jpg']
+/* The wave is driven entirely by CSS in index.css:
+     .wave-intro  arm down frame, fades away once
+     .wave-hand   tilted hand frame, masked to the hand and forearm only,
+                  oscillating against the static base
+   Only the hand region blends. The face, jacket and background come from one
+   frame and never move, which is what stops the whole picture shimmering.
+   Ends at 2500ms. */
+const GREET_AT = 620
+const SUB_AT = 1120
+const EXIT_AT = 2620
+const DONE_AT = 3320
 
-/* Frame index and hold time. Cels cross fade into each other, so the hold is
-   the time between fades, not a hard cut. Timing is a pendulum rather than a
-   metronome: the raise is slow, the middle swings settle into a rhythm, then
-   the last two stretch out so the wave decays instead of stopping dead. */
-const CELS: [number, number][] = [
-  [0, 280], // standing, arm down
-  [1, 330], // hand comes up, slow because it is a big move
-  [2, 240], // out
-  [1, 225], // back
-  [2, 225], // out
-  [1, 235], // back
-  [2, 275], // out, easing off
-  [1, 430], // settle with the hand up
-]
-
-/* The dissolve itself lives in .cel-in (165ms), so it runs off a keyframe that
-   restarts cleanly on every cel rather than a transition that can be
-   interrupted mid flight. */
-
-const GREET_AT = 560
-const SUB_AT = 1080
-/* The wave runs 2240ms; the curtain waits for it to settle before lifting. */
-const EXIT_AT = 2420
-const DONE_AT = 3120
-
-/**
- * The opening welcome. The avatar was generated from Subbu's own photo, and
- * the wave is real frame animation rather than a transform on one image.
- */
+/** The opening welcome, using the avatar generated from Subbu's own photo. */
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const reduced = usePrefersReducedMotion()
-  const [cel, setCel] = useState(0)
   const [stage, setStage] = useState(0)
   const [leaving, setLeaving] = useState(false)
-
-  // Step through the wave cels.
-  useEffect(() => {
-    if (reduced) return
-    let i = 0
-    let timer: ReturnType<typeof setTimeout>
-    const step = () => {
-      timer = setTimeout(() => {
-        i = i + 1 < CELS.length ? i + 1 : CELS.length - 1
-        setCel(i)
-        if (i < CELS.length - 1) step()
-      }, CELS[i][1])
-    }
-    step()
-    return () => clearTimeout(timer)
-  }, [reduced])
 
   useEffect(() => {
     if (reduced) {
@@ -76,9 +38,6 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     return <div className="fixed inset-0 z-[200] bg-ink-900" aria-hidden />
   }
 
-  const frame = FRAMES[CELS[cel][0]]
-  const prevFrame = FRAMES[CELS[Math.max(0, cel - 1)][0]]
-
   return (
     <motion.div
       className="fixed inset-0 z-[200] overflow-hidden bg-ink-900"
@@ -96,18 +55,11 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       />
       <div className="absolute inset-0 bg-grid-faint [background-size:64px_64px] opacity-25" />
 
-      {/* Preload every cel so the wave never stutters on first play. */}
-      <div className="pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0">
-        {FRAMES.map((f) => (
-          <img key={f} src={f} alt="" />
-        ))}
-      </div>
-
       <div className="relative grid h-full place-items-center px-6">
         <div className="flex flex-col items-center">
           <motion.div
             className="relative"
-            initial={{ opacity: 0, scale: 0.86, y: 18 }}
+            initial={{ opacity: 0, scale: 0.88, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -118,28 +70,32 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
                   'radial-gradient(circle, rgba(58,131,247,0.45), transparent 68%)',
               }}
             />
-            {/* Fixed box, frames cross fading inside it. Nothing rotates; the
-                blend between cels is what carries the motion. A tiny bob adds
-                the body movement a real wave has. */}
             <motion.div
               className="relative h-44 w-44 overflow-hidden rounded-full ring-2 ring-white/20 sm:h-56 sm:w-56"
-              animate={{ y: [0, -2.5, 0, -2.5, 0, -1.5, 0] }}
-              transition={{ duration: 2.6, ease: 'easeInOut', times: [0, 0.18, 0.34, 0.5, 0.66, 0.82, 1] }}
+              animate={{ y: [0, -2.5, 0, -2, 0, -1.5, 0] }}
+              transition={{
+                duration: 2.5,
+                ease: 'easeInOut',
+                times: [0, 0.18, 0.34, 0.5, 0.66, 0.82, 1],
+              }}
             >
-              {/* Two layers, never a gap. The outgoing cel stays fully opaque
-                  underneath while the incoming one fades in on top. Fading
-                  every layer at once let the dark background show through the
-                  middle of each blend, which is what made it blink. */}
+              {/* Static body. Never animates, so nothing shimmers. */}
               <img
-                src={prevFrame}
+                src="/wave-1.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
+              {/* Only the hand and forearm blend, continuously. */}
               <img
-                key={cel}
-                src={frame}
+                src="/wave-2.jpg"
                 alt=""
-                className="cel-in absolute inset-0 h-full w-full object-cover"
+                className="wave-hand absolute inset-0 h-full w-full object-cover"
+              />
+              {/* Arm down, lifts once at the start. */}
+              <img
+                src="/wave-0.jpg"
+                alt=""
+                className="wave-intro absolute inset-0 h-full w-full object-cover"
               />
             </motion.div>
           </motion.div>

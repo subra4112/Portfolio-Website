@@ -18,14 +18,14 @@
     <meta property="og:url" content="https://portfolio-website-five-ashy-63.vercel.app/" />
     <meta property="og:title" content="Subramanian Raj Narayanan, AI/ML Engineer in Clinical AI and LLMs" />
     <meta property="og:description" content="Building healthcare generative AI at Botco.ai. Clinical foundation models from scratch, agentic AI and production MLOps." />
-    <meta property="og:image" content="/profile.jpg" />
+    <meta property="og:image" content="https://portfolio-website-five-ashy-63.vercel.app/og-image.jpg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://portfolio-website-five-ashy-63.vercel.app/" />
     <meta property="twitter:title" content="Subramanian Raj Narayanan, AI/ML Engineer in Clinical AI and LLMs" />
     <meta property="twitter:description" content="Building healthcare generative AI at Botco.ai. Clinical foundation models from scratch, agentic AI and production MLOps." />
-    <meta property="twitter:image" content="/profile.jpg" />
+    <meta property="twitter:image" content="https://portfolio-website-five-ashy-63.vercel.app/og-image.jpg" />
 
     <!-- Additional SEO -->
     <meta name="theme-color" content="#0a0a0a" />
@@ -45,7 +45,7 @@
       },
       "description": "AI/ML Engineer building generative clinical AI, LLM systems, RAG pipelines, and agentic AI in production",
       "url": "https://portfolio-website-five-ashy-63.vercel.app/",
-      "image": "/profile.jpg",
+      "image": "https://portfolio-website-five-ashy-63.vercel.app/og-image.jpg",
       "email": "rvanush3@gmail.com",
       "address": {
         "@type": "PostalAddress",
@@ -97,10 +97,26 @@
     }
     </script>
 
-    <!-- Fonts -->
+    <!-- Fonts. Loaded without blocking render: the sheet is fetched as a
+         non-blocking resource and promoted to a stylesheet once it lands. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+      media="print"
+      onload="this.media='all'"
+    >
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap">
+    </noscript>
+
+    <!-- The preloader avatar is the first thing painted, so it is fetched
+         at high priority rather than discovered late by the bundle. -->
+    <link rel="preload" as="image" href="/wave-1.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="/wave-0.jpg">
+    <link rel="prefetch" as="image" href="/wave-2.jpg">
+    <link rel="prefetch" as="image" href="/portrait.jpg">
   </head>
   <body>
     <div id="root"></div>

@@ -106,7 +106,16 @@ export default function LivePreview({ src, title, tone }: LivePreviewProps) {
             </button>
           </div>
         </div>
-        <iframe src={src} title={title} className="h-full w-full flex-1 border-0" />
+        {/* Sandboxed: the demos are first party but they are large bundles, so
+            they run with no access to this page, no top level navigation and
+            no downloads. Same origin is kept so their own scripts still run. */}
+        <iframe
+          src={src}
+          title={title}
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          referrerPolicy="no-referrer"
+          className="h-full w-full flex-1 border-0"
+        />
       </motion.div>
     </motion.div>
   )
@@ -126,6 +135,8 @@ export default function LivePreview({ src, title, tone }: LivePreviewProps) {
               tabIndex={-1}
               aria-hidden
               loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
+              referrerPolicy="no-referrer"
               className="pointer-events-none absolute left-0 top-0 origin-top-left border-0"
               style={{ width: '200%', height: '200%', transform: 'scale(0.5)' }}
             />

@@ -372,9 +372,29 @@ body.has-modal #root {
   }
 }
 
-/* Wave cel dissolve. Only the incoming frame animates; the one beneath stays
-   opaque, so the composite is never transparent and never flashes. */
-@keyframes cel-in {
+/* ---- Preloader wave ------------------------------------------------------
+   Blending two whole AI renders made the entire picture shimmer, because no
+   two renders are pixel identical. So the body is served by one static frame
+   and only the hand region is blended, through a soft elliptical mask over
+   the hand and forearm. The oscillation is a continuous CSS animation rather
+   than stepped frames, so there are no discrete jumps at all. */
+
+.wave-hand {
+  opacity: 0;
+  --hand-mask: radial-gradient(
+    ellipse 23% 33% at 81% 57%,
+    #000 46%,
+    rgba(0, 0, 0, 0.55) 74%,
+    transparent 100%
+  );
+  mask-image: var(--hand-mask);
+  -webkit-mask-image: var(--hand-mask);
+  animation: hand-wave 340ms cubic-bezier(0.42, 0, 0.58, 1) 460ms 6 alternate
+    both;
+  will-change: opacity;
+}
+
+@keyframes hand-wave {
   from {
     opacity: 0;
   }
@@ -383,9 +403,19 @@ body.has-modal #root {
   }
 }
 
-.cel-in {
-  animation: cel-in 165ms cubic-bezier(0.45, 0, 0.55, 1) forwards;
+/* Arm down frame lifts away once, revealing the raised hand underneath. */
+.wave-intro {
+  animation: wave-intro 320ms ease-out 180ms both;
   will-change: opacity;
+}
+
+@keyframes wave-intro {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes bubble-float {
@@ -438,8 +468,13 @@ body.has-modal #root {
   .bubble,
   .avatar-ring,
   .avatar-aura,
-  .avatar-scan {
+  .avatar-scan,
+  .wave-hand,
+  .wave-intro {
     animation: none;
+  }
+  .wave-intro {
+    opacity: 0;
   }
   .ecg-path {
     stroke-dashoffset: 0;

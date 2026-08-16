@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, FileText } from 'lucide-react'
+import { Menu, X, FileText, Home } from 'lucide-react'
 import AvatarLogo from './AvatarLogo'
 import ResumeModal from './ResumeModal'
 
@@ -41,10 +41,24 @@ export default function Nav() {
           }`}
         >
           {/* Wordmark */}
-          <Link to="/" className="group flex items-center gap-3" aria-label="Home">
+          {/* The mark alone does not read as a home button, so it carries a
+              Home label: always shown on desktop, and a native tooltip plus an
+              aria-label everywhere. */}
+          <Link
+            to="/"
+            className="group flex items-center gap-3 rounded-full py-1 pl-1 pr-3 transition-colors hover:bg-white/5"
+            aria-label="Go to home page"
+            title="Home"
+          >
             <AvatarLogo size={38} />
-            <span className="font-display text-[17px] font-extrabold tracking-tight text-white">
-              Subbu
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-[17px] font-extrabold tracking-tight text-white">
+                Subbu
+              </span>
+              <span className="mt-0.5 hidden items-center gap-1 font-mono text-[9px] uppercase tracking-[0.2em] text-mist-400 transition-colors group-hover:text-blue-text sm:flex">
+                <Home size={9} strokeWidth={2.5} />
+                Home
+              </span>
             </span>
           </Link>
 
