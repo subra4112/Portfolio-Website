@@ -1,112 +1,121 @@
-# Subramanian Raj Narayanan — Portfolio
+<div align="center">
 
-A "clinical intelligence console" — the personal portfolio of an AI/ML engineer who
-trains generative clinical AI. The whole site reads like a futuristic clinical AI
-system: an ECG boot sequence, live vitals counters, a Hugging Face-style **model
-card** About section, terminal-window skill listings, and a 3D neural field hero.
+# Subbu
 
-## ✨ Highlights
+**AI/ML Engineer · Clinical AI · LLMs**
 
-- **Clinical console concept** — animated ECG trace dividers, count-up "vitals"
-  readouts (26M+ clinical events, AUROC 0.856, …), bracketed console-log section
-  eyebrows, and an About section framed as a model card (`~/models/…/README.md`).
-- **Interactive 3D hero** — a GPU-rendered neural-network field (instanced points +
-  edges, custom shaders) that reacts to the pointer and drifts.
-- **Performance-first** — the three.js bundle is lazy-loaded (never blocks first
-  paint), `dpr` is clamped to `[1, 2]`, and the render loop **pauses when the hero
-  scrolls offscreen**. Mobile / low-power GPUs and `prefers-reduced-motion` users
-  get a lightweight static fallback automatically.
-- **Design system** — carbon-green base (`#040807`), ECG-mint (`#2EE8A5`) + violet
-  (`#7C66FF`) + amber (`#FFBE5C`) accents; Space Grotesk display, Instrument Serif
-  italic accent words, JetBrains Mono micro-labels, Inter body.
-- **Polished motion** — scroll-reveal, a rotating hero role line (framer-motion),
-  magnetic buttons, a cursor-aware accent ring, and a scroll-progress bar.
-- **Accessible** — semantic HTML, keyboard focus styles, AA-contrast text, reduced
-  motion support.
+Personal site of Subramanian Raj Narayanan. Healthcare generative AI, agentic
+systems and the production infrastructure that keeps them running.
 
-## 🛠️ Tech Stack
+[**Live site**](https://portfolio-website-five-ashy-63.vercel.app/) ·
+[LinkedIn](https://www.linkedin.com/in/subraraj) ·
+[GitHub](https://github.com/subra4112)
 
-| Area      | Choice                                          |
-| --------- | ----------------------------------------------- |
-| Framework | React 18 + TypeScript + Vite                    |
-| 3D        | three.js · @react-three/fiber · @react-three/drei |
-| Styling   | Tailwind CSS (custom design tokens)             |
-| Icons     | lucide-react                                    |
-| Email     | EmailJS                                          |
-| Deploy    | Vercel                                          |
+<img src="public/og-image.jpg" alt="Subramanian Raj Narayanan, AI/ML Engineer" width="620">
 
-## 🚀 Run locally
-
-```bash
-npm install      # install deps (includes the three.js stack)
-npm run dev      # start Vite dev server → http://localhost:5173
-npm run build    # type-check + production build into /dist
-npm run preview  # preview the production build locally
-```
-
-## ☁️ Deploy to Vercel
-
-The repo already includes `vercel.json`. Either:
-
-- **Dashboard:** import the GitHub repo at [vercel.com/new](https://vercel.com/new).
-  Framework preset **Vite**, build command `npm run build`, output dir `dist`.
-- **CLI:**
-  ```bash
-  npm i -g vercel
-  vercel          # preview deploy
-  vercel --prod   # production deploy
-  ```
-
-## ✏️ Where to edit content
-
-All copy lives as plain data arrays at the top of each section component — no CMS:
-
-| What                         | File                                  |
-| ---------------------------- | ------------------------------------- |
-| Name, tagline, social links  | `src/components/Hero.tsx`             |
-| About narrative, skill chips | `src/components/About.tsx`            |
-| **Projects** (cards + detail)| `src/components/Projects.tsx` → `PROJECTS` |
-| Experience / education / leadership | `src/components/Experience.tsx` (`ROLES`, `EDUCATION`, `LEADERSHIP`) |
-| Skills + proficiency bars    | `src/components/Skills.tsx` → `CATEGORIES`, `MARQUEE` |
-| Contact info + EmailJS keys  | `src/components/Contact.tsx` (`SERVICE_ID`, `TEMPLATE_ID`, `PUBLIC_KEY`) |
-| Nav links                    | `src/components/Nav.tsx` → `LINKS`    |
-| Colors / fonts / shadows     | `tailwind.config.js` + `src/index.css` |
-| 3D hero look (density, color)| `src/three/NeuralField.tsx`           |
-
-### Replace the résumé / images
-
-- Drop your résumé at `public/resume.pdf` (the nav + hero buttons link to it).
-- Profile / OG image: `public/profile.jpg`.
-
-### Tune the 3D hero
-
-In `src/three/NeuralField.tsx`:
-
-- `nodeCount` (passed from `HeroBackground`) — number of graph nodes.
-- `uSize` uniform — node glow size.
-- `CYAN` / `VIOLET` — palette of the field.
-- Dust count / size — ambient particle density.
-
-To disable WebGL entirely, render `<StaticField />` directly in
-`src/components/HeroBackground.tsx`.
-
-## 📁 Structure
-
-```
-src/
-├── App.tsx                 # section orchestration
-├── index.css               # design system / utilities
-├── components/             # Nav, Hero, About, Projects, Experience, Skills, Contact, Footer …
-├── hooks/                  # reduced-motion, device capability, active-section
-└── three/                  # NeuralField (R3F scene) + HeroCanvas (lazy Canvas)
-```
-
-## 📞 Contact
-
-- **Email:** rvanush3@gmail.com
-- **LinkedIn:** [in/subraraj](https://www.linkedin.com/in/subraraj)
-- **GitHub:** [subra4112](https://github.com/subra4112)
+</div>
 
 ---
 
-Designed & built with React, React Three Fiber, and Tailwind.
+## What this is
+
+A five page portfolio built around one idea: show the work running, not just
+described. Two real products are embedded live in the page, and the 3D field
+that used to sit behind the text now does something useful, it carries you
+between sections.
+
+| Page | What lives there |
+| --- | --- |
+| **Home** | Hero, education, work history, the four things I specialize in |
+| **Work** | Seven projects. Two of them run live inside the page |
+| **Experience** | Botco.ai, Techavidity, SRMIST, with education and leadership |
+| **Stack** | 62 tools in floating bubbles. Click any one for a plain explanation |
+| **Contact** | A working form, wired to EmailJS |
+
+---
+
+## The interesting parts
+
+**Live product previews.** The Carlton AI clinical dashboard and the Beyfortus
+adverse event companion are embedded as real, running pages inside their
+project cards. Click one and it opens full screen with the rest of the site
+blurred behind it. Both frames are sandboxed and lazy mounted, so a heavy
+bundle never blocks the page.
+
+**The transition loader.** Navigating between sections plays a WebGL particle
+field that morphs into a shape and colour belonging to the destination: a
+lattice for Work, a helix for Experience, a sphere for the Stack. A coloured
+panel wipes up, the page swaps behind it unseen, then the curtain lifts. The
+three.js chunk is dynamically imported and its render loop parks between
+transitions, so it costs nothing at rest.
+
+**The welcome.** The opening avatar was generated from a real photo, then
+rendered again with the arm in different positions. Those frames play as
+animation cels, and only the hand region blends between them, so the face and
+body never shimmer.
+
+**Skills that explain themselves.** Every bubble opens a one sentence
+explanation written for someone who is not an ML engineer. *RAG Pipelines: the
+model looks up real documents before answering, so it cites facts instead of
+inventing them.*
+
+---
+
+## Built with
+
+| | |
+| --- | --- |
+| **Framework** | React 18, TypeScript, Vite |
+| **Routing** | React Router |
+| **Styling** | Tailwind CSS on a palette read from ChatGPT's own design tokens |
+| **3D** | three.js and React Three Fiber, with custom GLSL |
+| **Motion** | Framer Motion |
+| **Type** | Sora, Inter, JetBrains Mono, Instrument Serif |
+| **Mail** | EmailJS |
+| **Hosting** | Vercel |
+
+---
+
+## Running it
+
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # type check, then production build to dist
+npm run preview  # serve the production build
+```
+
+---
+
+## Engineering notes
+
+**Performance.** Vendor code is split into cacheable chunks and three.js sits
+alone in its own, behind a dynamic import, so it never touches first paint.
+The hero portrait carries explicit dimensions and high fetch priority, fonts
+load without blocking render, and static assets are served immutable for a
+year.
+
+**Security.** A full header set is applied at the edge in `vercel.json`:
+Content Security Policy, HSTS with preload, `nosniff`, frame and referrer
+policy, and a Permissions Policy that denies camera, microphone, geolocation,
+payment and USB. Both embedded demos run sandboxed. Source maps are disabled in
+production. Dependencies are kept at zero known vulnerabilities.
+
+**Accessibility.** Body copy holds roughly 9.5:1 contrast and headings close to
+19:1. There is a skip link, every control is reachable by keyboard, popups
+close on Escape, and every animation on the site, including the 3D field and
+the opening wave, is disabled under `prefers-reduced-motion`.
+
+**Responsive.** Verified at 375, 768, 1024 and 1440 wide with zero horizontal
+overflow on every page.
+
+---
+
+<div align="center">
+
+Open to full time AI/ML Engineer, Data Scientist, Clinical AI and Forward
+Deployed Engineer roles.
+
+**[rvanush3@gmail.com](mailto:rvanush3@gmail.com)**
+
+</div>
