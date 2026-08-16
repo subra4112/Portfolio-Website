@@ -57,23 +57,17 @@ function Portrait() {
             'radial-gradient(circle at 50% 40%, rgba(58,131,247,0.35), rgba(166,125,242,0.18) 55%, transparent 75%)',
         }}
       />
+      {/* Nothing overlaps the photo. No badge, no scrim across the face. */}
       <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-ink-800">
         <img
           src="/portrait.jpg"
           alt="Subramanian Raj Narayanan"
+          width={900}
+          height={900}
           className="block w-full object-cover"
           loading="eager"
+          fetchPriority="high"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/85 via-transparent to-transparent" />
-        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-full border border-white/15 bg-ink-900/85 px-3.5 py-2 backdrop-blur">
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-mist-200">
-            open to work
-          </span>
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green opacity-70" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green" />
-          </span>
-        </div>
       </div>
     </div>
   )
