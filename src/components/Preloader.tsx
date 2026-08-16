@@ -7,23 +7,29 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
    drawn wave works, so the character waves instead of the picture rotating. */
 const FRAMES = ['/wave-0.jpg', '/wave-1.jpg', '/wave-2.jpg']
 
-/* frame index, and how long to hold it. He raises the hand, waves four
-   times, then rests. */
+/* Frame index and hold time. Cels cross fade into each other, so the hold is
+   the time between fades, not a hard cut. Timing is a pendulum rather than a
+   metronome: the raise is slow, the middle swings settle into a rhythm, then
+   the last two stretch out so the wave decays instead of stopping dead. */
 const CELS: [number, number][] = [
-  [0, 340], // standing, arm down
-  [1, 200], // hand comes up
-  [2, 190], // wave out
-  [1, 190], // back
-  [2, 190], // out
-  [1, 190], // back
-  [2, 190], // out
-  [1, 420], // hold, hand up
+  [0, 280], // standing, arm down
+  [1, 330], // hand comes up, slow because it is a big move
+  [2, 240], // out
+  [1, 225], // back
+  [2, 225], // out
+  [1, 235], // back
+  [2, 275], // out, easing off
+  [1, 430], // settle with the hand up
 ]
 
-const GREET_AT = 520
-const SUB_AT = 1050
-const EXIT_AT = 2350
-const DONE_AT = 3050
+/** Cross fade length. Long enough to blur the change, short enough to stay crisp. */
+const FADE_MS = 165
+
+const GREET_AT = 560
+const SUB_AT = 1080
+/* The wave runs 2240ms; the curtain waits for it to settle before lifting. */
+const EXIT_AT = 2420
+const DONE_AT = 3120
 
 /**
  * The opening welcome. The avatar was generated from Subbu's own photo, and
@@ -110,18 +116,28 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
                   'radial-gradient(circle, rgba(58,131,247,0.45), transparent 68%)',
               }}
             />
-            {/* Fixed box, frames swapped inside it. Nothing rotates. */}
-            <div className="relative h-44 w-44 overflow-hidden rounded-full ring-2 ring-white/20 sm:h-56 sm:w-56">
+            {/* Fixed box, frames cross fading inside it. Nothing rotates; the
+                blend between cels is what carries the motion. A tiny bob adds
+                the body movement a real wave has. */}
+            <motion.div
+              className="relative h-44 w-44 overflow-hidden rounded-full ring-2 ring-white/20 sm:h-56 sm:w-56"
+              animate={{ y: [0, -2.5, 0, -2.5, 0, -1.5, 0] }}
+              transition={{ duration: 2.6, ease: 'easeInOut', times: [0, 0.18, 0.34, 0.5, 0.66, 0.82, 1] }}
+            >
               {FRAMES.map((f) => (
                 <img
                   key={f}
                   src={f}
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover"
-                  style={{ opacity: f === frame ? 1 : 0 }}
+                  style={{
+                    opacity: f === frame ? 1 : 0,
+                    transition: `opacity ${FADE_MS}ms cubic-bezier(0.45, 0, 0.55, 1)`,
+                    willChange: 'opacity',
+                  }}
                 />
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           <div className="mt-9 overflow-hidden">
