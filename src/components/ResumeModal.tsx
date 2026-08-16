@@ -79,12 +79,15 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
           </div>
         </div>
 
-        <object data={SRC} type="application/pdf" className="h-full w-full flex-1">
-          {/* Shown when the browser cannot display PDFs inline, e.g. most phones. */}
-          <div className="grid h-full place-items-center p-8 text-center">
+        {/* min-h-0 is required: without it this flex child keeps min-height
+            auto, collapses, and the viewer renders as an empty strip. */}
+        <div className="relative min-h-0 flex-1 bg-ink-850">
+          {/* Fallback sits underneath; the iframe paints over it when the
+              browser can render PDFs inline. */}
+          <div className="absolute inset-0 grid place-items-center p-8 text-center">
             <div>
               <p className="text-[15px] text-mist-300">
-                Your browser cannot show the PDF inline.
+                Your browser will not display the PDF inline.
               </p>
               <a
                 href={SRC}
@@ -95,7 +98,12 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
               </a>
             </div>
           </div>
-        </object>
+          <iframe
+            src={`${SRC}#view=FitH`}
+            title="Resume"
+            className="absolute inset-0 h-full w-full border-0"
+          />
+        </div>
       </motion.div>
     </motion.div>,
     document.body

@@ -11,7 +11,7 @@ const PUBLIC_KEY = 'UGzNe5K_OvWmvd5kQ'
 
 const CONTACT = [
   { icon: Mail, label: 'Email', value: 'rvanush3@gmail.com', href: 'mailto:rvanush3@gmail.com' },
-  { icon: MapPin, label: 'Location', value: 'San Francisco Bay Area' },
+  { icon: MapPin, label: 'Location', value: 'Tempe, Arizona' },
   { icon: Linkedin, label: 'LinkedIn', value: '/in/subraraj', href: 'https://www.linkedin.com/in/subraraj' },
   { icon: Github, label: 'GitHub', value: '@subra4112', href: 'https://github.com/subra4112' },
 ]
